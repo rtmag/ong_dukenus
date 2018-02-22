@@ -1,4 +1,7 @@
+STAR --runThreadN 35 --runMode genomeGenerate --genomeDir /root/resources/hg38_noanno/ \
+--genomeFastaFiles /root/resources/hg38_allchr.fasta
 
+##
 /root/myPrograms/STAR/bin/STAR --genomeDir /root/resources/star_hg38_gencode27_overhang50 \
 --readFilesCommand zcat \
 --runThreadN 35 \
