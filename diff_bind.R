@@ -47,7 +47,7 @@ require(csaw)
 
 param <- readParam(minq=10, pe='both')
 
-regions=bed_to_granges("~/ayako/ayako_dejavu/peakcall/CD41_merged_peaks.bed")
+regions=bed_to_granges("/root/ong_dukenus/peakcalls/dukenus_merged_peaks.bed")
 
 
 counts <- regionCounts(bam.files, regions, param=param)
@@ -55,19 +55,15 @@ counts <- regionCounts(bam.files, regions, param=param)
 #
 library(Rsubread)
 
-x=read.table('~/ayako/ayako_dejavu/peakcall/CD41_merged_peaks.bed',sep="\t",stringsAsFactors=F)
+x=read.table('/root/ong_dukenus/peakcalls/dukenus_merged_peaks.bed',sep="\t",stringsAsFactors=F)
 
 ann = data.frame(GeneID=paste(x[,1],x[,2],x[,3],sep="_!_"),Chr=x[,1],Start=x[,2],End=x[,3],Strand='+')
 
-bam.files <- c('/root/ayako/ayako_dejavu/bam/CD41+_untr_1_Aligned_rmdup.sortedByCoord.out.bam',
-              '/root/ayako/ayako_dejavu/bam/CD41+_untr_2_Aligned_rmdup.sortedByCoord.out.bam',
-              '/root/ayako/ayako_dejavu/bam/CD41+_untr_3_Aligned_rmdup.sortedByCoord.out.bam',
-              '/root/ayako/ayako_dejavu/bam/CD41+_tr_1_Aligned_rmdup.sortedByCoord.out.bam',
-              '/root/ayako/ayako_dejavu/bam/CD41+_tr_2_Aligned_rmdup.sortedByCoord.out.bam',
-              '/root/ayako/ayako_dejavu/bam/CD41-_tr_1_Aligned_rmdup.sortedByCoord.out.bam',
-              '/root/ayako/ayako_dejavu/bam/CD41-_tr_2_Aligned_rmdup.sortedByCoord.out.bam',
-              '/root/ayako/ayako_dejavu/cd41-_untreated/bam/CD41-_untr_1_Aligned_rmdup.sortedByCoord.out.bam',
-              '/root/ayako/ayako_dejavu/cd41-_untreated/bam/CD41-_untr_2_Aligned_rmdup.sortedByCoord.out.bam')
+bam.files <- c("/root/ong_dukenus/bam/1_3502DukeNus_TS543-NT-031117_hs_i9_Aligned.sortedByCoord.rmdup.out.bam",
+"/root/ong_dukenus/bam/3_3502DukeNus_TS543-400-031117_hs_i11_Aligned.sortedByCoord.rmdup.out.bam",
+"/root/ong_dukenus/bam/4_3502DukeNus_TS543-NT-241117_hs_i12_Aligned.sortedByCoord.rmdup.out.bam",
+"/root/ong_dukenus/bam/5_3502DukeNus_TS543-143-241117_hs_i13_Aligned.sortedByCoord.rmdup.out.bam",
+"/root/ong_dukenus/bam/6_3502DukeNus_TS543-400-241117_hs_i14_Aligned.sortedByCoord.rmdup.out.bam")
 
 
 
@@ -79,8 +75,25 @@ fc_SE <- featureCounts(bam.files,annot.ext=ann,isPairedEnd=TRUE,nthreads=20)
 
 countData=fc_SE$counts
 
-colnames(countData)=gsub('X.root.ayako.ayako_dejavu.bam.',"",colnames(countData))
-
-colnames(countData)=gsub('_Aligned_rmdup.sortedByCoord.out.bam',"",colnames(countData))
+colnames(countData)=c("1_NT","3_400","4_NT","5_143","6_400")
 
 saveRDS(countData,'atac_countdata.rds')
+
+countData=readRDS('atac_countdata.rds')
+
+require(DESeq2)
+
+colData <- data.frame(group=colnames(countData) )
+dds <- DESeqDataSetFromMatrix(
+       countData = countData,
+       colData = colData,
+       design = ~ group)
+
+dLRT <- DESeq(dds, test="LRT", reduced=~1)
+dLRT_vsd <- varianceStabilizingTransformation(dLRT)
+
+
+pdf("Diagnostic_design_pca.pdf")
+plotPCA(dLRT_vsd,ntop=136500,intgroup=c('group'))
+dev.off()
+
