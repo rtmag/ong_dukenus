@@ -60,6 +60,48 @@ dLRT_vsd <- varianceStabilizingTransformation(dLRT)
 pdf("Diagnostic_design_pca_narrowPeak.pdf")
 plotPCA(dLRT_vsd,ntop=136800,intgroup=c('group'))
 dev.off()
+########################################################################################################
+########################################################################################################
 
+require(DESeq2)
+library(ggplot2)
 
+design<-data.frame(cells = c("NT","143","NT","143") )
+
+dds <- DESeqDataSetFromMatrix(countData = countData[,c(1,2,4,5)], colData = design, design = ~ cells)
+dds <- DESeq(dds)
+res <- results(dds, contrast=c("cells","NT","143"))
+
+pdf("Volcano_NT_vs_143.pdf")
+plot(res$log2FoldChange,-log10(res$padj),xlab=expression('Log'[2]*' Fold Change ( NT / 143 ) '),
+              ylab=expression('-Log'[10]*' Q-values'),col=alpha("grey",.04))
+abline(v=-1,lty = 2,col="grey")
+abline(v=1,lty = 2,col="grey")
+abline(h=-log10(0.05),lty = 2,col="grey")
+points(res$log2FoldChange[abs(res$log2FoldChange)>1 & res$padj<0.05],
+       -log10(res$padj)[abs(res$log2FoldChange)>1 & res$padj<0.05],
+      col=alpha("#c0392b",.05))
+legend("topright", paste("NT :",length(which(res$log2FoldChange>1 & res$padj<0.05))), bty="n") 
+legend("topleft", paste("143 :",length(which(res$log2FoldChange<(-1) & res$padj<0.05))), bty="n") 
+dev.off()
+#
+design<-data.frame(cells = c("NT","400","NT","400") )
+
+dds <- DESeqDataSetFromMatrix(countData = countData[,c(1,3,4,6)], colData = design, design = ~ cells)
+dds <- DESeq(dds)
+res <- results(dds, contrast=c("cells","NT","400"))
+
+pdf("Volcano_NT_vs_400.pdf")
+plot(res$log2FoldChange,-log10(res$padj),xlab=expression('Log'[2]*' Fold Change ( NT / 400 ) '),
+              ylab=expression('-Log'[10]*' Q-values'),col=alpha("grey",.04))
+abline(v=-1,lty = 2,col="grey")
+abline(v=1,lty = 2,col="grey")
+abline(h=-log10(0.05),lty = 2,col="grey")
+points(res$log2FoldChange[abs(res$log2FoldChange)>1 & res$padj<0.05],
+       -log10(res$padj)[abs(res$log2FoldChange)>1 & res$padj<0.05],
+      col=alpha("#c0392b",.05))
+legend("topright", paste("NT :",length(which(res$log2FoldChange>1 & res$padj<0.05))), bty="n") 
+legend("topleft", paste("400 :",length(which(res$log2FoldChange<(-1) & res$padj<0.05))), bty="n") 
+dev.off()
+#
 
