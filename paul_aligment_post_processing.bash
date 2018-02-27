@@ -89,5 +89,12 @@ cat 1_3502DukeNus_TS543-NT-031117_hs_i9_narrow_peaks.narrowPeak \
 5_3502DukeNus_TS543-143-241117_hg19_i13_narrow_peaks.narrowPeak \
 6_3502DukeNus_TS543-400-241117_hg19_i14_narrow_peaks.narrowPeak |
 sort -k1,1 -k2,2n |bedtools merge -i - > atac_merged_narrowPeak.bed
-
-
+#
+bamCoverage -p max -bs 1 --normalizeUsingRPKM -b /root/ong_dukenus/paul_bam/1_3502DukeNus_TS543-NT-031117_hg19_i9_rmdup.bam -o /root/ong_dukenus/paul_bw/1_3502DukeNus_TS543-NT-031117_hg19_i9_rmdup.bw
+bamCoverage -p max -bs 1 --normalizeUsingRPKM -b /root/ong_dukenus/paul_bam/2_3502DukeNus_TS543-143-031117_hg19_i10_rmdup.bam -o /root/ong_dukenus/paul_bw/2_3502DukeNus_TS543-143-031117_hg19_i10_rmdup.bw
+bamCoverage -p max -bs 1 --normalizeUsingRPKM -b /root/ong_dukenus/paul_bam/3_3502DukeNus_TS543-400-031117_hg19_i11_rmdup.bam -o /root/ong_dukenus/paul_bw/3_3502DukeNus_TS543-400-031117_hg19_i11_rmdup.bw
+bamCoverage -p max -bs 1 --normalizeUsingRPKM -b /root/ong_dukenus/paul_bam/4_3502DukeNus_TS543-NT-241117_hg19_i12_rmdup.bam -o /root/ong_dukenus/paul_bw/4_3502DukeNus_TS543-NT-241117_hg19_i12_rmdup.bw
+bamCoverage -p max -bs 1 --normalizeUsingRPKM -b /root/ong_dukenus/paul_bam/5_3502DukeNus_TS543-143-241117_hg19_i13_rmdup.bam -o /root/ong_dukenus/paul_bw/5_3502DukeNus_TS543-143-241117_hg19_i13_rmdup.bw
+bamCoverage -p max -bs 1 --normalizeUsingRPKM -b /root/ong_dukenus/paul_bam/6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bam -o /root/ong_dukenus/paul_bw/6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bw
+##
+#
