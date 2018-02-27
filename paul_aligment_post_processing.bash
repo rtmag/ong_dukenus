@@ -43,3 +43,35 @@ macs2 callpeak -t /root/ong_dukenus/paul_bam/1_3502DukeNus_TS543-NT-031117_hg19_
 
 macs2 callpeak -t /root/ong_dukenus/paul_bam/1_3502DukeNus_TS543-NT-031117_hg19_i9_rmdup.bam \
 -f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 1_3502DukeNus_TS543-NT-031117_hs_i9_narrow &
+
+macs2 callpeak -t /root/ong_dukenus/paul_bam/2_3502DukeNus_TS543-143-031117_hg19_i10_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel --broad -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 2_3502DukeNus_TS543-143-031117_hg19_i10_broad &
+
+macs2 callpeak -t /root/ong_dukenus/paul_bam/2_3502DukeNus_TS543-143-031117_hg19_i10_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 2_3502DukeNus_TS543-143-031117_hg19_i10_narrow &
+
+macs2 callpeak -t /root/ong_dukenus/paul_bam/3_3502DukeNus_TS543-400-031117_hg19_i11_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel --broad -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 3_3502DukeNus_TS543-400-031117_hg19_i11_broad &
+
+macs2 callpeak -t /root/ong_dukenus/paul_bam/3_3502DukeNus_TS543-400-031117_hg19_i11_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 3_3502DukeNus_TS543-400-031117_hg19_i11_narrow &
+
+macs2 callpeak -t /root/ong_dukenus/paul_bam/4_3502DukeNus_TS543-NT-241117_hg19_i12_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel --broad -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 4_3502DukeNus_TS543-NT-241117_hg19_i12_broad &
+
+macs2 callpeak -t /root/ong_dukenus/paul_bam/4_3502DukeNus_TS543-NT-241117_hg19_i12_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 4_3502DukeNus_TS543-NT-241117_hg19_i12_narrow &
+
+macs2 callpeak -t /root/ong_dukenus/paul_bam/5_3502DukeNus_TS543-143-241117_hg19_i13_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel --broad -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 5_3502DukeNus_TS543-143-241117_hg19_i13_broad &
+
+macs2 callpeak -t /root/ong_dukenus/paul_bam/5_3502DukeNus_TS543-143-241117_hg19_i13_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 5_3502DukeNus_TS543-143-241117_hg19_i13_narrow &
+
+macs2 callpeak -t /root/ong_dukenus/paul_bam/6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel --broad -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 6_3502DukeNus_TS543-400-241117_hg19_i14_broad &
+
+macs2 callpeak -t /root/ong_dukenus/paul_bam/6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 6_3502DukeNus_TS543-400-241117_hg19_i14_narrow &
+#
+
