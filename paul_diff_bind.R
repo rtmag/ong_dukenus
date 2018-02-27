@@ -57,7 +57,7 @@ dds <- DESeqDataSetFromMatrix(
 dLRT <- DESeq(dds, test="LRT", reduced=~1)
 dLRT_vsd <- varianceStabilizingTransformation(dLRT)
 
-pdf("Diagnostic_design_pca_broadPeak.pdf")
+pdf("Diagnostic_design_pca_narrowPeak.pdf")
 plotPCA(dLRT_vsd,ntop=136800,intgroup=c('group'))
 dev.off()
 
