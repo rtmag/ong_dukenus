@@ -28,7 +28,18 @@ I=/root/ong_dukenus/paul_bam/6_3502DukeNus_TS543-400-241117_hg19_i14.bam \
 O=/root/ong_dukenus/paul_bam/6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bam \
 M=/root/ong_dukenus/paul_bam/6_3502DukeNus_TS543-400-241117_hg19_i14.mfile
 
+#
+
+samtools index /root/ong_dukenus/paul_bam/1_3502DukeNus_TS543-NT-031117_hg19_i9_rmdup.bam &
+samtools index /root/ong_dukenus/paul_bam/2_3502DukeNus_TS543-143-031117_hg19_i10_rmdup.bam &
+samtools index /root/ong_dukenus/paul_bam/3_3502DukeNus_TS543-400-031117_hg19_i11_rmdup.bam &
+samtools index /root/ong_dukenus/paul_bam/4_3502DukeNus_TS543-NT-241117_hg19_i12_rmdup.bam &
+samtools index /root/ong_dukenus/paul_bam/5_3502DukeNus_TS543-143-241117_hg19_i13_rmdup.bam &
+samtools index /root/ong_dukenus/paul_bam/6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bam &
 
 
+macs2 callpeak -t /root/ong_dukenus/paul_bam/1_3502DukeNus_TS543-NT-031117_hg19_i9_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel --broad -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 1_3502DukeNus_TS543-NT-031117_hs_i9_broad &
 
-
+macs2 callpeak -t /root/ong_dukenus/paul_bam/1_3502DukeNus_TS543-NT-031117_hg19_i9_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 1_3502DukeNus_TS543-NT-031117_hs_i9_narrow &
