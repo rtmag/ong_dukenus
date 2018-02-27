@@ -74,4 +74,20 @@ macs2 callpeak -t /root/ong_dukenus/paul_bam/6_3502DukeNus_TS543-400-241117_hg19
 macs2 callpeak -t /root/ong_dukenus/paul_bam/6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bam \
 -f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/paul_peakcalls -n 6_3502DukeNus_TS543-400-241117_hg19_i14_narrow &
 #
+cat 1_3502DukeNus_TS543-NT-031117_hs_i9_broad_peaks.broadPeak \
+2_3502DukeNus_TS543-143-031117_hg19_i10_broad_peaks.broadPeak \
+3_3502DukeNus_TS543-400-031117_hg19_i11_broad_peaks.broadPeak \
+4_3502DukeNus_TS543-NT-241117_hg19_i12_broad_peaks.broadPeak \
+5_3502DukeNus_TS543-143-241117_hg19_i13_broad_peaks.broadPeak \
+6_3502DukeNus_TS543-400-241117_hg19_i14_broad_peaks.broadPeak |
+sort -k1,1 -k2,2n |bedtools merge -i - > atac_merged_broadPeak.bed
+
+cat 1_3502DukeNus_TS543-NT-031117_hs_i9_narrow_peaks.narrowPeak \
+2_3502DukeNus_TS543-143-031117_hg19_i10_narrow_peaks.narrowPeak \
+3_3502DukeNus_TS543-400-031117_hg19_i11_narrow_peaks.narrowPeak \
+4_3502DukeNus_TS543-NT-241117_hg19_i12_narrow_peaks.narrowPeak \
+5_3502DukeNus_TS543-143-241117_hg19_i13_narrow_peaks.narrowPeak \
+6_3502DukeNus_TS543-400-241117_hg19_i14_narrow_peaks.narrowPeak |
+sort -k1,1 -k2,2n |bedtools merge -i - > atac_merged_narrowPeak.bed
+
 
