@@ -71,6 +71,12 @@ design<-data.frame(cells = c("NT","143","NT","143") )
 dds <- DESeqDataSetFromMatrix(countData = countData[,c(1,2,4,5)], colData = design, design = ~ cells)
 dds <- DESeq(dds)
 res <- results(dds, contrast=c("cells","NT","143"))
+bed_NT = t(matrix(unlist(strsplit(rownames(res[which(res$log2FoldChange>1 & res$padj<0.05),]),"_!_")),nrow=3))
+bed_143 = t(matrix(unlist(strsplit(rownames(res[which(res$log2FoldChange<(-1) & res$padj<0.05),]),"_!_")),nrow=3))
+
+write.table(bed_NT,"NT.bed",sep="\t",quote=F,row.names=F,col.names=F)
+write.table(bed_143,"143.bed",sep="\t",quote=F,row.names=F,col.names=F)
+
 
 pdf("Volcano_NT_vs_143.pdf")
 plot(res$log2FoldChange,-log10(res$padj),xlab=expression('Log'[2]*' Fold Change ( NT / 143 ) '),
@@ -90,6 +96,12 @@ design<-data.frame(cells = c("NT","400","NT","400") )
 dds <- DESeqDataSetFromMatrix(countData = countData[,c(1,3,4,6)], colData = design, design = ~ cells)
 dds <- DESeq(dds)
 res <- results(dds, contrast=c("cells","NT","400"))
+bed_NT = t(matrix(unlist(strsplit(rownames(res[which(res$log2FoldChange>1 & res$padj<0.05),]),"_!_")),nrow=3))
+bed_400 = t(matrix(unlist(strsplit(rownames(res[which(res$log2FoldChange<(-1) & res$padj<0.05),]),"_!_")),nrow=3))
+
+write.table(bed_NT,"NT.bed",sep="\t",quote=F,row.names=F,col.names=F)
+write.table(bed_400,"400.bed",sep="\t",quote=F,row.names=F,col.names=F)
+
 
 pdf("Volcano_NT_vs_400.pdf")
 plot(res$log2FoldChange,-log10(res$padj),xlab=expression('Log'[2]*' Fold Change ( NT / 400 ) '),
