@@ -47,7 +47,7 @@ require(csaw)
 
 param <- readParam(minq=10, pe='both')
 
-regions=bed_to_granges("/root/ong_dukenus/peakcalls/dukenus_merged_peaks.bed")
+regions=bed_to_granges("/root/ong_dukenus/peakcalls/dukenus_merged_peaks_noBlackList.bed")
 
 
 counts <- regionCounts(bam.files, regions, param=param)
@@ -55,7 +55,7 @@ counts <- regionCounts(bam.files, regions, param=param)
 #
 library(Rsubread)
 
-x=read.table('/root/ong_dukenus/peakcalls/dukenus_merged_peaks.bed',sep="\t",stringsAsFactors=F)
+x=read.table('/root/ong_dukenus/peakcalls/dukenus_merged_peaks_noBlackList.bed',sep="\t",stringsAsFactors=F)
 
 ann = data.frame(GeneID=paste(x[,1],x[,2],x[,3],sep="_!_"),Chr=x[,1],Start=x[,2],End=x[,3],Strand='+')
 
