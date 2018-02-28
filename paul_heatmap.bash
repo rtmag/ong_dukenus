@@ -16,6 +16,13 @@ computeMatrix reference-point \
 --sortRegions descend -bs 20 -a 1000 -b 1000 -p 40 -out /root/ong_dukenus/paul_heatmap/143_vs_NT.mat
 
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorMap RdBu_r \
--m /root/ong_dukenus/paul_heatmap/143_vs_NT.mat -out /root/ong_dukenus/paul_heatmap/143_vs_NT.pdf
+-m /root/ong_dukenus/paul_heatmap/143_vs_NT.mat \
+ --samplesLabel "NT 1" "143 2" "400 3" "NT 4" "143 5" "400 6" \
+-out /root/ong_dukenus/paul_heatmap/143_vs_NT_bicolor.pdf
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorMap Blues \
+-m /root/ong_dukenus/paul_heatmap/143_vs_NT.mat \
+ --samplesLabel "NT 1" "143 2" "400 3" "NT 4" "143 5" "400 6" \
+-out /root/ong_dukenus/paul_heatmap/143_vs_NT_monocolor.pdf
 
 #
