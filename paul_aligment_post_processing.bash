@@ -89,6 +89,14 @@ cat 1_3502DukeNus_TS543-NT-031117_hs_i9_narrow_peaks.narrowPeak \
 5_3502DukeNus_TS543-143-241117_hg19_i13_narrow_peaks.narrowPeak \
 6_3502DukeNus_TS543-400-241117_hg19_i14_narrow_peaks.narrowPeak |
 sort -k1,1 -k2,2n |bedtools merge -i - > atac_merged_narrowPeak.bed
+
+# filter blacklisted h19
+intersectBed -v -a atac_merged_broadPeak.bed -b ~/resources/hg19consensusBlacklist.bed \
+> atac_merged_broadPeak_noBlackList.bed 
+
+intersectBed -v -a atac_merged_narrowPeak.bed -b ~/resources/hg19consensusBlacklist.bed \
+> atac_merged_narrowPeak_noBlackList.bed 
+
 #
 bamCoverage -p max -bs 1 --normalizeUsingRPKM -b /root/ong_dukenus/paul_bam/1_3502DukeNus_TS543-NT-031117_hg19_i9_rmdup.bam -o /root/ong_dukenus/paul_bw/1_3502DukeNus_TS543-NT-031117_hg19_i9_rmdup.bw
 bamCoverage -p max -bs 1 --normalizeUsingRPKM -b /root/ong_dukenus/paul_bam/2_3502DukeNus_TS543-143-031117_hg19_i10_rmdup.bam -o /root/ong_dukenus/paul_bw/2_3502DukeNus_TS543-143-031117_hg19_i10_rmdup.bw
