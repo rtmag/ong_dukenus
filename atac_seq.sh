@@ -6,6 +6,8 @@
 --readFilesCommand zcat \
 --runThreadN 35 \
 --alignIntronMax 1 \
+--outFilterScoreMinOverLread 0.40 \
+--outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
 --readFilesIn /root/ong_dukenus/Dereck/1_3502DukeNus_TS543-NT-031117_hs_i9_r1.fastq.gz \
 /root/ong_dukenus/Dereck/1_3502DukeNus_TS543-NT-031117_hs_i9_r2.fastq.gz \
@@ -16,6 +18,8 @@
 --readFilesCommand zcat \
 --runThreadN 35 \
 --alignIntronMax 1 \
+--outFilterScoreMinOverLread 0.40 \
+--outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
 --readFilesIn /root/ong_dukenus/Dereck/2_3502DukeNus_TS543-143-031117_hs_i10_r1.fastq.gz \
 /root/ong_dukenus/Dereck/2_3502DukeNus_TS543-143-031117_hs_i10_r2.fastq.gz \
@@ -26,6 +30,8 @@
 --readFilesCommand zcat \
 --runThreadN 35 \
 --alignIntronMax 1 \
+--outFilterScoreMinOverLread 0.40 \
+--outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
 --readFilesIn /root/ong_dukenus/Dereck/3_3502DukeNus_TS543-400-031117_hs_i11_r1.fastq.gz \
 /root/ong_dukenus/Dereck/3_3502DukeNus_TS543-400-031117_hs_i11_r2.fastq.gz \
@@ -36,6 +42,8 @@
 --readFilesCommand zcat \
 --runThreadN 35 \
 --alignIntronMax 1 \
+--outFilterScoreMinOverLread 0.40 \
+--outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
 --readFilesIn /root/ong_dukenus/Dereck/4_3502DukeNus_TS543-NT-241117_hs_i12_r1.fastq.gz \
 /root/ong_dukenus/Dereck/4_3502DukeNus_TS543-NT-241117_hs_i12_r1.fastq.gz \
@@ -46,6 +54,8 @@
 --readFilesCommand zcat \
 --runThreadN 35 \
 --alignIntronMax 1 \
+--outFilterScoreMinOverLread 0.40 \
+--outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
 --readFilesIn /root/ong_dukenus/Dereck/5_3502DukeNus_TS543-143-241117_hs_i13_r1.fastq.gz \
 /root/ong_dukenus/Dereck/5_3502DukeNus_TS543-143-241117_hs_i13_r2.fastq.gz \
@@ -56,39 +66,49 @@
 --readFilesCommand zcat \
 --runThreadN 35 \
 --alignIntronMax 1 \
+--outFilterScoreMinOverLread 0.40 \
+--outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
 --readFilesIn /root/ong_dukenus/Dereck/6_3502DukeNus_TS543-400-241117_hs_i14_r1.fastq.gz \
 /root/ong_dukenus/Dereck/6_3502DukeNus_TS543-400-241117_hs_i14_r2.fastq.gz \
 --outSAMtype BAM SortedByCoordinate \
 --outFileNamePrefix /root/ong_dukenus/bam/6_400_
 
+samtools view -q 10 -b 1_NT_Aligned.sortedByCoord.out.bam > 1_NT_q10_Aligned.sortedByCoord.out.bam
+samtools view -q 10 -b 2_143_Aligned.sortedByCoord.out.bam > 2_143_q10_Aligned.sortedByCoord.out.bam
+samtools view -q 10 -b 3_400_Aligned.sortedByCoord.out.bam > 3_400_q10_Aligned.sortedByCoord.out.bam
+samtools view -q 10 -b 4_NT_Aligned.sortedByCoord.out.bam > 4_NT_q10_Aligned.sortedByCoord.out.bam
+samtools view -q 10 -b 5_143_Aligned.sortedByCoord.out.bam > 5_143_q10_Aligned.sortedByCoord.out.bam
+samtools view -q 10 -b 6_400_Aligned.sortedByCoord.out.bam > 6_400_q10_Aligned.sortedByCoord.out.bam
+
+
 java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
-I=/root/ong_dukenus/bam/1_NT_Aligned.sortedByCoord.out.bam \
+I=/root/ong_dukenus/bam/1_NT_q10_Aligned.sortedByCoord.out.bam \
 O=/root/ong_dukenus/bam/1_NT_Aligned.sortedByCoord.rmdup.out.bam \
 M=/root/ong_dukenus/bam/1_NT_Aligned.sortedByCoord.out.mfile
 
 java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
-I=/root/ong_dukenus/bam/2_143_Aligned.sortedByCoord.out.bam \
+I=/root/ong_dukenus/bam/2_143_q10_Aligned.sortedByCoord.out.bam \
 O=/root/ong_dukenus/bam/2_143_Aligned.sortedByCoord.rmdup.out.bam \
 M=/root/ong_dukenus/bam/2_143_Aligned.sortedByCoord.out.mfile
 
 java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
-I=/root/ong_dukenus/bam/3_400_Aligned.sortedByCoord.out.bam \
+I=/root/ong_dukenus/bam/3_400_q10_Aligned.sortedByCoord.out.bam \
 O=/root/ong_dukenus/bam/3_400_Aligned.sortedByCoord.rmdup.out.bam \
 M=/root/ong_dukenus/bam/3_400_Aligned.sortedByCoord.out.mfile
 
 java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
-I=/root/ong_dukenus/bam/4_NT_Aligned.sortedByCoord.out.bam \
+I=/root/ong_dukenus/bam/4_NT_q10_Aligned.sortedByCoord.out.bam \
 O=/root/ong_dukenus/bam/4_NT_Aligned.sortedByCoord.rmdup.out.bam \
 M=/root/ong_dukenus/bam/4_NT_Aligned.sortedByCoord.out.mfile
 
 java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
-I=/root/ong_dukenus/bam/5_143_Aligned.sortedByCoord.out.bam \
+I=/root/ong_dukenus/bam/5_143_q10_Aligned.sortedByCoord.out.bam \
 O=/root/ong_dukenus/bam/5_143_Aligned.sortedByCoord.rmdup.out.bam \
 M=/root/ong_dukenus/bam/5_143_Aligned.sortedByCoord.out.mfile
 
 java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
-I=/root/ong_dukenus/bam/6_400_Aligned.sortedByCoord.out.bam \
+I=/root/ong_dukenus/bam/6_400_q10_Aligned.sortedByCoord.out.bam \
 O=/root/ong_dukenus/bam/6_400_Aligned.sortedByCoord.rmdup.out.bam \
 M=/root/ong_dukenus/bam/6_400_Aligned.sortedByCoord.out.mfile
 
