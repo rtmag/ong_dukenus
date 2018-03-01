@@ -42,8 +42,6 @@
 --readFilesCommand zcat \
 --runThreadN 35 \
 --alignIntronMax 1 \
---outFilterScoreMinOverLread 0.40 \
---outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
 --readFilesIn /root/ong_dukenus/Dereck/4_3502DukeNus_TS543-NT-241117_hs_i12_r1.fastq.gz \
 /root/ong_dukenus/Dereck/4_3502DukeNus_TS543-NT-241117_hs_i12_r1.fastq.gz \
