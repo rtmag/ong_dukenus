@@ -74,12 +74,12 @@
 --outSAMtype BAM SortedByCoordinate \
 --outFileNamePrefix /root/ong_dukenus/bam/6_400_
 
-samtools view -q 10 -b 1_NT_Aligned.sortedByCoord.out.bam > 1_NT_q10_Aligned.sortedByCoord.out.bam
-samtools view -q 10 -b 2_143_Aligned.sortedByCoord.out.bam > 2_143_q10_Aligned.sortedByCoord.out.bam
-samtools view -q 10 -b 3_400_Aligned.sortedByCoord.out.bam > 3_400_q10_Aligned.sortedByCoord.out.bam
-samtools view -q 10 -b 4_NT_Aligned.sortedByCoord.out.bam > 4_NT_q10_Aligned.sortedByCoord.out.bam
-samtools view -q 10 -b 5_143_Aligned.sortedByCoord.out.bam > 5_143_q10_Aligned.sortedByCoord.out.bam
-samtools view -q 10 -b 6_400_Aligned.sortedByCoord.out.bam > 6_400_q10_Aligned.sortedByCoord.out.bam
+samtools view -q 10 -b /root/ong_dukenus/bam/1_NT_Aligned.sortedByCoord.out.bam > /root/ong_dukenus/bam/1_NT_q10_Aligned.sortedByCoord.out.bam &
+samtools view -q 10 -b /root/ong_dukenus/bam/2_143_Aligned.sortedByCoord.out.bam > /root/ong_dukenus/bam/2_143_q10_Aligned.sortedByCoord.out.bam &
+samtools view -q 10 -b /root/ong_dukenus/bam/3_400_Aligned.sortedByCoord.out.bam > /root/ong_dukenus/bam/3_400_q10_Aligned.sortedByCoord.out.bam &
+samtools view -q 10 -b /root/ong_dukenus/bam/4_NT_Aligned.sortedByCoord.out.bam > /root/ong_dukenus/bam/4_NT_q10_Aligned.sortedByCoord.out.bam &
+samtools view -q 10 -b /root/ong_dukenus/bam/5_143_Aligned.sortedByCoord.out.bam > /root/ong_dukenus/bam/5_143_q10_Aligned.sortedByCoord.out.bam &
+samtools view -q 10 -b /root/ong_dukenus/bam/6_400_Aligned.sortedByCoord.out.bam > /root/ong_dukenus/bam/6_400_q10_Aligned.sortedByCoord.out.bam &
 
 
 java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
@@ -128,7 +128,7 @@ bamCoverage -p max -bs 1 --normalizeUsingRPKM -b /root/ong_dukenus/bam/6_400_Ali
 ##
 
 samtools merge -f -h /root/ong_dukenus/bam/1_NT_Aligned.sortedByCoord.rmdup.out.bam /root/ong_dukenus/bam/NT.bam \
-/root/ong_dukenus/bam/1_NT_Aligned.sortedByCoord.rmdup.out.bam\
+/root/ong_dukenus/bam/1_NT_Aligned.sortedByCoord.rmdup.out.bam \
 /root/ong_dukenus/bam/4_NT_Aligned.sortedByCoord.rmdup.out.bam &
 
 samtools merge -f -h /root/ong_dukenus/bam/2_143_Aligned.sortedByCoord.rmdup.out.bam /root/ong_dukenus/bam/143.bam \
@@ -142,9 +142,9 @@ samtools merge -f -h /root/ong_dukenus/bam/3_400_Aligned.sortedByCoord.rmdup.out
 wait
 
 ##
-samtools sort /root/ong_dukenus/bam/NT.bam /root/ong_dukenus/bam/NT_sort &
-samtools sort /root/ong_dukenus/bam/143.bam /root/ong_dukenus/bam/143_sort &
-samtools sort /root/ong_dukenus/bam/400.bam /root/ong_dukenus/bam/400_sort &
+samtools sort /root/ong_dukenus/bam/NT.bam -o /root/ong_dukenus/bam/NT_sort.bam &
+samtools sort /root/ong_dukenus/bam/143.bam -o /root/ong_dukenus/bam/143_sort.bam &
+samtools sort /root/ong_dukenus/bam/400.bam -o /root/ong_dukenus/bam/400_sort.bam  &
 
 wait
 
