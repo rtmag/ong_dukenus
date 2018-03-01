@@ -96,7 +96,7 @@ O=/root/ong_dukenus/bam/3_400_Aligned.sortedByCoord.rmdup.out.bam \
 M=/root/ong_dukenus/bam/3_400_Aligned.sortedByCoord.out.mfile
 
 java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
-I=/root/ong_dukenus/bam/4_NT_q10_Aligned.sortedByCoord.out.bam \
+I=/root/ong_dukenus/bam/4_NT_Aligned.sortedByCoord.out.bam \
 O=/root/ong_dukenus/bam/4_NT_Aligned.sortedByCoord.rmdup.out.bam \
 M=/root/ong_dukenus/bam/4_NT_Aligned.sortedByCoord.out.mfile
 
@@ -158,6 +158,11 @@ macs2 callpeak -t /root/ong_dukenus/bam/400_sort.bam \
 ###
 ##
 #
+
+
+macs2 callpeak -t /root/ong_dukenus/bam/4_NT_Aligned.sortedByCoord.rmdup.out.bam \
+-f BAMPE --keep-dup all --nomodel --broad -g hs -q 0.05 --outdir /root/ong_dukenus/peakcalls -n 4_NT &
+
 
 cat NT_peaks.broadPeak 400_peaks.broadPeak 143_peaks.broadPeak |cut -f1,2,3 | sort -k1,1 -k2,2n |bedtools merge -i - > star_merged_broad.bed
 
