@@ -6,7 +6,7 @@ ann = data.frame(GeneID=paste(x[,1],x[,2],x[,3],sep="_!_"),Chr=x[,1],Start=x[,2]
 bam.files <- c("/root/ong_dukenus/bam/1_NT_Aligned.sortedByCoord.rmdup.out.bam",
 "/root/ong_dukenus/bam/2_143_Aligned.sortedByCoord.rmdup.out.bam",
 "/root/ong_dukenus/bam/3_400_Aligned.sortedByCoord.rmdup.out.bam",
-"4_3502DukeNus_TS543-NT-241117_hs_i12_Aligned.sortedByCoord.rmdup.out.bam",
+"/root/ong_dukenus/bam/4_3502DukeNus_TS543-NT-241117_hs_i12_Aligned.sortedByCoord.rmdup.out.bam",
 "/root/ong_dukenus/bam/5_143_Aligned.sortedByCoord.rmdup.out.bam",
 "/root/ong_dukenus/bam/6_400_Aligned.sortedByCoord.rmdup.out.bam")
 
