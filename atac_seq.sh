@@ -160,3 +160,6 @@ macs2 callpeak -t /root/ong_dukenus/bam/400_sort.bam \
 ###
 ##
 #
+
+cat NT_peaks.broadPeak 400_peaks.broadPeak 143_peaks.broadPeak |cut -f1,2,3 | sort -k1,1 -k2,2n |bedtools merge -i - > star_merged_broad.bed
+
