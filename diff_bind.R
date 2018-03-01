@@ -1,4 +1,4 @@
-#library(Rsubread)
+library(Rsubread)
 #
 x=read.table('/root/ong_dukenus/peakcalls/star_merged_broad_noBlackList.bed',sep="\t",stringsAsFactors=F)
 ann = data.frame(GeneID=paste(x[,1],x[,2],x[,3],sep="_!_"),Chr=x[,1],Start=x[,2],End=x[,3],Strand='+')
