@@ -8,6 +8,10 @@ bamToBed -i 6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bam > ../bed/sh400_6.b
 
 wait
 
+cpan Statistics::TTest
+cpan Math::CDF
+cpan Parallel::ForkManager
+
 diffReps.pl --treatment ../bed/sh143_2.bed ../bed/sh400_3.bed ../bed/sh143_5.bed ../bed/sh400_6.bed \
 --control ../bed/NT_1.bed ../bed/NT_4.bed \
 --meth nb --gname hg19 --report ../paul_diffreps/atac.diffreps --frag 0 --nproc 30 
