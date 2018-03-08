@@ -104,6 +104,8 @@ matplot(out, type="l", xaxt="n",
 axis(1, at=seq(0, 100, by=10)+1, 
      labels=c("-1K", seq(-800, 800, by=200), "1K"), las=2)
 abline(v=seq(0, 100, by=10)+1, lty=2, col="gray")
-                    
-}
+                 
 dev.off()
+}
+##                  
+##
