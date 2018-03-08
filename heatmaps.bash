@@ -18,3 +18,9 @@ computeMatrix reference-point \
 plotHeatmap --xAxisLabel "" --refPointLabel "TSS" --colorMap Blues -m meta_tss_h19_allKnownCanonicalGenes.mat \
 --samplesLabel "NT 1" "NT 4" "143 2" "143 5" "400 3" "400 6" \
 -out meta_tss_h19_allKnownCanonicalGenes.pdf
+
+
+plotProfile -m meta_tss_h19_allKnownCanonicalGenes.mat \
+--samplesLabel "NT-rep1" "NT-rep2" "SH#1-rep1" "SH#1-rep2" "SH#2-rep1" "SH#2-rep2" \
+--colors "#ffb3ba" "#ff6961" "#bae1ff" "#aec6cf" "#77dd77" "#baffc9" \
+              -out meta_tss_h19_allKnownCanonicalGenes_onlyProfile.pdf --perGroup 
