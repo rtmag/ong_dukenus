@@ -15,13 +15,24 @@ pie(tup, main="Distribution of chromatin regions open in SH compared to NT\n(15,
 dev.off()
 
 #########
+#annotatePeaks.pl Down_NT.bed hg19 -annStats Down_NT.annStats > Down_NT.anno
+#annotatePeaks.pl Up_SH.bed hg19 -annStats Up_SH.annStats > Up_SH.anno
+
 pdf("pie_homer_Open_in_NT.pdf")
+par(mar=c(5.1,4.1,4.1,7))
 res=read.table(pipe("more Down_NT.annStats |grep -v '0.0'|cut -f1,2,4|tail -n +10"), sep="\t",header=F)
 tdown = res[,2]
 names(tdown) = res[,1]
 names(tdown) = paste(names(tdown)," ",round(tdown/sum(tdown)*100,digits=2),"%",sep="")
-tdown = tdown[tdown>15]
-pie(tdown, main="Distribution of chromatin regions open in NT compared to SH\n(23,466 regions)")
+tdown = tdown[tdown>16]
+pie(rev(tdown), main="Distribution of chromatin regions open in NT compared to SH\n(23,466 regions)")
 dev.off()
 
-
+pdf("pie_homer_Open_in_SH.pdf")
+res=read.table(pipe("more Up_SH.annStats |grep -v '0.0'|cut -f1,2,4|tail -n +10"), sep="\t",header=F)
+tup = res[,2]
+names(tup) = res[,1]
+names(tup) = paste(names(tup)," ",round(tup/sum(tup)*100,digits=2),"%",sep="")
+tup = tup[tup>16]
+pie(tup, main="Distribution of chromatin regions open in SH compared to NT\n(15,360 regions)")
+dev.off()
