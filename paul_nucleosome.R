@@ -11,7 +11,7 @@ bamfile <- c(
 
 bamfile.labels <- c("NT_1","SH1_1","SH2_1","NT_2","SH1_2","SH_2_2")
 
-fragSize <- fragSizeDist(bamfile, bamfile.labels)
+#fragSize <- fragSizeDist(bamfile, bamfile.labels)
 
 ## bamfile tags to be read in
 tags <- c("AS", "XN", "XM", "XO", "XG", "NM", "MD", "YS", "YT")
@@ -28,7 +28,8 @@ seqlev <- c("chr1","chr2","chr3","chr4","chr5","chr6","chr7","chr8",
 
 which <- as(seqinfo(Hsapiens)[seqlev], "GRanges")
 
-for(i in 1:6) {
+#for(i in 1:6) {
+i=6
 
 outPath <- paste( "paul_bam", "/", bamfile.labels[i], sep="")
 dir.create(outPath)
@@ -54,6 +55,10 @@ null <- writeListOfGAlignments(objs, outPath)
 objs <- splitBam(bamfile, tags=tags, outPath=outPath,
                  txs=txs, genome=genome,
                  conservation=phastCons100way.UCSC.hg19)
+
+#############################
+#################
+
 
 library(ChIPpeakAnno)
 bamfiles <- file.path(outPath,
