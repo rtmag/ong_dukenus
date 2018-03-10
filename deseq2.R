@@ -5,6 +5,21 @@ options(scipen=999)
 library(DESeq2)
 
 
+colData <- data.frame(condition = c("shNT","shNT","shNT","shH2AFV#1","shH2AFV#1","shH2AFV#1","shH2AFV#2","shH2AFV#2","shH2AFV#2") )
+dds <- DESeqDataSetFromMatrix(
+       countData = countData,
+       colData = colData,
+       design = ~ condition)
+
+dLRT <- DESeq(dds, test="LRT", reduced=~1)
+dLRT_vsd <- varianceStabilizingTransformation(dLRT)
+
+#pdf("Diagnostic_design_pca.pdf")
+plotPCA(dLRT_vsd,ntop=60000,intgroup=c('condition'))
+#dev.off()
+
+
+
 design<-data.frame(experiment=colnames(countData), sh = c("r1","r1","r1","r2","r2","r2","r3","r3","r3"),
                                             condition = c("NT","NT","NT","SH","SH","SH","SH","SH","SH") )
 
