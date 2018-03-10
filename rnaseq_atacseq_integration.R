@@ -1,0 +1,78 @@
+bed_to_granges <- function(file){
+   df <- read.table(file,
+                    header=F,
+                    stringsAsFactors=F)
+ 
+   if(length(df) > 6){
+      df <- df[,-c(7:length(df))]
+   }
+ 
+   if(length(df)<3){
+      stop("File has less than 3 columns")
+   }
+ 
+   header <- c('chr','start','end','id','score','strand')
+   names(df) <- header[1:length(names(df))]
+ 
+   if('strand' %in% colnames(df)){
+      df$strand <- gsub(pattern="[^+-]+", replacement = '*', x = df$strand)
+   }
+ 
+   library("GenomicRanges")
+ 
+   if(length(df)==3){
+      gr <- with(df, GRanges(chr, IRanges(start, end)))
+   } else if (length(df)==4){
+      gr <- with(df, GRanges(chr, IRanges(start, end), id=id))
+   } else if (length(df)==5){
+      gr <- with(df, GRanges(chr, IRanges(start, end), id=id, score=score))
+   } else if (length(df)==6){
+      gr <- with(df, GRanges(chr, IRanges(start, end), id=id, score=score, strand=strand))
+   }
+   return(gr)
+}
+#
+hg19=read.table('~/resources/hg19_tss_knownCanonical_noUnasembled.bed',sep="\t",stringsAsFactors=F)
+
+genes_nt=read.table('genes_names_high_expression_shNT.txt',sep="\t",stringsAsFactors=F)
+tss_nt = hg19[(which(hg19[,4] %in% genes_nt[,1])),]
+tss_nt = tss_nt[!duplicated(tss_nt[,4]),]
+write.table(tss_nt,"tss_genes_names_high_expression_shNT.bed",quote=FALSE,col.names=FALSE,row.names=FALSE)
+            
+genes_h2afv=read.table('genes_names_high_expression_shH2AFV.txt',sep="\t",stringsAsFactors=F)
+tss_h2afv = hg19[(which(hg19[,4] %in% genes_h2afv[,1])),]
+tss_h2afv = tss_h2afv[!duplicated(tss_h2afv[,4]),]
+write.table(tss_h2afv,"tss_genes_names_high_expression_shH2AFV.bed",quote=FALSE,col.names=FALSE,row.names=FALSE)
+
+##################################################################################################################
+hg19=read.table('~/resources/hg19_tss_knownCanonical_noUnasembled.bed',sep="\t",stringsAsFactors=F)
+
+gene_symbol=read.table('gene_symbol.txt',sep="\t",stringsAsFactors=F)
+gene_tss = hg19[(which(hg19[,4] %in% gene_symbol[,1])),]
+gene_tss = gene_tss[!duplicated(gene_tss[,4]),]
+
+
+require(csaw)
+
+blacklist=bed_to_granges("~/resources/hg19consensusBlacklist.bed")
+param <- readParam(minq=10,discard=blacklist)
+bam.files <- c(
+"/root/ong_dukenus/paul_bam/1_3502DukeNus_TS543-NT-031117_hg19_i9_rmdup.bam"
+"/root/ong_dukenus/paul_bam/2_3502DukeNus_TS543-143-031117_hg19_i10_rmdup.bam"
+"/root/ong_dukenus/paul_bam/3_3502DukeNus_TS543-400-031117_hg19_i11_rmdup.bam"
+"/root/ong_dukenus/paul_bam/4_3502DukeNus_TS543-NT-241117_hg19_i12_rmdup.bam"
+"/root/ong_dukenus/paul_bam/5_3502DukeNus_TS543-143-241117_hg19_i13_rmdup.bam"
+"/root/ong_dukenus/paul_bam/6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bam"
+)
+
+binned <- windowCounts(bam.files, bin=TRUE, width=10000, param=param)
+
+normfacs <- normOffsets(binned)
+##
+
+counts <- regionCounts(bam.files, regions, ext=300, param=param)
+countData=assay(counts)
+colnames(countData)=bam.files
+
+require(DESeq2)
+
