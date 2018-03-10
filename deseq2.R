@@ -42,7 +42,7 @@ heatmap.2(sig_vsd,col=colors,scale="row", trace="none",distfun = function(x) get
           labRow = FALSE,xlab="", ylab="Genes",key.title="Gene expression")
 dev.off()
 
-pdf(volcano_plot_differentially_expressed_genes.pdf)
+pdf("volcano_plot_differentially_expressed_genes.pdf")
 plot(dds_res$log2FoldChange,-log10(dds_res$padj),xlab=expression('Log'[2]*' Fold Change ( shH2AFV / shNT )'),
               ylab=expression('-Log'[10]*' Q-values'),col=alpha("grey",.5))
 abline(v=-1,lty = 2,col="grey")
