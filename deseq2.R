@@ -80,5 +80,9 @@ rankedlist[["ensid"]] <- tx[ match(rankedlist[['ensid']], tx[['gene_id']] ) , 'g
 
 write.table(rankedlist,"genes_ranked_table_FCFDR.rnk", sep="\t", quote=F,col.names=F,row.names=F)
 
-
-
+sig_res = dds_res[which(dds_res$padj<0.05 & abs(dds_res$log2FoldChange)>1),c(2,6)]
+sig_res = sig_res[order(sig_res$log2FoldChange),]
+sig_res = data.frame(sig_res,gene_symbol=rownames(sig_res))
+sig_res[["gene_symbol"]] <- tx[ match(sig_res[['gene_symbol']], tx[['gene_id']] ) , 'gene_name']
+sig_res = data.frame(sig_res,ensembl_id=rownames(sig_res))
+write.table(sig_res,"genes_res_FC_FDR.txt", sep="\t", quote=F,col.names=F,row.names=F)
