@@ -68,7 +68,17 @@ dw_reg_log=log(dw_reg$padj)
 names(dw_reg_log) = rownames(dw_reg)
 
 rankedlist = cbind(sort(c(up_reg_log,dw_reg_log),decreasing=T) )
-write.table(rankedlist,"genes_ranked_table_FCFDR.rnk", sep="\t", quote=F,col.names=F,row.names=T)
+rankedlist = data.frame(ensid=rownames(rankedlist), log10FDR=rankedlist)
+
+library(ensembldb)
+library("EnsDb.Hsapiens.v86")   
+edb <- EnsDb.Hsapiens.v86
+tx <- genes(edb, columns=c("gene_id", "gene_name"))
+tx=data.frame(gene_id=tx$gene_id, gene_name=tx$gene_name)
+
+rankedlist[["ensid"]] <- tx[ match(rankedlist[['ensid']], tx[['gene_id']] ) , 'gene_name']
+
+write.table(rankedlist,"genes_ranked_table_FCFDR.rnk", sep="\t", quote=F,col.names=F,row.names=F)
 
 
 
