@@ -86,3 +86,42 @@ sig_res = data.frame(sig_res,gene_symbol=rownames(sig_res))
 sig_res[["gene_symbol"]] <- tx[ match(sig_res[['gene_symbol']], tx[['gene_id']] ) , 'gene_name']
 sig_res = data.frame(sig_res,ensembl_id=rownames(sig_res))
 write.table(sig_res,"genes_res_FC_FDR.txt", sep="\t", quote=F,col.names=F,row.names=F)
+
+dds_res = data.frame(dds_res,gene_symbol=rownames(dds_res))
+dds_res[["gene_symbol"]] <- tx[ match(dds_res[['gene_symbol']], tx[['gene_id']] ) , 'gene_name']
+
+write.csv(dds_res[order(dds_res$log2FoldChange),],"deseq2_results.csv")
+
+## qpcr
+pdf("QC_genes.pdf")
+vsd = assay(dds_vsd)
+rownames(vsd) = tx[ match(rownames(vsd), tx[['gene_id']] ) , 'gene_name']
+
+notch=dds_res[grep("NOTCH",dds_res$gene_symbol),2]
+names(notch) = as.character(dds_res[grep("NOTCH",dds_res$gene_symbol),7])
+notch = notch[!is.na(notch)]
+
+barplot(notch,ylim=c(-1,.5),col="#bae1ff")
+abline(h=0)
+
+barplot(t(vsd[rownames(vsd) %in% names(notch),]),beside=T,ylim=c(0,15),ylab="Log2 Normalized Counts",col=c("#ffb3ba","#ffb3ba","#ffb3ba",
+                                                                            "#baffc9","#baffc9","#baffc9",
+                                                                            "#bae1ff","#bae1ff","#bae1ff"))
+legend("topright",c("202","143","400"),fill=c("#ffb3ba","#baffc9","#bae1ff") )
+abline(h=0)
+
+
+h2a=dds_res[grep("h2a",dds_res$gene_symbol,ignore.case=T),2]
+names(h2a) = as.character(dds_res[grep("h2a",dds_res$gene_symbol,ignore.case=T),7])
+h2a = h2a[!is.na(h2a)]
+h2a = h2a[abs(h2a)>.2]
+
+barplot(h2a,ylim=c(-1.5,1.5),col="#966FD6")
+abline(h=0)
+
+barplot(t(vsd[rownames(vsd) %in% names(h2a),]),beside=T,ylim=c(0,15),ylab="Log2 Normalized Counts",col=c("#ffb3ba","#ffb3ba","#ffb3ba",
+                                                                            "#baffc9","#baffc9","#baffc9",
+                                                                            "#bae1ff","#bae1ff","#bae1ff"))
+legend("topright",c("202","143","400"),fill=c("#ffb3ba","#baffc9","#bae1ff") )
+abline(h=0)
+dev.off()
