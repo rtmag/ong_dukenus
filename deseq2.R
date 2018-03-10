@@ -108,7 +108,8 @@ par(mar=c(5.1,4.1,4.1,2.1))
 barplot(notch,ylim=c(-1.5,1.5),col="#bae1ff",ylab="Log2 Fold Change")
 abline(h=0)
 
-barplot(t(vsd[rownames(vsd) %in% names(notch),]),beside=T,ylim=c(0,15),ylab="Log2 Normalized Counts",col=c("#ffb3ba","#ffb3ba","#ffb3ba",
+barplot(t(vsd[rownames(vsd) %in% names(notch),]),beside=T,ylim=c(0,14),ylab="Log2 Normalized Counts",
+                                                                       col=c("#ffb3ba","#ffb3ba","#ffb3ba", 
                                                                             "#baffc9","#baffc9","#baffc9",
                                                                             "#bae1ff","#bae1ff","#bae1ff"))
 legend("topright",c("202","143","400"),fill=c("#ffb3ba","#baffc9","#bae1ff") )
