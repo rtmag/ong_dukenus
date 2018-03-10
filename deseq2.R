@@ -14,17 +14,31 @@ dds <- DESeqDataSetFromMatrix(
 dLRT <- DESeq(dds, test="LRT", reduced=~1)
 dLRT_vsd <- varianceStabilizingTransformation(dLRT)
 
-#pdf("Diagnostic_design_pca.pdf")
+pdf("Diagnostic_design_pca.pdf")
 plotPCA(dLRT_vsd,ntop=60000,intgroup=c('condition'))
-#dev.off()
+dev.off()
 
+# shH2AFV VS shNT
+design<-data.frame(experiment=colnames(countData), 
+                   sh = c("shNT","shNT","shNT","shH2AFV","shH2AFV","shH2AFV","shH2AFV","shH2AFV","shH2AFV") )
 
+dds <- DESeqDataSetFromMatrix(countData = countData, colData = design, design = ~ sh  )
+dds <- DESeq(dds)
+dds_vsd <- varianceStabilizingTransformation(dds)
+dds_res <- results(dds,contrast=c("sh","shH2AFV","shNT"))
 
-design<-data.frame(experiment=colnames(countData), sh = c("r1","r1","r1","r2","r2","r2","r3","r3","r3"),
-                                            condition = c("NT","NT","NT","SH","SH","SH","SH","SH","SH") )
+sig_vsd=dds_vsd[which(dds_res$padj<0.05 & abs(dds_res$log2FoldChange)>1),]
+sig_vsd = assay(sig_vsd)
+colnames(sig_vsd) = c("shNT","shNT","shNT","shH2AFV#1","shH2AFV#1","shH2AFV#1","shH2AFV#2","shH2AFV#2","shH2AFV#2")
 
-dLRT <- DESeqDataSetFromMatrix(countData = countData, colData = design, design = ~ sh + condition )
-dLRT <- DESeq(dLRT, test="LRT",full= ~ sh + condition , reduced=~ sh )
-dLRT_vsd <- varianceStabilizingTransformation(dLRT)
-dDif_res <- results(dLRT,contrast=c("condition","SH","NT"))
+library(gplots)
+library(factoextra)
+      
+ library(RColorBrewer)
+colors <- colorRampPalette(c("blue","white","red"))(45)
+
+pdf("heatmap_differentially_expressed_genes.pdf")
+heatmap.2(sig_vsd,col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="spearman"),srtCol=25,
+          labRow = FALSE,xlab="", ylab="Genes",key.title="Gene expression")
+dev.off()
 
