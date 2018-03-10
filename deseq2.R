@@ -68,7 +68,7 @@ dw_reg_log=log(dw_reg$padj)
 names(dw_reg_log) = rownames(dw_reg)
 
 rankedlist = cbind(sort(c(up_reg_log,dw_reg_log),decreasing=T) )
-write.table(rankedlist,"genes_ranked_table_FCFDR.rnk", sep="\t", quote=F,col.names=F,row.names=F)
+write.table(rankedlist,"genes_ranked_table_FCFDR.rnk", sep="\t", quote=F,col.names=F,row.names=T)
 
 
 
