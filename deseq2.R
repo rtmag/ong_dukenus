@@ -55,3 +55,20 @@ legend("topright", paste("shH2AFV:",length(which(dds_res$log2FoldChange>1 & dds_
 legend("topleft", paste("shNT:",length(which(dds_res$log2FoldChange<(-1) & dds_res$padj<0.05))), bty="n") 
 dev.off()
 
+write.csv(dds_res[which(dds_res$padj<0.05 & abs(dds_res$log2FoldChange)>1),],"differentially_expressed_genes.csv")
+
+up_reg = dds_res[ which(dds_res$log2FoldChange>0),]
+up_reg = up_reg[ !is.na(up_reg$padj),]
+up_reg_log=-log(up_reg$padj)
+names(up_reg_log) = rownames(up_reg)
+
+dw_reg = dds_res[ which(dds_res$log2FoldChange<0),]
+dw_reg = dw_reg[ !is.na(dw_reg$padj),]
+dw_reg_log=log(dw_reg$padj)
+names(dw_reg_log) = rownames(dw_reg)
+
+rankedlist = cbind(sort(c(up_reg_log,dw_reg_log),decreasing=T) )
+write.table(rankedlist,"genes_ranked_table_FCFDR.rnk", sep="\t", quote=F,col.names=F,row.names=F)
+
+
+
