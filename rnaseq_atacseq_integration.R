@@ -105,7 +105,15 @@ names(atac_log2fc) = regions$id
 saveRDS(atac_log2fc,"atac_log2fc_shH2AFV_vs_shNT.rds")
 
 #######################################################################################################
-rna = read.csv("../4_out_tables/deseq2_results.csv")
 atac = readRDS("atac_log2fc_shH2AFV_vs_shNT.rds")
+atac = atac[order(names(atac))]
 
- rna[rna$gene_symbol %in% names(atac),]
+rna = read.csv("../4_out_tables/deseq2_results.csv")
+rna = rna[rna$gene_symbol %in% names(atac),]
+rna = rna[!duplicated(rna[,8]),]
+rna = rna[order(rna[,8]),]
+
+library(graphics)
+smoothScatter(rna$log2FoldChange, atac,xlab=)
+abline(v=0)
+abline(h=0)
