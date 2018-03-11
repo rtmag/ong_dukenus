@@ -95,5 +95,15 @@ dds <- estimateSizeFactors(dds)
 sizeFactors(dds) <- normfacs
 
 saveRDS(dds,"dds.rds")
+
+dds_vsd = varianceStabilizingTransformation(dds,fitType='local')
+vsd = assay(dds_vsd)
+atac_log2fc = rowMeans(vsd[,c(2,3,5,6)]) - rowMeans(vsd[,c(1,4)])
+
+names(atac_log2fc) = regions$id
+
+saveRDS(atac_log2fc,"atac_log2fc_shH2AFV_vs_shNT.rds")
+
 ##
 #
+
