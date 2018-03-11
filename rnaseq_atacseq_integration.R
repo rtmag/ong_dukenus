@@ -80,7 +80,7 @@ normfacs <- normOffsets(binned)
 saveRDS(normfacs,"normfacs.rds")
 ##
 regions=bed_to_granges("../gene_tss_1kb.bed")
-counts <- regionCounts(bam.files, regions, ext=300, param=param)
+counts <- regionCounts(bam.files, regions, ext=0, param=param)
 countData=assay(counts)
 colnames(countData)=c("shNT_1","shH2AFV#1_1","shH2AFV#2_1","shNT_2","shH2AFV#1_2","shH2AFV#2_2")
 
