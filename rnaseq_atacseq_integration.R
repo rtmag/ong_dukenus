@@ -114,6 +114,10 @@ rna = rna[!duplicated(rna[,8]),]
 rna = rna[order(rna[,8]),]
 
 library(graphics)
-smoothScatter(rna$log2FoldChange, atac,xlab=)
+pdf("rna_atac_tss_scatterplot.pdf")
+smoothScatter(rna$log2FoldChange, atac,ylim=c(-3,3),xlim=c(-3,3),
+             xlab=expression('RNA-Seq Log'[2]*' Fold Change ( shH2AFV / shNT )'),
+             ylab=expression('ATAC-Seq Log'[2]*' Fold Change TSS ( shH2AFV / shNT )'))
 abline(v=0)
 abline(h=0)
+dev.off()
