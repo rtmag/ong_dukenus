@@ -104,6 +104,8 @@ names(atac_log2fc) = regions$id
 
 saveRDS(atac_log2fc,"atac_log2fc_shH2AFV_vs_shNT.rds")
 
-##
-#
+#######################################################################################################
+rna = read.csv("../4_out_tables/deseq2_results.csv")
+atac = readRDS("atac_log2fc_shH2AFV_vs_shNT.rds")
 
+ rna[rna$gene_symbol %in% names(atac),]
