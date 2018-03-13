@@ -108,16 +108,25 @@ saveRDS(atac_log2fc,"atac_log2fc_shH2AFV_vs_shNT.rds")
 atac = readRDS("atac_log2fc_shH2AFV_vs_shNT.rds")
 atac = atac[order(names(atac))]
 
-rna = read.csv("../4_out_tables/deseq2_results.csv")
+rna = read.csv("../2_log2fc_1/2_3_out_tables/deseq2_results.csv")
 rna = rna[rna$gene_symbol %in% names(atac),]
 rna = rna[!duplicated(rna[,8]),]
 rna = rna[order(rna[,8]),]
 
 library(graphics)
-pdf("rna_atac_tss_scatterplot.pdf")
+pdf("rna_atac_tss_scatterplot_thresholds.pdf")
 smoothScatter(rna$log2FoldChange, atac,ylim=c(-3,3),xlim=c(-3,3),
              xlab=expression('RNA-Seq Log'[2]*' Fold Change ( shH2AFV / shNT )'),
              ylab=expression('ATAC-Seq Log'[2]*' Fold Change TSS ( shH2AFV / shNT )'))
 abline(v=0)
 abline(h=0)
+
+length(which(rna$log2FoldChange<(-0.6) & atac<(-0.6)))
+lines(c(-3,-.6),c(-.6,-.6),col="red",lty=2)
+lines(c(-3,-.6),c(-3,-3),col="red",lty=2)
+lines(c(-.6,-.6),c(-3,-.6),col="red",lty=2)
+lines(c(-3,-3),c(-3,-.6),col="red",lty=2)
+
+legend(-2.7,-2.3, paste("Genes:",length(which(rna$log2FoldChange<(-0.6) & atac<(-0.6))) ), bty="n") 
+
 dev.off()
