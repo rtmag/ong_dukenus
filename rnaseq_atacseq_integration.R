@@ -130,3 +130,10 @@ lines(c(-3,-3),c(-3,-.6),col="red",lty=2)
 legend(-2.7,-2.3, paste("Genes:",length(which(rna$log2FoldChange<(-0.6) & atac<(-0.6))) ), bty="n") 
 
 dev.off()
+
+selected_genes = (cbind(rna[which(rna$log2FoldChange<(-0.6) & atac<(-0.6)),],atac[rna$log2FoldChange<(-0.6) & atac<(-0.6)]))
+
+selected_genes = selected_genes[,c(1,8,3,9,7)]
+colnames(selected_genes) = c("esemblid","gene_symbol","RNA_log2FC","ATAC_log2FC","PADJ")
+
+write.table(selected_genes,"selected_genes_3rdquadrant_log2FC.6.txt",quote=F,row.names=F,col.names=F)
