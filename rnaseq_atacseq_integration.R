@@ -136,4 +136,4 @@ selected_genes = (cbind(rna[which(rna$log2FoldChange<(-0.6) & atac<(-0.6)),],ata
 selected_genes = selected_genes[,c(1,8,3,9,7)]
 colnames(selected_genes) = c("esemblid","gene_symbol","RNA_log2FC","ATAC_log2FC","PADJ")
 
-write.table(selected_genes,"selected_genes_3rdquadrant_log2FC.6.txt",quote=F,row.names=F,col.names=F)
+write.table(selected_genes,"selected_genes_3rdquadrant_log2FC.6.txt",quote=F,row.names=F,col.names=T)
