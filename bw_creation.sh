@@ -12,6 +12,18 @@ sh_202_3.bam &
 
 ######
 
+samtools sort sh400.bam > sh400_sort.bam &
+samtools sort sh400-1.bam > sh400-1_sort.bam &
+samtools sort sh400-2.bam > sh400-2_sort.bam &
+samtools sort sh400-3.bam > sh400-3_sort.bam &
+
+samtools sort sh_202.bam > sh_202_sort.bam &
+samtools sort sh_202_1.bam > sh_202_1_sort.bam &
+samtools sort sh_202_2.bam > sh_202_2_sort.bam &
+samtools sort sh_202_3.bam > sh_202_3_sort.bam &
+
+######
+
 samtools index sh400-1.bam &
 samtools index sh400-2.bam &
 samtools index sh400-3.bam &
