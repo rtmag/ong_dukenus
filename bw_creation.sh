@@ -10,7 +10,19 @@ sh_202_1.bam \
 sh_202_2.bam \
 sh_202_3.bam &
 
+######
 
+samtools index sh400-1.bam &
+samtools index sh400-2.bam &
+samtools index sh400-3.bam &
+samtools index sh400.bam &
+samtools index sh202-1.bam &
+samtools index sh202-2.bam &
+samtools index sh202-3.bam &
+samtools index sh202.bam &
+
+
+#####
 
 bamCoverage -p 10 -bs 1 --normalizeUsingRPKM -b sh400-1.bam \
 -o sh400-1.bw
