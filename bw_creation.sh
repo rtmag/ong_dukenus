@@ -85,3 +85,9 @@ bamCoverage -p max -bs 1 --normalizeUsingRPKM -b sh143-3.sorted.bam  \
 
 ####
 ####
+samtools sort sh143.bam > sh143_sort.bam &
+
+samtools index sh143_sort.bam &
+
+bamCoverage -p max -bs 1 --normalizeUsingRPKM -b sh143_sort.bam  \
+-o sh143.bw 
