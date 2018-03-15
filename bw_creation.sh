@@ -59,3 +59,29 @@ bamCoverage -p 10 -bs 1 --normalizeUsingRPKM -b sh_202_3_sort.bam \
 
 bamCoverage -p 10 -bs 1 --normalizeUsingRPKM -b sh_202_sort.bam \
 -o sh202.bw &
+
+
+##### 143
+
+samtools index sh143-1.sorted.bam &
+samtools index sh143-2.sorted.bam &
+samtools index sh143-3.sorted.bam &
+
+samtools merge -f -h sh143-1.sorted.bam \
+sh143.bam \
+sh143-1.sorted.bam \
+sh143-2.sorted.bam \
+sh143-3.sorted.bam &
+
+
+bamCoverage -p max -bs 1 --normalizeUsingRPKM -b sh143-1.sorted.bam \
+-o sh143-1.bw 
+
+bamCoverage -p max -bs 1 --normalizeUsingRPKM -b sh143-2.sorted.bam \
+-o sh143-2.bw 
+
+bamCoverage -p max -bs 1 --normalizeUsingRPKM -b sh143-3.sorted.bam  \
+-o sh143-3.bw 
+
+####
+####
