@@ -63,15 +63,15 @@ require(csaw)
 require(DESeq2)
 
 
-blacklist=bed_to_granges("../hg19_blacklist.bed")
+blacklist=bed_to_granges("~/resources/hg19consensusBlacklist.bed")
 param <- readParam(minq=10,discard=blacklist,pe="both")
 bam.files <- c(
-"1_3502DukeNus_TS543-NT-031117_hg19_i9_rmdup.bam",
-"2_3502DukeNus_TS543-143-031117_hg19_i10_rmdup.bam",
-"3_3502DukeNus_TS543-400-031117_hg19_i11_rmdup.bam",
-"4_3502DukeNus_TS543-NT-241117_hg19_i12_rmdup.bam",
-"5_3502DukeNus_TS543-143-241117_hg19_i13_rmdup.bam",
-"6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bam"
+"/root/ong_dukenus/paul_bam/1_3502DukeNus_TS543-NT-031117_hg19_i9_rmdup.bam",
+"/root/ong_dukenus/paul_bam/2_3502DukeNus_TS543-143-031117_hg19_i10_rmdup.bam",
+"/root/ong_dukenus/paul_bam/3_3502DukeNus_TS543-400-031117_hg19_i11_rmdup.bam",
+"/root/ong_dukenus/paul_bam/4_3502DukeNus_TS543-NT-241117_hg19_i12_rmdup.bam",
+"/root/ong_dukenus/paul_bam/5_3502DukeNus_TS543-143-241117_hg19_i13_rmdup.bam",
+"/root/ong_dukenus/paul_bam/6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bam"
 )
 
 binned <- windowCounts(bam.files, bin=TRUE, width=10000, param=param)
@@ -79,7 +79,7 @@ binned <- windowCounts(bam.files, bin=TRUE, width=10000, param=param)
 normfacs <- normOffsets(binned)
 saveRDS(normfacs,"normfacs.rds")
 ##
-regions=bed_to_granges("../gene_tss_1kb.bed")
+regions=bed_to_granges("/root/ong_dukenus/rnaseq_atacseq/gene_tss_1kb.bed")
 counts <- regionCounts(bam.files, regions, ext=0, param=param)
 countData=assay(counts)
 colnames(countData)=c("shNT_1","shH2AFV#1_1","shH2AFV#2_1","shNT_2","shH2AFV#1_2","shH2AFV#2_2")
