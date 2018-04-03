@@ -137,3 +137,31 @@ selected_genes = selected_genes[,c(1,8,3,9,7)]
 colnames(selected_genes) = c("esemblid","gene_symbol","RNA_log2FC","ATAC_log2FC","PADJ")
 
 write.table(selected_genes,"selected_genes_3rdquadrant_log2FC.6.txt",quote=F,row.names=F,col.names=T,sep="\t")
+
+#######################################################################################################
+# MA PLOTS
+require(DESeq2)
+
+# MA plot ATAC
+countData = readRDS("atac_counts_gene_tss_1kb.rds")
+normfacs = readRDS("normfacs.rds")
+atac = readRDS("atac_log2fc_shH2AFV_vs_shNT.rds")
+
+rownames(countData) = names(atac)
+
+colData <- data.frame(group=c("shNT","shH2AFV","shH2AFV","shNT","shH2AFV","shH2AFV") )
+dds <- DESeqDataSetFromMatrix(
+       countData = countData,
+       colData = colData,
+       design = ~ group)
+dds <- estimateSizeFactors(dds)
+sizeFactors(dds) <- normfacs
+dds <- DESeq(dds)
+dds_vsd <- varianceStabilizingTransformation(dds)
+dds_res <- results(dds,contrast=c("group","shH2AFV","shNT"))
+pdf("maplot_atac_tss.pdf")
+plotMA(dds_res)
+dev.off()
+
+# MA plot RNA
+
