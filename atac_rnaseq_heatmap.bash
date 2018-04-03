@@ -26,3 +26,17 @@ plotProfile -m tss_atac_rnaseq_heatmap.mat \
               -out tss_atac_rnaseq_onlyProfile.pdf --perGroup 
               
               
+###############
+# body
+
+
+computeMatrix scale-regions \
+-S /root/p53_dnmt1/bw/WT_0h_doxo_wgbs.bw \
+/root/p53_dnmt1/bw/WT_48h_doxo_wgbs.bw \
+/root/p53_dnmt1/bw/P53KO_48h_doxo_wgbs.bw \
+-R /root/p53_dnmt1/heatmap/timecourse_genesbody.bed  \
+--beforeRegionStartLength 3000 \
+--regionBodyLength 5000 \
+--afterRegionStartLength 3000 \
+--sortRegions descend -bs 100 -p max \
+-out /root/p53_dnmt1/heatmap/timecourse_genesbody_wgbs.mat
