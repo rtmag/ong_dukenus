@@ -141,6 +141,7 @@ write.table(selected_genes,"selected_genes_3rdquadrant_log2FC.6.txt",quote=F,row
 #######################################################################################################
 # MA PLOTS
 require(DESeq2)
+options(scipen=999)
 
 # MA plot ATAC
 countData = readRDS("atac_counts_gene_tss_1kb.rds")
@@ -157,11 +158,47 @@ dds <- DESeqDataSetFromMatrix(
 dds <- estimateSizeFactors(dds)
 sizeFactors(dds) <- normfacs
 dds <- DESeq(dds)
-dds_vsd <- varianceStabilizingTransformation(dds)
+#dds_vsd <- varianceStabilizingTransformation(dds)
 dds_res <- results(dds,contrast=c("group","shH2AFV","shNT"))
 pdf("maplot_atac_tss.pdf")
 plotMA(dds_res)
 dev.off()
 
 # MA plot RNA
+rna = read.csv("deseq2_results.csv",row.names=1)
+pdf("maplot_rna.pdf")
+plotMA(data.frame(rna$baseMean,rna$log2FoldChange,rna$padj<0.1))
+abline(h=0,col="red")
+dev.off()
+#
+# MA plot ATAC integration RNA-seq
+dim(rna) #58243
+dim(dds_res) #13,172
+
+ix = match(rownames(dds_res), rna[,7])
+
+ library(RColorBrewer)
+colors <- colorRampPalette(c("blue","red"))(13172)
+
+rna[ix,2]
+
+col_rna_log2fc <- colors[as.numeric(cut(rna[ix,2],breaks = 257))]
+
+rbPal <- colorRampPalette(c('blue','black','red'))
+
+col_rna_log2fc <- rbPal(20)[as.numeric(cut(rna[ix,2],breaks = 20))]
+
+
+plot(dds_res$baseMean, dds_res$log2FoldChange, ylim=c(-2.5,2.5), pch = 20, log="x", col=col_rna_log2fc,
+    xlab="BaseMeans",ylab="Log2FC (shH2AFV / NT)")
+
+
+plot(dds_res$baseMean[rna[ix,2]>0], dds_res$log2FoldChange[rna[ix,2]>0], ylim=c(-2.5,2.5), pch = 20, log="x", col=col_rna_log2fc[rna[ix,2]>0],
+    xlab="BaseMeans",ylab="Log2FC (shH2AFV / NT)")
+
+
+plot(dds_res$baseMean[rna[ix,2]<0], dds_res$log2FoldChange[rna[ix,2]<0], ylim=c(-2.5,2.5), pch = 20, log="x", col=col_rna_log2fc[rna[ix,2]<0],
+    xlab="BaseMeans",ylab="Log2FC (shH2AFV / NT)")
+
+
 
