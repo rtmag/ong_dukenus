@@ -166,39 +166,46 @@ dev.off()
 
 # MA plot RNA
 rna = read.csv("deseq2_results.csv",row.names=1)
-pdf("maplot_rna.pdf")
-plotMA(data.frame(rna$baseMean,rna$log2FoldChange,rna$padj<0.1))
-abline(h=0,col="red")
-dev.off()
+#pdf("maplot_rna.pdf")
+#plotMA(data.frame(rna$baseMean,rna$log2FoldChange,rna$padj<0.1))
+#abline(h=0,col="red")
+#dev.off()
 #
 # MA plot ATAC integration RNA-seq
-dim(rna) #58243
-dim(dds_res) #13,172
+#dim(rna) #58243
+#dim(dds_res) #13,172
 
 ix = match(rownames(dds_res), rna[,7])
 
  library(RColorBrewer)
 colors <- colorRampPalette(c("blue","red"))(13172)
 
-rna[ix,2]
-
 col_rna_log2fc <- colors[as.numeric(cut(rna[ix,2],breaks = 257))]
 
-rbPal <- colorRampPalette(c('blue','black','red'))
+rbPal <- colorRampPalette(c('blue','grey','red'))
 
-col_rna_log2fc <- rbPal(20)[as.numeric(cut(rna[ix,2],breaks = 20))]
+col_rna_log2fc <- rbPal(200)[as.numeric(cut(rna[ix,2],breaks = 200))]
 
-
+pdf("maplot_integration.pdf")
 plot(dds_res$baseMean, dds_res$log2FoldChange, ylim=c(-2.5,2.5), pch = 20, log="x", col=col_rna_log2fc,
     xlab="BaseMeans",ylab="Log2FC (shH2AFV / NT)")
+dev.off()
 
-
-plot(dds_res$baseMean[rna[ix,2]>0], dds_res$log2FoldChange[rna[ix,2]>0], ylim=c(-2.5,2.5), pch = 20, log="x", col=col_rna_log2fc[rna[ix,2]>0],
+pdf("maplot_integration_up_.6.pdf")
+plot(dds_res$baseMean[rna[ix,2]>(.6)], dds_res$log2FoldChange[rna[ix,2]>(.6)], ylim=c(-2.5,2.5), pch = 20, log="x", col=col_rna_log2fc[rna[ix,2]>(.6)],
     xlab="BaseMeans",ylab="Log2FC (shH2AFV / NT)")
+dev.off()
 
-
-plot(dds_res$baseMean[rna[ix,2]<0], dds_res$log2FoldChange[rna[ix,2]<0], ylim=c(-2.5,2.5), pch = 20, log="x", col=col_rna_log2fc[rna[ix,2]<0],
+pdf("maplot_integration_down.6.pdf")
+plot(dds_res$baseMean[rna[ix,2]<(-.6)], dds_res$log2FoldChange[rna[ix,2]<(-.6)], ylim=c(-2.5,2.5), pch = 20, log="x", col=col_rna_log2fc[rna[ix,2]<(-.6)],
     xlab="BaseMeans",ylab="Log2FC (shH2AFV / NT)")
+dev.off()
 
+library(ggplot2)
+dat <- data.frame(Normalized_Mean_Counts = log10(dds_res$baseMean),ATAC_log2FC_shH2AFV_vs_NT = dds_res$log2FoldChange )
+RNASeq_log2FC=rna[ix,2]
+pdf("maplot_ggplot_white.pdf")
+qplot(Normalized_Mean_Counts, ATAC_log2FC_shH2AFV_vs_NT, data=dat, colour=RNASeq_log2FC) + scale_colour_gradientn(colours=c("blue","white","red"))
 
+dev.off()
 
