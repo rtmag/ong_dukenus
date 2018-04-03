@@ -65,6 +65,11 @@ computeMatrix scale-regions \
 
 
 plotHeatmap -m atac_genesbody.mat \
+--samplesLabel "shNT-rep1" "shNT-rep2" "shH2AFV#1-rep1" "shH2AFV#1-rep2" "shH2AFV#2-rep1" "shH2AFV#2-rep2" \
 --colorMap Blues -out atac_genesbody.pdf
 
 
+plotProfile -m  atac_genesbody.mat \
+--samplesLabel "shNT-rep1" "shNT-rep2" "shH2AFV#1-rep1" "shH2AFV#1-rep2" "shH2AFV#2-rep1" "shH2AFV#2-rep2" \
+--colors "#ffb3ba" "#ff6961" "#bae1ff" "#aec6cf" "#77dd77" "#baffc9" \
+              -out  atac_genesbody_onlyProfile.pdf --perGroup 
