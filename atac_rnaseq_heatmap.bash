@@ -29,14 +29,42 @@ plotProfile -m tss_atac_rnaseq_heatmap.mat \
 ###############
 # body
 
+hg19=read.table('~/resources/hg19_geneBody.bed',sep="\t",stringsAsFactors=F)
+
+genes_nt=read.table('genes_high_expression_shNT_log2fc.6.txt',sep="\t",stringsAsFactors=F)
+tss_nt = hg19[(which(hg19[,4] %in% genes_nt[,1])),]
+tss_nt = tss_nt[!duplicated(tss_nt[,4]),]
+write.table(tss_nt,"body_genes_names_high_expression_shNT.bed",quote=FALSE,col.names=FALSE,row.names=FALSE)
+            
+genes_h2afv=read.table('genes_high_expression_shH2AFV_log2fc.6.txt',sep="\t",stringsAsFactors=F)
+tss_h2afv = hg19[(which(hg19[,4] %in% genes_h2afv[,1])),]
+tss_h2afv = tss_h2afv[!duplicated(tss_h2afv[,4]),]
+write.table(tss_h2afv,"body_genes_names_high_expression_shH2AFV.bed",quote=FALSE,col.names=FALSE,row.names=FALSE)
+##
+
+perl -pe 's/ /\t/g' body_genes_names_high_expression_shH2AFV.bed > body_atac_rnaseq_heatmap.bed
+echo "# Upregulated in shH2AFV" >> body_atac_rnaseq_heatmap.bed
+perl -pe 's/ /\t/g' body_genes_names_high_expression_shNT.bed >> body_atac_rnaseq_heatmap.bed
+echo "# Upregulated in shNT" >> body_atac_rnaseq_heatmap.bed
+
 
 computeMatrix scale-regions \
--S /root/p53_dnmt1/bw/WT_0h_doxo_wgbs.bw \
-/root/p53_dnmt1/bw/WT_48h_doxo_wgbs.bw \
-/root/p53_dnmt1/bw/P53KO_48h_doxo_wgbs.bw \
--R /root/p53_dnmt1/heatmap/timecourse_genesbody.bed  \
+-S \
+/root/ong_dukenus/paul_bw/1_3502DukeNus_TS543-NT-031117_hg19_i9_rmdup.bw \
+/root/ong_dukenus/paul_bw/4_3502DukeNus_TS543-NT-241117_hg19_i12_rmdup.bw \
+/root/ong_dukenus/paul_bw/2_3502DukeNus_TS543-143-031117_hg19_i10_rmdup.bw \
+/root/ong_dukenus/paul_bw/5_3502DukeNus_TS543-143-241117_hg19_i13_rmdup.bw \
+/root/ong_dukenus/paul_bw/3_3502DukeNus_TS543-400-031117_hg19_i11_rmdup.bw \
+/root/ong_dukenus/paul_bw/6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bw \
+-R body_atac_rnaseq_heatmap.bed \
 --beforeRegionStartLength 3000 \
 --regionBodyLength 5000 \
 --afterRegionStartLength 3000 \
 --sortRegions descend -bs 100 -p max \
--out /root/p53_dnmt1/heatmap/timecourse_genesbody_wgbs.mat
+-out atac_genesbody.mat
+
+
+plotHeatmap -m atac_genesbody.mat \
+--colorMap Blues -out atac_genesbody.pdf
+
+
