@@ -43,19 +43,19 @@ write.table(tss_h2afv,"glioblastoma_shH2AFV.bed",quote=FALSE,col.names=FALSE,row
 #
 ##################################################################################################################
 cat EGFR_shH2AFV.bed > EGFR.bed
-echo "# shH2AFV open" >> EGFR.bed
+echo "#EGFR genes expressed in shH2AFV" >> EGFR.bed
 cat EGFR_shNT.bed >> EGFR.bed
-echo "# shNT Open" >> EGFR.bed
+echo "#EGFR genes expressed in shNT" >> EGFR.bed
 
 cat EMT_shH2AFV.bed > EMT.bed
-echo "# shH2AFV open" >> EMT.bed
+echo "#EMT genes expressed in shH2AFV" >> EMT.bed
 cat EMT_shNT.bed >> EMT.bed
-echo "# shNT Open" >> EMT.bed
+echo "#EMT genes expressed in shNT" >> EMT.bed
 
 cat glioblastoma_shH2AFV.bed > glioblastoma.bed
-echo "# shH2AFV open" >> glioblastoma.bed
+echo "#Glioblastoma genes expressed in shH2AFV" >> glioblastoma.bed
 cat glioblastoma_shNT.bed >> glioblastoma.bed
-echo "# shNT Open" >> glioblastoma.bed
+echo "#Glioblastoma genes expressed in shNT" >> glioblastoma.bed
 ##################################################################################################################
 
 # EGFR
