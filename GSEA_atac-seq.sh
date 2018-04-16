@@ -42,19 +42,19 @@ tss_h2afv = tss_h2afv[!duplicated(tss_h2afv[,4]),]
 write.table(tss_h2afv,"glioblastoma_shH2AFV.bed",quote=FALSE,col.names=FALSE,row.names=FALSE,sep="\t")
 #
 ##################################################################################################################
-cat EGFR_shH2AFV.bed > EGFR.bed
-echo "#EGFR genes expressed in shH2AFV" >> EGFR.bed
-cat EGFR_shNT.bed >> EGFR.bed
+#cat EGFR_shH2AFV.bed > EGFR.bed
+#echo "#EGFR genes expressed in shH2AFV" >> EGFR.bed
+cat EGFR_shNT.bed > EGFR.bed
 echo "#EGFR genes expressed in shNT" >> EGFR.bed
 
-cat EMT_shH2AFV.bed > EMT.bed
-echo "#EMT genes expressed in shH2AFV" >> EMT.bed
-cat EMT_shNT.bed >> EMT.bed
+#cat EMT_shH2AFV.bed > EMT.bed
+#echo "#EMT genes expressed in shH2AFV" >> EMT.bed
+cat EMT_shNT.bed > EMT.bed
 echo "#EMT genes expressed in shNT" >> EMT.bed
 
-cat glioblastoma_shH2AFV.bed > glioblastoma.bed
-echo "#Glioblastoma genes expressed in shH2AFV" >> glioblastoma.bed
-cat glioblastoma_shNT.bed >> glioblastoma.bed
+#cat glioblastoma_shH2AFV.bed > glioblastoma.bed
+#echo "#Glioblastoma genes expressed in shH2AFV" >> glioblastoma.bed
+cat glioblastoma_shNT.bed > glioblastoma.bed
 echo "#Glioblastoma genes expressed in shNT" >> glioblastoma.bed
 ##################################################################################################################
 
