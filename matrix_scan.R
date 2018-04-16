@@ -225,6 +225,6 @@ lines(SH[,5],type="l",col="blue",lwd=2)
 axis(1, at=c(1,500,1000,1500,2000), labels=c("-1000 bp","-500","0","500","1000 bp"))
 
 plot.new()
-legend("topleft",c("shNT","shH2AFV"),fill=c("blue","red"),bty = "n",cex=2.5)
+legend("topleft",c("shNT","shH2AFV"),fill=c("red","blue"),bty = "n",cex=2.5)
 dev.off()
 
