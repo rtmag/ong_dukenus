@@ -43,3 +43,29 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorM
 
 annotatePeaks.pl atac_diffreps_Down_log2fc1_avg40.bed hg19 -annStats atac_diffreps_Down_log2fc1_avg40.annStats > atac_diffreps_Down_log2fc1_avg40.anno
 annotatePeaks.pl atac_diffreps_Up_log2fc1_avg40.bed hg19 -annStats atac_diffreps_Up_log2fc1_avg40.annStats > atac_diffreps_Up_log2fc1_avg40.bed.anno
+#############################################################################################
+pdf("pie_homer_strict_Open_in_NT.pdf")
+res=read.table(pipe("more atac_diffreps_Down_log2fc1_avg40.annStats |cut -f1,2,4"), sep="\t",header=F)
+i1 = which(res[,1]=="Annotation")[2]+1
+i2 = dim(res)[1]
+res = res[ i1:i2,]
+tdown = as.numeric(as.character(res[,2]))
+names(tdown) = res[,1]
+names(tdown) = paste(names(tdown)," ",round(tdown/sum(tdown)*100,digits=2),"%",sep="")
+tdown = tdown[tdown>10]
+pie(sort(tdown), main=,cex=.8)
+title("Distribution of chromatin regions open in NT compared to SH\n(2420 regions)", cex.main=.9)
+dev.off()
+
+pdf("pie_homer_strict_Open_in_SH.pdf")
+res=read.table(pipe("more atac_diffreps_Up_log2fc1_avg40.annStats |cut -f1,2,4"), sep="\t",header=F)
+i1 = which(res[,1]=="Annotation")[2]+1
+i2 = dim(res)[1]
+res = res[ i1:i2,]
+tdown = as.numeric(as.character(res[,2]))
+names(tdown) = res[,1]
+names(tdown) = paste(names(tdown)," ",round(tdown/sum(tdown)*100,digits=2),"%",sep="")
+tdown = tdown[tdown>10]
+pie(sort(tdown), main=,cex=.8)
+title("Distribution of chromatin regions open in SH compared to NT\n(780 regions)", cex.main=.9)
+dev.off()
