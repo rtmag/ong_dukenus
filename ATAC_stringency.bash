@@ -23,6 +23,12 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorM
 -m /root/ong_dukenus/paul_heatmap/atac_diffreps_log2fc1_avg40.mat \
  --samplesLabel "shNT-rep1" "shNT-rep2" "shH2AFV#1-rep1" "shH2AFV#1-rep2" "shH2AFV#2-rep1" "shH2AFV#2-rep2" \
 -out /root/ong_dukenus/paul_heatmap/atac_diffreps_log2fc1_avg40.pdf
+
+plotProfile -m /root/ong_dukenus/paul_heatmap/atac_diffreps_log2fc1_avg40.mat \
+--samplesLabel "shNT-rep1" "shNT-rep2" "shH2AFV#1-rep1" "shH2AFV#1-rep2" "shH2AFV#2-rep1" "shH2AFV#2-rep2" \
+--colors "#ffb3ba" "#ff6961" "#bae1ff" "#aec6cf" "#77dd77" "#baffc9" \
+              -out atac_diffreps_log2fc1_avg40_onlyProfile.pdf --perGroup 
+
 ##
 computeMatrix reference-point \
 -S \
