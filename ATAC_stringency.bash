@@ -40,3 +40,6 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorM
  --samplesLabel "shNT-rep1" "shNT-rep2" "shH2AFV#1-rep1" "shH2AFV#1-rep2" "shH2AFV#2-rep1" "shH2AFV#2-rep2" \
 -out /root/ong_dukenus/paul_heatmap/atac_diffreps_log2fc1_avg100.pdf
 ##
+
+annotatePeaks.pl atac_diffreps_Down_log2fc1_avg40.bed hg19 -annStats atac_diffreps_Down_log2fc1_avg40.annStats > atac_diffreps_Down_log2fc1_avg40.anno
+annotatePeaks.pl atac_diffreps_Up_log2fc1_avg40.bed hg19 -annStats atac_diffreps_Up_log2fc1_avg40.annStats > atac_diffreps_Up_log2fc1_avg40.bed.anno
