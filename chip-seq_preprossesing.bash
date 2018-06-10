@@ -37,3 +37,138 @@ trim_galore --illumina --paired -q 20 --fastqc -o /root/ong_dukenus/chip-seq/tri
 trim_galore --illumina --paired -q 20 --fastqc -o /root/ong_dukenus/chip-seq/trimmed/ \
 /root/ong_dukenus/chip-seq/MNase-seqDATA_1st_batch/shNT-input/FCHTM5YBBXX_L7_CHKPEI85218050071_1.fq.gz \
 /root/ong_dukenus/chip-seq/MNase-seqDATA_1st_batch/shNT-input/FCHTM5YBBXX_L7_CHKPEI85218050071_2.fq.gz
+
+##############################################################################################################
+      
+      
+      
+STAR --genomeDir /root/resources/hg19_noanno/ \
+--readFilesCommand zcat \
+--runThreadN 35 \
+--alignIntronMax 1 \
+--outFilterMismatchNoverLmax 0.09 \
+--alignMatesGapMax 2000 \
+--outFilterMultimapNmax 1
+--alignEndsType EndToEnd \
+--readFilesIn \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050071_1_val_1.fq.gz \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050071_2_val_2.fq.gz \
+--outSAMtype BAM SortedByCoordinate \
+--outFileNamePrefix /root/ong_dukenus/chip-seq/bam/shNT-input_1_
+
+STAR --genomeDir /root/resources/hg19_noanno/ \
+--readFilesCommand zcat \
+--runThreadN 35 \
+--alignIntronMax 1 \
+--outFilterMismatchNoverLmax 0.09 \
+--alignMatesGapMax 2000 \
+--outFilterMultimapNmax 1
+--alignEndsType EndToEnd \
+--readFilesIn \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050072_1_val_1.fq.gz \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050072_2_val_2.fq.gz \
+--outSAMtype BAM SortedByCoordinate \
+--outFileNamePrefix /root/ong_dukenus/chip-seq/bam/sh143_input_1_
+
+STAR --genomeDir /root/resources/hg19_noanno/ \
+--readFilesCommand zcat \
+--runThreadN 35 \
+--alignIntronMax 1 \
+--outFilterMismatchNoverLmax 0.09 \
+--alignMatesGapMax 2000 \
+--outFilterMultimapNmax 1
+--alignEndsType EndToEnd \
+--readFilesIn \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050073_1_val_1.fq.gz \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050073_2_val_2.fq.gz \
+--outSAMtype BAM SortedByCoordinate \
+--outFileNamePrefix /root/ong_dukenus/chip-seq/bam/sh400-input_1_
+
+STAR --genomeDir /root/resources/hg19_noanno/ \
+--readFilesCommand zcat \
+--runThreadN 35 \
+--alignIntronMax 1 \
+--outFilterMismatchNoverLmax 0.09 \
+--alignMatesGapMax 2000 \
+--outFilterMultimapNmax 1
+--alignEndsType EndToEnd \
+--readFilesIn \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050074_1_val_1.fq.gz \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050074_2_val_2.fq.gz \
+--outSAMtype BAM SortedByCoordinate \
+--outFileNamePrefix /root/ong_dukenus/chip-seq/bam/shNT-IP_1_
+
+STAR --genomeDir /root/resources/hg19_noanno/ \
+--readFilesCommand zcat \
+--runThreadN 35 \
+--alignIntronMax 1 \
+--outFilterMismatchNoverLmax 0.09 \
+--alignMatesGapMax 2000 \
+--outFilterMultimapNmax 1
+--alignEndsType EndToEnd \
+--readFilesIn \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050075_1_val_1.fq.gz \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050075_2_val_2.fq.gz \
+--outSAMtype BAM SortedByCoordinate \
+--outFileNamePrefix /root/ong_dukenus/chip-seq/bam/sh143_IP_1_
+
+STAR --genomeDir /root/resources/hg19_noanno/ \
+--readFilesCommand zcat \
+--runThreadN 35 \
+--alignIntronMax 1 \
+--outFilterMismatchNoverLmax 0.09 \
+--alignMatesGapMax 2000 \
+--outFilterMultimapNmax 1
+--alignEndsType EndToEnd \
+--readFilesIn \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050076_1_val_1.fq.gz \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050076_2_val_2.fq.gz \
+--outSAMtype BAM SortedByCoordinate \
+--outFileNamePrefix /root/ong_dukenus/chip-seq/bam/sh400-IP_1_
+
+STAR --genomeDir /root/resources/hg19_noanno/ \
+--readFilesCommand zcat \
+--runThreadN 35 \
+--alignIntronMax 1 \
+--outFilterMismatchNoverLmax 0.09 \
+--alignMatesGapMax 2000 \
+--outFilterMultimapNmax 1
+--alignEndsType EndToEnd \
+--readFilesIn \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050077_1_val_1.fq.gz \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050077_2_val_2.fq.gz \
+--outSAMtype BAM SortedByCoordinate \
+--outFileNamePrefix /root/ong_dukenus/chip-seq/bam/shNT-gDNA_1_
+
+STAR --genomeDir /root/resources/hg19_noanno/ \
+--readFilesCommand zcat \
+--runThreadN 35 \
+--alignIntronMax 1 \
+--outFilterMismatchNoverLmax 0.09 \
+--alignMatesGapMax 2000 \
+--outFilterMultimapNmax 1
+--alignEndsType EndToEnd \
+--readFilesIn \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050078_1_val_1.fq.gz \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050078_2_val_2.fq.gz \
+--outSAMtype BAM SortedByCoordinate \
+--outFileNamePrefix /root/ong_dukenus/chip-seq/bam/SH143_gDNA_1_
+
+STAR --genomeDir /root/resources/hg19_noanno/ \
+--readFilesCommand zcat \
+--runThreadN 35 \
+--alignIntronMax 1 \
+--outFilterMismatchNoverLmax 0.09 \
+--alignMatesGapMax 2000 \
+--outFilterMultimapNmax 1
+--alignEndsType EndToEnd \
+--readFilesIn \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050079_1_val_1.fq.gz \
+/root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050079_2_val_2.fq.gz \
+--outSAMtype BAM SortedByCoordinate \
+--outFileNamePrefix /root/ong_dukenus/chip-seq/bam/sh400-gDNA_1_
+
+#########
+
+
+
