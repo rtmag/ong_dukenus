@@ -48,7 +48,7 @@ STAR --genomeDir /root/resources/hg19_noanno/ \
 --alignIntronMax 1 \
 --outFilterMismatchNoverLmax 0.09 \
 --alignMatesGapMax 2000 \
---outFilterMultimapNmax 1
+--outFilterMultimapNmax 1 \
 --alignEndsType EndToEnd \
 --readFilesIn \
 /root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050071_1_val_1.fq.gz \
@@ -62,7 +62,7 @@ STAR --genomeDir /root/resources/hg19_noanno/ \
 --alignIntronMax 1 \
 --outFilterMismatchNoverLmax 0.09 \
 --alignMatesGapMax 2000 \
---outFilterMultimapNmax 1
+--outFilterMultimapNmax 1 \
 --alignEndsType EndToEnd \
 --readFilesIn \
 /root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050072_1_val_1.fq.gz \
@@ -76,7 +76,7 @@ STAR --genomeDir /root/resources/hg19_noanno/ \
 --alignIntronMax 1 \
 --outFilterMismatchNoverLmax 0.09 \
 --alignMatesGapMax 2000 \
---outFilterMultimapNmax 1
+--outFilterMultimapNmax 1 \
 --alignEndsType EndToEnd \
 --readFilesIn \
 /root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050073_1_val_1.fq.gz \
@@ -90,7 +90,7 @@ STAR --genomeDir /root/resources/hg19_noanno/ \
 --alignIntronMax 1 \
 --outFilterMismatchNoverLmax 0.09 \
 --alignMatesGapMax 2000 \
---outFilterMultimapNmax 1
+--outFilterMultimapNmax 1 \
 --alignEndsType EndToEnd \
 --readFilesIn \
 /root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050074_1_val_1.fq.gz \
@@ -104,7 +104,7 @@ STAR --genomeDir /root/resources/hg19_noanno/ \
 --alignIntronMax 1 \
 --outFilterMismatchNoverLmax 0.09 \
 --alignMatesGapMax 2000 \
---outFilterMultimapNmax 1
+--outFilterMultimapNmax 1 \
 --alignEndsType EndToEnd \
 --readFilesIn \
 /root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050075_1_val_1.fq.gz \
@@ -118,7 +118,7 @@ STAR --genomeDir /root/resources/hg19_noanno/ \
 --alignIntronMax 1 \
 --outFilterMismatchNoverLmax 0.09 \
 --alignMatesGapMax 2000 \
---outFilterMultimapNmax 1
+--outFilterMultimapNmax 1 \
 --alignEndsType EndToEnd \
 --readFilesIn \
 /root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050076_1_val_1.fq.gz \
@@ -132,7 +132,7 @@ STAR --genomeDir /root/resources/hg19_noanno/ \
 --alignIntronMax 1 \
 --outFilterMismatchNoverLmax 0.09 \
 --alignMatesGapMax 2000 \
---outFilterMultimapNmax 1
+--outFilterMultimapNmax 1 \
 --alignEndsType EndToEnd \
 --readFilesIn \
 /root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050077_1_val_1.fq.gz \
@@ -146,7 +146,7 @@ STAR --genomeDir /root/resources/hg19_noanno/ \
 --alignIntronMax 1 \
 --outFilterMismatchNoverLmax 0.09 \
 --alignMatesGapMax 2000 \
---outFilterMultimapNmax 1
+--outFilterMultimapNmax 1 \
 --alignEndsType EndToEnd \
 --readFilesIn \
 /root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050078_1_val_1.fq.gz \
@@ -160,7 +160,7 @@ STAR --genomeDir /root/resources/hg19_noanno/ \
 --alignIntronMax 1 \
 --outFilterMismatchNoverLmax 0.09 \
 --alignMatesGapMax 2000 \
---outFilterMultimapNmax 1
+--outFilterMultimapNmax 1 \
 --alignEndsType EndToEnd \
 --readFilesIn \
 /root/ong_dukenus/chip-seq/trimmed/FCHTM5YBBXX_L7_CHKPEI85218050079_1_val_1.fq.gz \
