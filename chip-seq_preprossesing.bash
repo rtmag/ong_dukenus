@@ -168,7 +168,49 @@ STAR --genomeDir /root/resources/hg19_noanno/ \
 --outSAMtype BAM SortedByCoordinate \
 --outFileNamePrefix /root/ong_dukenus/chip-seq/bam/sh400-gDNA_1_
 
-#########
+#########Aligned.sortedByCoord.out.bam
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=/root/ong_dukenus/chip-seq/bam/shNT-input_1_Aligned.sortedByCoord.out.bam \
+O=/root/ong_dukenus/chip-seq/bam/shNT-input_1_rmdup.bam \
+M=/root/ong_dukenus/chip-seq/bam/shNT-input_1.mfile
+
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=/root/ong_dukenus/chip-seq/bam/sh143_input_1_Aligned.sortedByCoord.out.bam \
+O=/root/ong_dukenus/chip-seq/bam/sh143_input_1_rmdup.bam \
+M=/root/ong_dukenus/chip-seq/bam/sh143_input_1.mfile
+
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=/root/ong_dukenus/chip-seq/bam/sh400-input_1_Aligned.sortedByCoord.out.bam \
+O=/root/ong_dukenus/chip-seq/bam/sh400-input_1_rmdup.bam \
+M=/root/ong_dukenus/chip-seq/bam/sh400-input_1.mfile
+
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=/root/ong_dukenus/chip-seq/bam/shNT-IP_1_Aligned.sortedByCoord.out.bam \
+O=/root/ong_dukenus/chip-seq/bam/shNT-IP_1_rmdup.bam \
+M=/root/ong_dukenus/chip-seq/bam/shNT-IP_1.mfile
+
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=/root/ong_dukenus/chip-seq/bam/sh143_IP_1_Aligned.sortedByCoord.out.bam \
+O=/root/ong_dukenus/chip-seq/bam/sh143_IP_1_rmdup.bam \
+M=/root/ong_dukenus/chip-seq/bam/sh143_IP_1.mfile
+
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=/root/ong_dukenus/chip-seq/bam/sh400-IP_1_Aligned.sortedByCoord.out.bam \
+O=/root/ong_dukenus/chip-seq/bam/sh400-IP_1_rmdup.bam \
+M=/root/ong_dukenus/chip-seq/bam/sh400-IP_1.mfile
 
 
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=/root/ong_dukenus/chip-seq/bam/shNT-gDNA_1_Aligned.sortedByCoord.out.bam \
+O=/root/ong_dukenus/chip-seq/bam/shNT-gDNA_1_rmdup.bam \
+M=/root/ong_dukenus/chip-seq/bam/shNT-gDNA_1.mfile
 
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=/root/ong_dukenus/chip-seq/bam/SH143_gDNA_1_Aligned.sortedByCoord.out.bam \
+O=/root/ong_dukenus/chip-seq/bam/SH143_gDNA_1_rmdup.bam \
+M=/root/ong_dukenus/chip-seq/bam/SH143_gDNA_1.mfile
+
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=/root/ong_dukenus/chip-seq/bam/sh400-gDNA_1_Aligned.sortedByCoord.out.bam \
+O=/root/ong_dukenus/chip-seq/bam/sh400-gDNA_1_rmdup.bam \
+M=/root/ong_dukenus/chip-seq/bam/sh400-gDNA_1.mfile
