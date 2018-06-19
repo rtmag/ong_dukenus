@@ -277,15 +277,15 @@ multiBigwigSummary bins -b \
 /root/ong_dukenus/paul_bw/5_3502DukeNus_TS543-143-241117_hg19_i13_rmdup.bw \
 /root/ong_dukenus/paul_bw/3_3502DukeNus_TS543-400-031117_hg19_i11_rmdup.bw \
 /root/ong_dukenus/paul_bw/6_3502DukeNus_TS543-400-241117_hg19_i14_rmdup.bw \
-/root/ong_dukenus/chip-seq/bw/sh143_IP_1.bw /
-/root/ong_dukenus/chip-seq/bw/sh400-IP_1.bw /
-/root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw /
-/root/ong_dukenus/chip-seq/bw/SH143_gDNA_1.bw /
-/root/ong_dukenus/chip-seq/bw/sh400-gDNA_1.bw /
-/root/ong_dukenus/chip-seq/bw/shNT-gDNA_1.bw /
-/root/ong_dukenus/chip-seq/bw/sh143_input_1.bw /
-/root/ong_dukenus/chip-seq/bw/sh400-input_1.bw /
-/root/ong_dukenus/chip-seq/bw/shNT-input_1.bw /
+/root/ong_dukenus/chip-seq/bw/sh143_IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/sh400-IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/SH143_gDNA_1.bw \
+/root/ong_dukenus/chip-seq/bw/sh400-gDNA_1.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-gDNA_1.bw \
+/root/ong_dukenus/chip-seq/bw/sh143_input_1.bw \
+/root/ong_dukenus/chip-seq/bw/sh400-input_1.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-input_1.bw \
  -p max -bs 200 -o multiBigwig.npz
 
 plotPCA --corData multiBigwig.npz -o multiBigwig_pca.pdf
