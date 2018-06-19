@@ -214,3 +214,34 @@ java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DU
 I=/root/ong_dukenus/chip-seq/bam/sh400-gDNA_1_Aligned.sortedByCoord.out.bam \
 O=/root/ong_dukenus/chip-seq/bam/sh400-gDNA_1_rmdup.bam \
 M=/root/ong_dukenus/chip-seq/bam/sh400-gDNA_1.mfile
+########################
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/chip-seq/bam/shNT-IP_1_rmdup.bam \
+-o /root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/chip-seq/bam/sh143_IP_1_rmdup.bam \
+-o /root/ong_dukenus/chip-seq/bw/sh143_IP_1.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/chip-seq/bam/sh400-IP_1_rmdup.bam \
+-o /root/ong_dukenus/chip-seq/bw/sh400-IP_1.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/chip-seq/bam/shNT-gDNA_1_rmdup.bam \
+-o /root/ong_dukenus/chip-seq/bw/shNT-gDNA_1.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/chip-seq/bam/SH143_gDNA_1_rmdup.bam \
+-o /root/ong_dukenus/chip-seq/bw/SH143_gDNA_1.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/chip-seq/bam/sh400-gDNA_1_rmdup.bam \
+-o /root/ong_dukenus/chip-seq/bw/sh400-gDNA_1.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/chip-seq/bam/shNT-input_1_rmdup.bam  \
+-o /root/ong_dukenus/chip-seq/bw/shNT-input_1.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/chip-seq/bam/sh143_input_1_rmdup.bam \
+-o /root/ong_dukenus/chip-seq/bw/sh143_input_1.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/chip-seq/bam/sh400-input_1_rmdup.bam \
+-o /root/ong_dukenus/chip-seq/bw/sh400-input_1.bw
+###
+##
+#
