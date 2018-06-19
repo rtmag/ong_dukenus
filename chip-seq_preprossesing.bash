@@ -256,3 +256,11 @@ bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/chip-seq/bam/
 ###
 ##
 #
+macs2 callpeak -f BAMPE -g hs -q 0.05 --broad --keep-dup auto -n shNT_IP_broad --outdir /root/ong_dukenus/chip-seq/macs2/ \
+-t /root/ong_dukenus/chip-seq/bam/shNT-IP_1_rmdup.bam -c /root/ong_dukenus/chip-seq/bam/shNT-input_1_rmdup.bam &
+
+macs2 callpeak -f BAMPE -g hs -q 0.05 --call-summits --keep-dup auto -n shNT_IP_narrow --outdir /root/ong_dukenus/chip-seq/macs2/ \
+-t /root/ong_dukenus/chip-seq/bam/shNT-IP_1_rmdup.bam -c /root/ong_dukenus/chip-seq/bam/shNT-input_1_rmdup.bam &
+############################
+
+
