@@ -292,6 +292,21 @@ plotPCA --corData multiBigwig.npz -o multiBigwig_pca.pdf
 plotCorrelation --whatToPlot heatmap --corData multiBigwig.npz -c spearman -o multiBigwig_plotcorrelation.pdf
 plotCorrelation --whatToPlot scatterplot --corData multiBigwig.npz -c spearman -o multiBigwig_plotcorrelation_scatter.pdf
 #######################################################################################################
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665991_SKmel147-H2AZ-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665993_SKMel147-EGFP_Z1-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665994_SKMel147-EGFP_Z2-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665995_Melanocytes-H2AZ-FE_hg19.bigWig \
+-R /root/ong_dukenus/chip-seq/macs2/highconfidence.broadpeak --referencePoint center \
+--sortRegions descend -bs 20 -a 1000 -b 1000 -p 40 -out geochipseq_comparison.mat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFV Peak" --colorMap Blues \
+-m geochipseq_comparison.mat --regionsLabel "H2AFV peaks" \
+ --samplesLabel "shH2AFV#1-rep1" "shH2AFV#2-rep1" "shNT-rep1" \
+-out geochipseq_comparison.pdf
+
 multiBigwigSummary bins -b \
 /root/ong_dukenus/chip-seq/bw/sh143_IP_1.bw \
 /root/ong_dukenus/chip-seq/bw/sh400-IP_1.bw \
@@ -328,6 +343,22 @@ plotCorrelation --whatToPlot heatmap --corData multiBigwig5000.npz -c spearman -
 plotCorrelation --whatToPlot scatterplot --corData multiBigwig5000.npz -c spearman -o multiBigwig_plotcorrelation_scatter5000.pdf
 plotCorrelation --whatToPlot heatmap --corData multiBigwig10000.npz -c spearman -o multiBigwig_plotcorrelation10000.pdf
 plotCorrelation --whatToPlot scatterplot --corData multiBigwig10000.npz -c spearman -o multiBigwig_plotcorrelation_scatter10000.pdf
+
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/chip-seq/bw/sh143_IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/sh400-IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw \
+-R /root/resources/hg19_tss_knownCanonical_noUnasembled.bed --referencePoint center \
+--sortRegions descend -bs 20 -a 2000 -b 2000 -p 40 -out mnaseseq.mat
+
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "TSS" --colorMap Blues \
+-m mnaseseq.mat --regionsLabel "genes" \
+ --samplesLabel "shH2AFV#1-rep1" "shH2AFV#2-rep1" "shNT-rep1" \
+-out mnaseseq.pdf
+###############################
 ##########
 ##########
 ##########
