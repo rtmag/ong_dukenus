@@ -303,7 +303,7 @@ computeMatrix reference-point \
 --sortRegions descend -bs 20 -a 1000 -b 1000 -p 40 -out geochipseq_comparison.mat
 
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFV Peak" --colorMap Blues \
--m geochipseq_comparison.mat --regionsLabel "H2AFV peaks" \
+-m geochipseq_comparison.mat \
  --samplesLabel "shH2AFV#1-rep1" "shH2AFV#2-rep1" "shNT-rep1" \
 -out geochipseq_comparison.pdf
 
