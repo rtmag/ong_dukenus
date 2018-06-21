@@ -291,5 +291,43 @@ multiBigwigSummary bins -b \
 plotPCA --corData multiBigwig.npz -o multiBigwig_pca.pdf
 plotCorrelation --whatToPlot heatmap --corData multiBigwig.npz -c spearman -o multiBigwig_plotcorrelation.pdf
 plotCorrelation --whatToPlot scatterplot --corData multiBigwig.npz -c spearman -o multiBigwig_plotcorrelation_scatter.pdf
+#######################################################################################################
+multiBigwigSummary bins -b \
+/root/ong_dukenus/chip-seq/bw/sh143_IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/sh400-IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665991_SKmel147-H2AZ-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665993_SKMel147-EGFP_Z1-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665994_SKMel147-EGFP_Z2-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665995_Melanocytes-H2AZ-FE_hg19.bigWig \
+ -p max -bs 200 -o multiBigwig200.npz
 
+multiBigwigSummary bins -b \
+/root/ong_dukenus/chip-seq/bw/sh143_IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/sh400-IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665991_SKmel147-H2AZ-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665993_SKMel147-EGFP_Z1-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665994_SKMel147-EGFP_Z2-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665995_Melanocytes-H2AZ-FE_hg19.bigWig \
+ -p max -bs 5000 -o multiBigwig5000.npz
+ 
+ multiBigwigSummary bins -b \
+/root/ong_dukenus/chip-seq/bw/sh143_IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/sh400-IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665991_SKmel147-H2AZ-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665993_SKMel147-EGFP_Z1-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665994_SKMel147-EGFP_Z2-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665995_Melanocytes-H2AZ-FE_hg19.bigWig \
+ -p max -bs 10000 -o multiBigwig10000.npz
 
+plotCorrelation --whatToPlot heatmap --corData multiBigwig200.npz -c spearman -o multiBigwig_plotcorrelation200.pdf
+plotCorrelation --whatToPlot scatterplot --corData multiBigwig200.npz -c spearman -o multiBigwig_plotcorrelation_scatter200.pdf
+plotCorrelation --whatToPlot heatmap --corData multiBigwig5000.npz -c spearman -o multiBigwig_plotcorrelation5000.pdf
+plotCorrelation --whatToPlot scatterplot --corData multiBigwig5000.npz -c spearman -o multiBigwig_plotcorrelation_scatter5000.pdf
+plotCorrelation --whatToPlot heatmap --corData multiBigwig10000.npz -c spearman -o multiBigwig_plotcorrelation10000.pdf
+plotCorrelation --whatToPlot scatterplot --corData multiBigwig10000.npz -c spearman -o multiBigwig_plotcorrelation_scatter10000.pdf
+##########
+##########
+##########
