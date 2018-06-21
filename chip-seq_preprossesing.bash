@@ -304,7 +304,7 @@ computeMatrix reference-point \
 
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFV Peak" --colorMap Blues \
 -m geochipseq_comparison.mat \
- --samplesLabel "shH2AFV#1-rep1" "shH2AFV#2-rep1" "shNT-rep1" \
+ --samplesLabel "SKmel147-H2AZ" "SKMel147-EGFP_Z1" "SKMel147-EGFP_Z2" "Melanocytes-H2AZ" \
 -out geochipseq_comparison.pdf
 
 multiBigwigSummary bins -b \
@@ -347,16 +347,17 @@ plotCorrelation --whatToPlot scatterplot --corData multiBigwig10000.npz -c spear
 
 computeMatrix reference-point \
 -S \
-/root/ong_dukenus/chip-seq/bw/sh143_IP_1.bw \
-/root/ong_dukenus/chip-seq/bw/sh400-IP_1.bw \
-/root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665991_SKmel147-H2AZ-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665993_SKMel147-EGFP_Z1-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665994_SKMel147-EGFP_Z2-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665995_Melanocytes-H2AZ-FE_hg19.bigWig \
 -R /root/resources/hg19_tss_knownCanonical_noUnasembled.bed --referencePoint center \
 --sortRegions descend -bs 20 -a 2000 -b 2000 -p 40 -out mnaseseq.mat
 
 
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "TSS" --colorMap Blues \
 -m mnaseseq.mat --regionsLabel "genes" \
- --samplesLabel "shH2AFV#1-rep1" "shH2AFV#2-rep1" "shNT-rep1" \
+ --samplesLabel "SKmel147-H2AZ" "SKMel147-EGFP_Z1" "SKMel147-EGFP_Z2" "Melanocytes-H2AZ" \
 -out mnaseseq.pdf
 ###############################
 ##########
