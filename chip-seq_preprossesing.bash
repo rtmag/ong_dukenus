@@ -406,3 +406,33 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "TSS" --colorMap Blu
 ###########
 ###
 ###
+
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/chip-seq/bw/sh143_input_1.bw \
+/root/ong_dukenus/chip-seq/bw/sh400-input_1.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-input_1.bw \
+-R /root/ong_dukenus/chip-seq/macs2/summit_highconfidence.bed --referencePoint center \
+--sortRegions descend -bs 20 -a 500 -b 500 -p max -out mnaseseqpeak20.mat
+
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "TSS" --colorMap Blues \
+-m mnaseseq.mat --regionsLabel "genes" \
+ --samplesLabel "sh143" "sh400" "shNT" \
+-out mnaseseqpeak20.pdf
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/chip-seq/bw/sh143_input_1.bw \
+/root/ong_dukenus/chip-seq/bw/sh400-input_1.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-input_1.bw \
+-R /root/ong_dukenus/chip-seq/macs2/summit_highconfidence.bed --referencePoint center \
+--sortRegions descend -bs 1 -a 500 -b 500 -p max -out mnaseseqpeak1.mat
+
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFV peak" --colorMap Blues \
+-m mnaseseq.mat --regionsLabel "peaks" \
+ --samplesLabel "sh143" "sh400" "shNT" \
+-out mnaseseqpeak1.pdf
+###########
