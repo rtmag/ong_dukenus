@@ -352,14 +352,26 @@ computeMatrix reference-point \
 /root/ong_dukenus/chip-seq/ong_geo/GSM1665994_SKMel147-EGFP_Z2-FE_hg19.bigWig \
 /root/ong_dukenus/chip-seq/ong_geo/GSM1665995_Melanocytes-H2AZ-FE_hg19.bigWig \
 -R /root/resources/hg19_tss_knownCanonical_noUnasembled.bed --referencePoint center \
---sortRegions descend -bs 20 -a 2000 -b 2000 -p 40 -out mnaseseq.mat
+--sortRegions descend -bs 20 -a 2000 -b 2000 -p max -out mnaseseq.mat
 
 
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "TSS" --colorMap Blues \
 -m mnaseseq.mat --regionsLabel "genes" \
  --samplesLabel "SKmel147-H2AZ" "SKMel147-EGFP_Z1" "SKMel147-EGFP_Z2" "Melanocytes-H2AZ" \
--out mnaseseq.pdf
+-out mnaseseq2.pdf
 ###############################
 ##########
 ##########
 ##########
+multiBigwigSummary BED-file --BED /root/ong_dukenus/chip-seq/macs2/highconfidence.broadpeak -b \
+/root/ong_dukenus/chip-seq/bw/sh143_IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/sh400-IP_1.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665991_SKmel147-H2AZ-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665993_SKMel147-EGFP_Z1-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665994_SKMel147-EGFP_Z2-FE_hg19.bigWig \
+/root/ong_dukenus/chip-seq/ong_geo/GSM1665995_Melanocytes-H2AZ-FE_hg19.bigWig \
+ -p max -bs 5000 -o multiBig_h2peaks.npz
+ 
+plotCorrelation --whatToPlot heatmap --corData multiBig_h2peaks.npz -c spearman -o multiBig_h2peaks.pdf
+plotCorrelation --whatToPlot scatterplot --corData multiBig_h2peaks.npz -c spearman -o multiBig_h2peaks.pdf
