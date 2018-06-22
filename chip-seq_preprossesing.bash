@@ -375,3 +375,17 @@ multiBigwigSummary BED-file --BED /root/ong_dukenus/chip-seq/macs2/highconfidenc
  
 plotCorrelation --whatToPlot heatmap --corData multiBig_h2peaks.npz -c spearman -o multiBig_h2peaks_heatmap.pdf
 plotCorrelation --whatToPlot scatterplot --corData multiBig_h2peaks.npz -c spearman -o multiBig_h2peaks_scatter.pdf
+#################
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/chip-seq/bw/sh143_input_1.bw \
+/root/ong_dukenus/chip-seq/bw/sh400-input_1.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-input_1.bw \
+-R /root/resources/hg19_tss_knownCanonical_noUnasembled.bed --referencePoint center \
+--sortRegions descend -bs 20 -a 2000 -b 2000 -p max -out mnaseseq.mat
+
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "TSS" --colorMap Blues \
+-m mnaseseq.mat --regionsLabel "genes" \
+ --samplesLabel "sh143" "sh400" "shNT" \
+-out mnaseseq.pdf
