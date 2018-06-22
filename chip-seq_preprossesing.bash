@@ -417,8 +417,8 @@ computeMatrix reference-point \
 --sortRegions descend -bs 20 -a 500 -b 500 -p max -out mnaseseqpeak20.mat
 
 
-plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "TSS" --colorMap Blues \
--m mnaseseq.mat --regionsLabel "genes" \
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFV peak" --colorMap Blues \
+-m mnaseseqpeak20.mat --regionsLabel "peaks" \
  --samplesLabel "sh143" "sh400" "shNT" \
 -out mnaseseqpeak20.pdf
 
@@ -432,7 +432,7 @@ computeMatrix reference-point \
 
 
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFV peak" --colorMap Blues \
--m mnaseseq.mat --regionsLabel "peaks" \
+-m mnaseseqpeak1.mat --regionsLabel "peaks" \
  --samplesLabel "sh143" "sh400" "shNT" \
 -out mnaseseqpeak1.pdf
 ###########
