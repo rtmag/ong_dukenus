@@ -373,5 +373,5 @@ multiBigwigSummary BED-file --BED /root/ong_dukenus/chip-seq/macs2/highconfidenc
 /root/ong_dukenus/chip-seq/ong_geo/GSM1665995_Melanocytes-H2AZ-FE_hg19.bigWig \
  -p max -bs 5000 -o multiBig_h2peaks.npz
  
-plotCorrelation --whatToPlot heatmap --corData multiBig_h2peaks.npz -c spearman -o multiBig_h2peaks.pdf
-plotCorrelation --whatToPlot scatterplot --corData multiBig_h2peaks.npz -c spearman -o multiBig_h2peaks.pdf
+plotCorrelation --whatToPlot heatmap --corData multiBig_h2peaks.npz -c spearman -o multiBig_h2peaks_heatmap.pdf
+plotCorrelation --whatToPlot scatterplot --corData multiBig_h2peaks.npz -c spearman -o multiBig_h2peaks_scatter.pdf
