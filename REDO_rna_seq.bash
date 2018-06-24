@@ -1,0 +1,19 @@
+ls /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/*/*L001_R1*| perl -pe 's/(.+)L001_R1_001.fastq.gz/cat $1L001_R1_001.fastq.gz $1L002_R1_001.fastq.gz $1L003_R1_001.fastq.gz $1L004_R1_001.fastq.gz \> $1.fastq.gz\n/g'
+
+cat /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh143_1-109826732/sh143-1_S6_L001_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh143_1-109826732/sh143-1_S6_L002_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh143_1-109826732/sh143-1_S6_L003_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh143_1-109826732/sh143-1_S6_L004_R1_001.fastq.gz
+
+cat /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh143_2-109814733/sh143-2_S3_L001_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh143_2-109814733/sh143-2_S3_L002_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh143_2-109814733/sh143-2_S3_L003_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh143_2-109814733/sh143-2_S3_L004_R1_001.fastq.gz
+
+cat /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh143_3-109813729/sh143-3_S9_L001_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh143_3-109813729/sh143-3_S9_L002_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh143_3-109813729/sh143-3_S9_L003_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh143_3-109813729/sh143-3_S9_L004_R1_001.fastq.gz
+
+cat /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh202_1-109818737/sh202-1_S8_L001_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh202_1-109818737/sh202-1_S8_L002_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh202_1-109818737/sh202-1_S8_L003_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh202_1-109818737/sh202-1_S8_L004_R1_001.fastq.gz
+
+cat /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh202_2-109819732/sh202-2_S7_L001_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh202_2-109819732/sh202-2_S7_L002_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh202_2-109819732/sh202-2_S7_L003_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh202_2-109819732/sh202-2_S7_L004_R1_001.fastq.gz
+
+cat /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh202_3-109827732/sh202-3_S5_L001_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh202_3-109827732/sh202-3_S5_L002_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh202_3-109827732/sh202-3_S5_L003_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh202_3-109827732/sh202-3_S5_L004_R1_001.fastq.gz
+
+cat /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh400_1-109823740/sh400-1_S2_L001_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh400_1-109823740/sh400-1_S2_L002_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh400_1-109823740/sh400-1_S2_L003_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh400_1-109823740/sh400-1_S2_L004_R1_001.fastq.gz
+
+cat /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh400_2-109815738/sh400-2_S4_L001_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh400_2-109815738/sh400-2_S4_L002_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh400_2-109815738/sh400-2_S4_L003_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh400_2-109815738/sh400-2_S4_L004_R1_001.fastq.gz
+
+cat /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh400_3-109823741/sh400-3_S1_L001_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh400_3-109823741/sh400-3_S1_L002_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh400_3-109823741/sh400-3_S1_L003_R1_001.fastq.gz /home/oleg/DATA/H2AFV_PROJECT/gsc_543_RNA-seq_raw/sh400_3-109823741/sh400-3_S1_L004_R1_001.fastq.gz
