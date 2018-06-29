@@ -96,7 +96,7 @@ STAR --genomeDir /root/resources/hg19_noanno/ \
 /root/ong_dukenus/ATAC-SEQ/trimmed/5_3502DukeNus_TS543-143-241117_hs_i13_r1_val_1.fq.gz \
 /root/ong_dukenus/ATAC-SEQ/trimmed/5_3502DukeNus_TS543-143-241117_hs_i13_r2_val_2.fq.gz \
 --outSAMtype BAM SortedByCoordinate \
---outFileNamePrefix /root/ong_dukenus/ATAC-SEQ/bam/shH2_II_2_
+--outFileNamePrefix /root/ong_dukenus/ATAC-SEQ/bam/shH2_I_2_
 
 STAR --genomeDir /root/resources/hg19_noanno/ \
 --readFilesCommand zcat \
