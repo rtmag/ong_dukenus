@@ -144,4 +144,34 @@ O=/root/ong_dukenus/ATAC-SEQ/bam/shH2_II_2_rmdup.bam \
 M=/root/ong_dukenus/ATAC-SEQ/bam/shH2_II_2.mfile
 
 #######################################################################
+samtools index /root/ong_dukenus/ATAC-SEQ/bam/shH2_I_1_rmdup.bam &
+samtools index /root/ong_dukenus/ATAC-SEQ/bam/shH2_I_2_rmdup.bam &
+samtools index /root/ong_dukenus/ATAC-SEQ/bam/shH2_II_1_rmdup.bam &
+samtools index /root/ong_dukenus/ATAC-SEQ/bam/shH2_II_2_rmdup.bam &
+samtools index /root/ong_dukenus/ATAC-SEQ/bam/shNT_1_rmdup.bam &
+samtools index /root/ong_dukenus/ATAC-SEQ/bam/shNT_2_rmdup.bam &
 
+bamCoverage -p max -bs 1 --normalizeUsing CPM \
+-b /root/ong_dukenus/ATAC-SEQ/bam/shH2_I_1_rmdup.bam \
+-o /root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM \
+-b /root/ong_dukenus/ATAC-SEQ/bam/shH2_I_2_rmdup.bam \
+-o /root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM \
+-b /root/ong_dukenus/ATAC-SEQ/bam/shH2_II_1_rmdup.bam \
+-o /root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM \
+-b /root/ong_dukenus/ATAC-SEQ/bam/shH2_II_2_rmdup.bam \
+-o /root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM \
+-b /root/ong_dukenus/ATAC-SEQ/bam/shNT_1_rmdup.bam \
+-o /root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw
+
+bamCoverage -p max -bs 1 --normalizeUsing CPM \
+-b /root/ong_dukenus/ATAC-SEQ/bam/shNT_2_rmdup.bam \
+-o /root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw
+#######################################################################
