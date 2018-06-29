@@ -143,3 +143,18 @@ I=/root/ong_dukenus/ATAC-SEQ/bam/shH2_II_2_Aligned.sortedByCoord.out.bam \
 O=/root/ong_dukenus/ATAC-SEQ/bam/shH2_II_2_rmdup.bam \
 M=/root/ong_dukenus/ATAC-SEQ/bam/shH2_II_2.mfile
 
+#######################################################################
+STAR --genomeDir /root/resources/hg19_noanno/ \
+--readFilesCommand zcat \
+--runThreadN 35 \
+--alignIntronMax 1 \
+--outFilterMismatchNoverLmax 0.09 \
+--alignMatesGapMax 2000 \
+--outFilterMultimapNmax 1 \
+--outFilterScoreMinOverLread 0.3 --outFilterMatchNminOverLread 0.3 \
+--alignEndsType EndToEnd \
+--readFilesIn \
+/root/ong_dukenus/ATAC-SEQ/trimmed/5_3502DukeNus_TS543-143-241117_hs_i13_r1_val_1.fq.gz \
+/root/ong_dukenus/ATAC-SEQ/trimmed/5_3502DukeNus_TS543-143-241117_hs_i13_r2_val_2.fq.gz \
+--outSAMtype BAM SortedByCoordinate \
+--outFileNamePrefix /root/ong_dukenus/ATAC-SEQ/bam/shH2_I_2_
