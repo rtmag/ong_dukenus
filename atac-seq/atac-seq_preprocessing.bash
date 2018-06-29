@@ -175,3 +175,40 @@ bamCoverage -p max -bs 1 --normalizeUsing CPM \
 -b /root/ong_dukenus/ATAC-SEQ/bam/shNT_2_rmdup.bam \
 -o /root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw
 #######################################################################
+
+macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shH2_I_1_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shH2_I_1_narrow &
+
+macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shH2_I_2_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shH2_I_2_narrow &
+
+macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shH2_II_1_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shH2_II_1_narrow &
+
+macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shH2_II_2_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shH2_II_2_narrow &
+
+macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shNT_1_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shNT_1_narrow &
+
+macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shNT_2_rmdup.bam \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shNT_2_narrow &
+#
+
+macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shH2_I_1_rmdup.bam --broad \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shH2_I_1_broad &
+
+macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shH2_I_2_rmdup.bam --broad \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shH2_I_2_broad &
+
+macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shH2_II_1_rmdup.bam --broad \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shH2_II_1_broad &
+
+macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shH2_II_2_rmdup.bam --broad \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shH2_II_2_broad &
+
+macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shNT_1_rmdup.bam --broad \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shNT_1_broad &
+
+macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shNT_2_rmdup.bam --broad \
+-f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shNT_2_broad &
