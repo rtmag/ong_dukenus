@@ -229,7 +229,7 @@ bamToBed -i shNT_2_rmdup.bam > ../bed/shNT_2.bed &
 
 diffReps.pl --treatment shH2_I_1.bed shH2_I_2.bed shH2_II_1.bed shH2_II_2.bed \
 --control shNT_1.bed shNT_2.bed \
---meth nb --gname hg19 --report atac.diffreps --frag 0 --nproc 50
+--meth nb --gname hg19 --report atac.diffreps_w600_nsd20 --frag 0 --nproc 50 --window 600 --nsd 20
 
 #####################################################################################################################
 grep "Up" /root/ong_dukenus/ATAC-SEQ/bed/atac_diffreps_blacklist.bed|cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt.bed
