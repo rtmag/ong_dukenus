@@ -215,4 +215,4 @@ macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shNT_2_rmdup.bam --broad \
 #
 cat *narrowPeak|sort -k1,1 -k2,2n|mergeBed -i - > merged_peaks.bed
 #
-
+bedtools intersect -a merged_peaks.bed -b ~/resources/hg19_consensusBlacklist.bed -v > merged_peaks_blacklisted.bed
