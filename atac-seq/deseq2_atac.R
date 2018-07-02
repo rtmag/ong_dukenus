@@ -27,7 +27,7 @@ saveRDS(countData,'atac_countdata.rds')
 
 countData=readRDS('atac_countdata.rds')
 require(DESeq2)
-colData <- data.frame(group=c ( "shH2_I_1","shH2_I_2","shH2_II_1","shH2_II_2","shNT_1","shNT_2" ) )
+colData <- data.frame(group=  c ( "shH2","shH2","shH2","shH2","shNT","shNT" ) )
 dds <- DESeqDataSetFromMatrix(
        countData = countData,
        colData = colData,
@@ -39,7 +39,7 @@ dLRT_vsd <- varianceStabilizingTransformation(dLRT)
 dLRT_res <- results(dLRT)
 dLRT_res$padj[is.na(dLRT_res$padj)]=1
 
-pdf("Diagnostic_design_pca.pdf")
+pdf("Diagnostic_design_pca2.pdf")
 plotPCA(dLRT_vsd,ntop=90000,intgroup=c('group'))
 dev.off()
 #####################################################################################
@@ -51,3 +51,8 @@ res <- results(dds, contrast=c("cells","shH2","shNT"))
 write.csv(res,"shH2_vs_shNT.csv")
 
 #####################################################################################
+res = read.csv("shH2_vs_shNT.csv",row.names=1)
+res$padj[is.na(res$padj)]=1
+
+
+
