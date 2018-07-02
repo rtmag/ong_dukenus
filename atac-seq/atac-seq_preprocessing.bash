@@ -212,3 +212,7 @@ macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shNT_1_rmdup.bam --broad \
 
 macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shNT_2_rmdup.bam --broad \
 -f BAMPE --keep-dup all --nomodel -g hs -q 0.05 --outdir /root/ong_dukenus/ATAC-SEQ/macs2/ -n shNT_2_broad &
+#
+cat *narrowPeak|sort -k1,1 -k2,2n|mergeBed -i - > merged_peaks.bed
+#
+
