@@ -1,7 +1,7 @@
 
 library(Rsubread)
 
-x=read.table('/root/ong_dukenus/ATAC-SEQ/macs2/merged_peaks.bed',sep="\t",stringsAsFactors=F)
+x=read.table('/root/ong_dukenus/ATAC-SEQ/macs2/merged_peaks_blacklisted.bed',sep="\t",stringsAsFactors=F)
 
 ann = data.frame(GeneID=paste(x[,1],x[,2],x[,3],sep="_!_"),Chr=x[,1],Start=x[,2],End=x[,3],Strand='+')
 
