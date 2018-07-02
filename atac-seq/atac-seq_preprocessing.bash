@@ -305,13 +305,13 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorM
 cat shNT_*narrowPeak|sort -k1,1 -k2,2n|bedtools merge -i -|sort -k1,1 -k2,2n > shNT_merged.narrowPeak
 cat shH2*narrowPeak|sort -k1,1 -k2,2n|bedtools merge -i -|sort -k1,1 -k2,2n > shH2_merged.narrowPeak
 
-process_atac --prefix 'shNT' --threads 60 --atac-peaks /root/ong_dukenus/ATAC-SEQ/macs2/shNT_merged.narrowPeak \
+process_atac --prefix 'narrow_shNT' --threads 60 --atac-peaks /root/ong_dukenus/ATAC-SEQ/macs2/shNT_merged.narrowPeak \
 --motif-path /root/ong_dukenus/ATAC-SEQ/DASTK/human_motifs/
 
-process_atac --prefix 'shH2AFV' --threads 60 --atac-peaks /root/ong_dukenus/ATAC-SEQ/macs2/shH2_merged.narrowPeak \
+process_atac --prefix 'narrow_shH2AFV' --threads 60 --atac-peaks /root/ong_dukenus/ATAC-SEQ/macs2/shH2_merged.narrowPeak \
 --motif-path /root/ong_dukenus/ATAC-SEQ/DASTK/human_motifs/
 
-differential_md_score --prefix narrowPeaks --assay-1 shH2AFV --assay-2 shNT --p-value 0.0000001 -b
+differential_md_score --prefix narrow --assay-1 shH2AFV --assay-2 shNT --p-value 0.0000001 -b
 ###############################################################################################################
 # DB ATAC Diffreps
 grep "Up" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads_up.bed
