@@ -232,5 +232,27 @@ diffReps.pl --treatment shH2_I_1.bed shH2_I_2.bed shH2_II_1.bed shH2_II_2.bed \
 --meth nb --gname hg19 --report atac.diffreps --frag 0 --nproc 50
 
 #####################################################################################################################
+grep "Up" /root/ong_dukenus/ATAC-SEQ/bed/atac_diffreps_blacklist.bed|cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt.bed
+echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt.bed
+grep "Down" /root/ong_dukenus/ATAC-SEQ/bed/atac_diffreps_blacklist.bed|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt.bed
+echo "#shNT specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt.bed
+
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
+-R /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt.bed --referencePoint center \
+--sortRegions descend -bs 20 -a 1000 -b 1000 -p 40 -out /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt.mat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorMap Blues \
+-m /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt.mat \
+ --samplesLabel "shNT" "shNT" "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" \
+-out /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt.pdf
+#####################################################################################################################
 
 
