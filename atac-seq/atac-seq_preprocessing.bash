@@ -216,3 +216,21 @@ macs2 callpeak -t /root/ong_dukenus/ATAC-SEQ/bam/shNT_2_rmdup.bam --broad \
 cat *narrowPeak|sort -k1,1 -k2,2n|mergeBed -i - > merged_peaks.bed
 #
 bedtools intersect -a merged_peaks.bed -b ~/resources/hg19_consensusBlacklist.bed -v > merged_peaks_blacklisted.bed
+
+######################################################################################################################
+
+bamToBed -i shH2_I_1_rmdup.bam > ../bed/shH2_I_1.bed &
+bamToBed -i shH2_I_2_rmdup.bam > ../bed/shH2_I_2.bed &
+bamToBed -i shH2_II_1_rmdup.bam > ../bed/shH2_II_1.bed &
+bamToBed -i shH2_II_2_rmdup.bam > ../bed/shH2_II_2.bed &
+bamToBed -i shNT_1_rmdup.bam > ../bed/shNT_1.bed &
+bamToBed -i shNT_2_rmdup.bam > ../bed/shNT_2.bed &
+
+
+diffReps.pl --treatment shH2_I_1.bed shH2_I_2.bed shH2_II_1.bed shH2_II_2.bed \
+--control shNT_1.bed shNT_2.bed \
+--meth nb --gname hg19 --report atac.diffreps --frag 0 --nproc 50
+
+#####################################################################################################################
+
+
