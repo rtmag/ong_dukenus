@@ -323,4 +323,4 @@ process_atac --prefix 'shNT_diffreps' --threads 60 --atac-peaks /root/ong_dukenu
 process_atac --prefix 'shH2AFV_diffreps' --threads 60 --atac-peaks /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads_up.bed \
 --motif-path /root/ong_dukenus/ATAC-SEQ/DASTK/human_motifs/
 
-differential_md_score --prefix diffreps --assay-1 shH2AFV_diffreps --assay-2 shNT_diffreps --p-value 0.0000001 -b
+differential_md_score --prefix diffreps --assay-1 shH2AFV --assay-2 shNT --p-value 0.0000001 -b
