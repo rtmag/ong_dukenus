@@ -324,3 +324,15 @@ process_atac --prefix 'shH2AFV_diffreps' --threads 60 --atac-peaks /root/ong_duk
 --motif-path /root/ong_dukenus/ATAC-SEQ/DASTK/human_motifs/
 
 differential_md_score --prefix diffreps --assay-1 shH2AFV --assay-2 shNT --p-value 0.0000001 -b
+###############################################################################################################
+# DB ATAC Diffreps 600 bp
+more atac.diffreps_w600_nsd20|grep "Down"| cut -f 1-3 > diffreps_w600_nsd20_down.bed
+more atac.diffreps_w600_nsd20|grep "Up"| cut -f 1-3 > diffreps_w600_nsd20_up.bed
+
+process_atac --prefix '600diffreps_shNT' --threads 60 --atac-peaks /root/ong_dukenus/ATAC-SEQ/bed/diffreps_w600_nsd20_down.bed \
+--motif-path /root/ong_dukenus/ATAC-SEQ/DASTK/human_motifs/
+
+process_atac --prefix '600_diffreps_shH2AFV' --threads 60 --atac-peaks /root/ong_dukenus/ATAC-SEQ/bed/diffreps_w600_nsd20_up.bed \
+--motif-path /root/ong_dukenus/ATAC-SEQ/DASTK/human_motifs/
+
+differential_md_score --prefix 600_diffreps --assay-1 shH2AFV --assay-2 shNT --p-value 0.0001 -b
