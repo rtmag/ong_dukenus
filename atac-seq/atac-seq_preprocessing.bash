@@ -336,3 +336,13 @@ process_atac --prefix '600_diffreps_shH2AFV' --threads 60 --atac-peaks /root/ong
 --motif-path /root/ong_dukenus/ATAC-SEQ/DASTK/human_motifs/
 
 differential_md_score --prefix 600_diffreps --assay-1 shH2AFV --assay-2 shNT --p-value 0.0001 -b
+###############################################################################################################
+
+process_atac --prefix '104_narrow_shNT' --threads 60 --atac-peaks /root/ong_dukenus/ATAC-SEQ/macs2/shNT_merged.narrowPeak \
+--motif-path /root/ong_dukenus/ATAC-SEQ/DASTK/human_motifs/
+
+process_atac --prefix '104_narrow_shH2AFV' --threads 60 --atac-peaks /root/ong_dukenus/ATAC-SEQ/macs2/shH2_merged.narrowPeak \
+--motif-path /root/ong_dukenus/ATAC-SEQ/DASTK/human_motifs/
+
+differential_md_score --prefix 104_narrow --assay-1 shH2AFV --assay-2 shNT --p-value 0.0001 -b
+#####
