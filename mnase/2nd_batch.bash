@@ -1,24 +1,24 @@
-trim_galore --illumina -q 20 --fastqc -o /root/ong_dukenus/mnase_batch2/trimmed/ \
+trim_galore --illumina -q 20 --paired --fastqc -o /root/ong_dukenus/mnase_batch2/trimmed/ \
 /root/ong_dukenus/mnase_batch2/Clean/Sh143-input/FCHTL3TBBXX_L6_CHKPEI85218050142_1.fq.gz \
 /root/ong_dukenus/mnase_batch2/Clean/Sh143-input/FCHTL3TBBXX_L6_CHKPEI85218050142_2.fq.gz &
 
-trim_galore --illumina -q 20 --fastqc -o /root/ong_dukenus/mnase_batch2/trimmed/ \
+trim_galore --illumina -q 20 --paired --fastqc -o /root/ong_dukenus/mnase_batch2/trimmed/ \
 /root/ong_dukenus/mnase_batch2/Clean/Sh143-IP/FCHTL3TBBXX_L6_CHKPEI85218050139_1.fq.gz \
 /root/ong_dukenus/mnase_batch2/Clean/Sh143-IP/FCHTL3TBBXX_L6_CHKPEI85218050139_2.fq.gz &
 
-trim_galore --illumina -q 20 --fastqc -o /root/ong_dukenus/mnase_batch2/trimmed/ \
+trim_galore --illumina -q 20 --paired --fastqc -o /root/ong_dukenus/mnase_batch2/trimmed/ \
 /root/ong_dukenus/mnase_batch2/Clean/Sh400-input/FCHTL3TBBXX_L6_CHKPEI85218050143_1.fq.gz \
 /root/ong_dukenus/mnase_batch2/Clean/Sh400-input/FCHTL3TBBXX_L6_CHKPEI85218050143_2.fq.gz &
 
-trim_galore --illumina -q 20 --fastqc -o /root/ong_dukenus/mnase_batch2/trimmed/ \
+trim_galore --illumina -q 20 --paired --fastqc -o /root/ong_dukenus/mnase_batch2/trimmed/ \
 /root/ong_dukenus/mnase_batch2/Clean/Sh400-IP/FCHTL3TBBXX_L6_CHKPEI85218050140_1.fq.gz \
 /root/ong_dukenus/mnase_batch2/Clean/Sh400-IP/FCHTL3TBBXX_L6_CHKPEI85218050140_2.fq.gz &
 
-trim_galore --illumina -q 20 --fastqc -o /root/ong_dukenus/mnase_batch2/trimmed/ \
+trim_galore --illumina -q 20 --paired --fastqc -o /root/ong_dukenus/mnase_batch2/trimmed/ \
 /root/ong_dukenus/mnase_batch2/Clean/shNT-input/FCHTL3TBBXX_L6_CHKPEI85218050141_1.fq.gz \
 /root/ong_dukenus/mnase_batch2/Clean/shNT-input/FCHTL3TBBXX_L6_CHKPEI85218050141_2.fq.gz &
 
-trim_galore --illumina -q 20 --fastqc -o /root/ong_dukenus/mnase_batch2/trimmed/ \
+trim_galore --illumina -q 20 --paired --fastqc -o /root/ong_dukenus/mnase_batch2/trimmed/ \
 /root/ong_dukenus/mnase_batch2/Clean/shNT-IP/FCHTL3TBBXX_L6_CHKPEI85218050138_1.fq.gz \
 /root/ong_dukenus/mnase_batch2/Clean/shNT-IP/FCHTL3TBBXX_L6_CHKPEI85218050138_2.fq.gz &
 
