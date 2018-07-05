@@ -204,3 +204,19 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFZ peak" --color
 -m mnaseseqpeak20.mat --regionsLabel "peaks" \
  --samplesLabel "sh143_2" "sh400_2" "shNT_2" \
 -out chipseq_peak2.pdf
+
+#
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/mnase_batch2/bw/sh143_mnase_2.bw \
+/root/ong_dukenus/mnase_batch2/bw/sh400_mnase_2.bw \
+/root/ong_dukenus/mnase_batch2/bw/shNT_mnase_2.bw \
+-R /root/ong_dukenus/chip-seq/macs2/ --referencePoint center \
+--sortRegions descend -bs 20 -a 2000 -b 2000 -p max -out mnase_peak2.mat
+
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFZ peak" --colorMap Blues \
+-m mnaseseqpeak20.mat --regionsLabel "peaks" \
+ --samplesLabel "sh143_2" "sh400_2" "shNT_2" \
+-out mnase_peak2.pdf
