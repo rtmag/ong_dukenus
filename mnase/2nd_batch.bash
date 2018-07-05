@@ -196,7 +196,7 @@ computeMatrix reference-point \
 /root/ong_dukenus/mnase_batch2/bw/sh143_IP_2.bw \
 /root/ong_dukenus/mnase_batch2/bw/sh400_IP_2.bw \
 /root/ong_dukenus/mnase_batch2/bw/shNT_IP_2.bw \
--R /root/ong_dukenus/chip-seq/macs2/ --referencePoint center \
+-R /root/ong_dukenus/chip-seq/macs2/shNT_IP_2_broad_.001_peaks.broadPeak --referencePoint center \
 --sortRegions descend -bs 20 -a 2000 -b 2000 -p max -out chipseq_peak2.mat
 
 
@@ -212,7 +212,7 @@ computeMatrix reference-point \
 /root/ong_dukenus/mnase_batch2/bw/sh143_mnase_2.bw \
 /root/ong_dukenus/mnase_batch2/bw/sh400_mnase_2.bw \
 /root/ong_dukenus/mnase_batch2/bw/shNT_mnase_2.bw \
--R /root/ong_dukenus/chip-seq/macs2/ --referencePoint center \
+-R /root/ong_dukenus/chip-seq/macs2/shNT_IP_2_broad_.001_peaks.broadPeak --referencePoint center \
 --sortRegions descend -bs 20 -a 2000 -b 2000 -p max -out mnase_peak2.mat
 
 
