@@ -171,3 +171,36 @@ bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/mnase_batch2/
 bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/mnase_batch2/bam/shNT_mnase_2_rmdup.bam \
 -o /root/ong_dukenus/mnase_batch2/bw/shNT_mnase_2.bw
 ##########################################################################################
+
+macs2 callpeak -f BAMPE -g hs -q 0.00001 --broad --keep-dup auto -n shNT_IP_2_broad_.001 --outdir /root/ong_dukenus/chip-seq/macs2/ \
+-t /root/ong_dukenus/mnase_batch2/bam/shNT_IP_2_rmdup.bam -c /root/ong_dukenus/mnase_batch2/bam/shNT_mnase_2_rmdup.bam &
+######################################
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/mnase_batch2/bw/sh143_IP_2.bw \
+/root/ong_dukenus/mnase_batch2/bw/sh400_IP_2.bw \
+/root/ong_dukenus/mnase_batch2/bw/shNT_IP_2.bw \
+-R /root/resources/hg19_tss_knownCanonical_noUnasembled.bed --referencePoint center \
+--sortRegions descend -bs 20 -a 2000 -b 2000 -p max -out /root/ong_dukenus/mnase_batch2/bw/chipseq_tss2.mat
+
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "TSS" --colorMap Blues \
+-m mnaseseq.mat --regionsLabel "genes" \
+ --samplesLabel "sh143_2" "sh400_2" "shNT_2" \
+-out /root/ong_dukenus/mnase_batch2/bw/chipseq_tss2.pdf
+
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/mnase_batch2/bw/sh143_IP_2.bw \
+/root/ong_dukenus/mnase_batch2/bw/sh400_IP_2.bw \
+/root/ong_dukenus/mnase_batch2/bw/shNT_IP_2.bw \
+-R /root/ong_dukenus/chip-seq/macs2/ --referencePoint center \
+--sortRegions descend -bs 20 -a 2000 -b 2000 -p max -out chipseq_peak2.mat
+
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFZ peak" --colorMap Blues \
+-m mnaseseqpeak20.mat --regionsLabel "peaks" \
+ --samplesLabel "sh143_2" "sh400_2" "shNT_2" \
+-out chipseq_peak2.pdf
