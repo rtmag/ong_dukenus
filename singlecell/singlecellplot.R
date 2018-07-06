@@ -13,6 +13,11 @@ tpm = data[,18:dim(data)[2]]
 rownames(tpm) = make.names(data[,2],unique=T)
 colnames(tpm) = gsub("\\_.+","",colnames(tpm),perl=T)
 
+#remove LN
+tpm = tpm[,grep("LN",colnames(tpm),invert=T)]
+colnames(tpm) = gsub("\\..+","",colnames(tpm),perl=T)
+
+
 colnames(tpm)[colnames(tpm)=="BC01"] = "ER+ #1"
 colnames(tpm)[colnames(tpm)=="BC02"] = "ER+ #2"
 colnames(tpm)[colnames(tpm)=="BC03"] = "ER+_HER2+"
@@ -24,8 +29,8 @@ colnames(tpm)[colnames(tpm)=="BC07"] = "TNBC #1"
 colnames(tpm)[colnames(tpm)=="BC07LN"] = "TNBC_LN"
 colnames(tpm)[colnames(tpm)=="BC08"] = "TNBC #2"
 colnames(tpm)[colnames(tpm)=="BC09"] = "TNBC #3"
-colnames(tpm)[colnames(tpm)=="BC010"] = "TNBC #4"
-colnames(tpm)[colnames(tpm)=="BC011"] = "TNBC #5"
+colnames(tpm)[colnames(tpm)=="BC10"] = "TNBC #4"
+colnames(tpm)[colnames(tpm)=="BC11"] = "TNBC #5"
 
 
 
@@ -38,12 +43,16 @@ H2AFZ = tpm[rownames(tpm)=="H2AFZ",]
 H2AFZ = data.frame(cell = colnames(tpm), gene=as.numeric(H2AFZ))
 
 ############################################################################################################
+
+pdf("breast_primary_tumor.pdf",width=14)
+
 par(mfrow = c(2,1) )
 
-boxplot(gene ~ cell, data = H2AFV, lwd = 2, ylab = 'Single Cell H2AFV TPM',outline=FALSE)
-stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, 
-    method = "jitter", add = TRUE, pch = 20, col = 'red')
+stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = "Single Cell H2AFV TPM",
+    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-boxplot(gene ~ cell, data = H2AFZ, lwd = 2, ylab = 'Single Cell H2AFZ TPM',outline=FALSE)
-stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, 
-    method = "jitter", add = TRUE, pch = 20, col = 'red')
+stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, jitter = 0.3, ylab = "Single Cell H2AFZ TPM",
+    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
+
+dev.off()
+
