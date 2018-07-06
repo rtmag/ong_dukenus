@@ -294,6 +294,18 @@ computeMatrix reference-point \
 --sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 1000 -b 1000 -p 40 -out /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.mat \
 --outFileNameMatrix /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.rmat
 
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
+-R /root/resources/hg19_tss_knownCanonical_noUnasembled.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 2000 -b 2000 -p max -out /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads_tss.mat \
+--outFileNameMatrix /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads_tss.rmat
+
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorMap Blues \
 -m /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.mat \
  --samplesLabel "shNT" "shNT" "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" \
