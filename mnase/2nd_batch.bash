@@ -220,3 +220,19 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFZ peak" --color
 -m mnase_peak2.mat --regionsLabel "peaks" \
  --samplesLabel "sh143_2" "sh400_2" "shNT_2" \
 -out /root/ong_dukenus/mnase_batch2/bw/mnase_peak2.pdf
+
+
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/mnase_batch2/bw/sh143_mnase_2.bw \
+/root/ong_dukenus/mnase_batch2/bw/sh400_mnase_2.bw \
+/root/ong_dukenus/mnase_batch2/bw/shNT_mnase_2.bw \
+-R /root/resources/hg19_tss_knownCanonical_noUnasembled.bed --referencePoint center \
+--sortRegions descend -bs 20 -a 1000 -b 1000 -p max -out mnase_tss2.mat
+
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFZ peak" --colorMap Blues \
+-m mnase_tss2.mat --regionsLabel "peaks" \
+ --samplesLabel "sh143_2" "sh400_2" "shNT_2" \
+-out /root/ong_dukenus/mnase_batch2/bw/mnase_tss2.pdf
