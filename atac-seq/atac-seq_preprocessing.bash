@@ -291,7 +291,8 @@ computeMatrix reference-point \
 /root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
 /root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
 -R /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.bed --referencePoint center \
---sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 1000 -b 1000 -p 40 -out /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.mat
+--sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 1000 -b 1000 -p 40 -out /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.mat \
+--outFileNameMatrix /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.mat
 
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorMap Blues \
 -m /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.mat \
