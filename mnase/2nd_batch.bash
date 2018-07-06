@@ -186,7 +186,7 @@ computeMatrix reference-point \
 
 
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "TSS" --colorMap Blues \
--m mnaseseq.mat --regionsLabel "genes" \
+-m /root/ong_dukenus/mnase_batch2/bw/chipseq_tss2.mat --regionsLabel "genes" \
  --samplesLabel "sh143_2" "sh400_2" "shNT_2" \
 -out /root/ong_dukenus/mnase_batch2/bw/chipseq_tss2.pdf
 
@@ -201,9 +201,9 @@ computeMatrix reference-point \
 
 
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFZ peak" --colorMap Blues \
--m mnaseseqpeak20.mat --regionsLabel "peaks" \
+-m chipseq_peak2.mat --regionsLabel "peaks" \
  --samplesLabel "sh143_2" "sh400_2" "shNT_2" \
--out chipseq_peak2.pdf
+-out /root/ong_dukenus/mnase_batch2/bw/chipseq_peak2.pdf
 
 #
 
@@ -217,6 +217,6 @@ computeMatrix reference-point \
 
 
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFZ peak" --colorMap Blues \
--m mnaseseqpeak20.mat --regionsLabel "peaks" \
+-m mnase_peak2.mat --regionsLabel "peaks" \
  --samplesLabel "sh143_2" "sh400_2" "shNT_2" \
--out mnase_peak2.pdf
+-out /root/ong_dukenus/mnase_batch2/bw/mnase_peak2.pdf
