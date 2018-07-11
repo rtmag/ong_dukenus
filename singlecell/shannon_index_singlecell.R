@@ -1,3 +1,9 @@
+library(gplots)
+library(ggplot2)
+library(graphics)
+library(scales)
+library(vegan)
+
 # GBM 1 - 5 #OLIG2 - cancer stem cell marker
 
 
@@ -15,10 +21,6 @@ data = read.table("GSE75688_GEO_processed_Breast_Cancer_raw_TPM_matrix.txt",sep=
 # BC07-BC11, triple-negative breast cancer (TNBC); 
 # BC03LN, lymph node metastasis of BC03; 
 # BC07LN, lymph node metastasis of BC07)
-library(gplots)
-library(ggplot2)
-library(graphics)
-library(scales)
 
 tpm = data[,18:dim(data)[2]]
 rownames(tpm) = make.names(data[,2],unique=T)
@@ -64,8 +66,20 @@ stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, jitter = 0.3, ylab = expr
 
 stripchart(gene ~ cell, vertical = TRUE, data = ITGA6, jitter = 0.3, ylab = expression('Single Cell ITGA6 TPM'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
+#
 
-diversity(x, index = "shannon", MARGIN = 1, base = exp(1))
+shannonIndex = function ( box ){
+    samples = as.character(unique(box[,1]))
+    shannonIndex = rep(0, length(samples))
+    names(shannonIndex) = samples
+    for( i in 1:length(samples) ){ 
+        ix = box[,1] == samples[i]
+        shannonIndex[i] = diversity(box[ix,2], index = "shannon", MARGIN = 1, base = exp(1))
+        }
+    return(shannonIndex)
+    }
+
+shannonIndex(H2AFZ)
 
 #################################################################################################################################
 
