@@ -54,5 +54,9 @@ write.csv(res,"shH2_vs_shNT.csv")
 res = read.csv("shH2_vs_shNT.csv",row.names=1)
 res$padj[is.na(res$padj)]=1
 
-
-
+#####################################################################################
+regionFinder = function(res,chr,start,end){
+       coord = row.names(res)
+       coord = t(matrix(unlist(strsplit(coord,"\\_\\!\\_")),nrow=3))
+       coord = data.frame( chr=coord[,1],start=as.numeric(coord[,2]),end=as.numeric(coord[,3]) )
+       ix = coord$chr==chr & (coord$start<=start & coord$end>=start) & 
