@@ -84,15 +84,21 @@ shannonIndex = function ( box ){
     return(shannonIndex)
     }
 
+summary(c(H2AFV[,2],H2AFZ[,2],OLIG1[,2]))
+
+H2AFV[,2] = H2AFV[,2]+7
+H2AFZ[,2] = H2AFZ[,2]+7
+OLIG1[,2] = OLIG1[,2]+7
+
 shannon_H2AFV = shannonIndex(H2AFV)
 shannon_H2AFZ = shannonIndex(H2AFZ)
-shannon_ITGA6 = shannonIndex(OLIG1)
+shannon_OLIG1 = shannonIndex(OLIG1)
 
 sig = rbind(shannon_H2AFV,shannon_H2AFZ,shannon_OLIG1)
 rownames(sig) = gsub("shannon\\_","",rownames(sig))
 sig = round(sig,digits=2)
 
-pdf("shannon_diversity_index_BREAST.pdf")
+pdf("shannon_diversity_index_MGH.pdf")
 colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
 heatmap.2(sig, dendrogram = "none",
           cellnote=sig,
@@ -152,17 +158,26 @@ H2AFZ = data.frame(cell = colnames(tpm), gene=(as.numeric(H2AFZ)) )
 ITGA6 = tpm[rownames(tpm)=="ITGA6",]
 ITGA6 = data.frame(cell = colnames(tpm), gene=(as.numeric(ITGA6)) )
 
-
+pdf("breast_jitter.pdf",width=13)
 par(mfrow = c(3,1) )
-
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell H2AFV TPM'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
-
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, jitter = 0.3, ylab = expression('Single Cell H2AFV TPM'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
-
 stripchart(gene ~ cell, vertical = TRUE, data = ITGA6, jitter = 0.3, ylab = expression('Single Cell ITGA6 TPM'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
+dev.off()
+
+pdf("breast_beeSwarm.pdf",width=13)
+par(mfrow = c(3,1) )
+beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq H2AFV TPM'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = H2AFZ,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq H2AFZ TPM'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = ITGA6,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq ITGA6'),col = alpha(colour='red',alpha=.8),cex = .8)
+dev.off()
+
 ####################################################################################################
 # Shannon Index
 shannonIndex = function ( box ){
@@ -199,7 +214,6 @@ heatmap.2(sig, dendrogram = "none",
 
 dev.off()
 #################################################################################################################################
-
 # MELANOMA
 
 
