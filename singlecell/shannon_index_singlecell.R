@@ -162,7 +162,7 @@ pdf("breast_jitter.pdf",width=13)
 par(mfrow = c(3,1) )
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell H2AFV TPM'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
-stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, jitter = 0.3, ylab = expression('Single Cell H2AFV TPM'),
+stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, jitter = 0.3, ylab = expression('Single Cell H2AFZ TPM'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 stripchart(gene ~ cell, vertical = TRUE, data = ITGA6, jitter = 0.3, ylab = expression('Single Cell ITGA6 TPM'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
@@ -215,7 +215,128 @@ heatmap.2(sig, dendrogram = "none",
 dev.off()
 #################################################################################################################################
 # MELANOMA
+data = read.table("GSE72056_melanoma_single_cell_revised_v2.txt",sep="\t",header=T)
+genenames = as.character( data[ 4:dim(data)[1], 1 ] )
+cells = as.character(data[1,2:dim(data)[2]])
+data = data[4:dim(data)[1], 2:dim(data)[2]]
+####
+H2AFV = data[genenames=="H2AFV",]
+H2AFV = data.frame(cell = cells, gene=(as.numeric(H2AFV)) )
+H2AFZ = data[genenames=="H2AFZ",]
+H2AFZ = data.frame(cell = cells, gene=(as.numeric(H2AFZ)) )
+####
+pdf("melanoma_jitter.pdf",width=23)
+par(mfrow = c(2,1) )
+stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell H2AFV TPM'),
+    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
+stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, jitter = 0.3, ylab = expression('Single Cell H2AFZ TPM'),
+    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
+dev.off()
 
+pdf("melanoma_beeSwarm.pdf",width=33)
+par(mfrow = c(2,1) )
+beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq H2AFV TPM'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = H2AFZ,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq H2AFZ TPM'),col = alpha(colour='red',alpha=.8),cex = .8)
+dev.off()
+####################################################################################################
+# Shannon Index
+shannonIndex = function ( box ){
+    samples = as.character(unique(box[,1]))
+    shannonIndex = rep(0, length(samples))
+    names(shannonIndex) = samples
+    for( i in 1:length(samples) ){ 
+        ix = box[,1] == samples[i]
+        shannonIndex[i] = diversity(box[ix,2], index = "shannon", MARGIN = 1, base = exp(1))
+        }
+    return(shannonIndex)
+    }
 
+shannon_H2AFV = shannonIndex(H2AFV)
+shannon_H2AFZ = shannonIndex(H2AFZ)
 
+sig = rbind(shannon_H2AFV,shannon_H2AFZ)
+rownames(sig) = gsub("shannon\\_","",rownames(sig))
+sig = round(sig,digits=2)
+
+pdf("shannon_diversity_index_MELANOMA.pdf")
+colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
+heatmap.2(sig, dendrogram = "none",
+          cellnote=sig,
+          scale="column",  trace="none", 
+          notecex=0.7, distfun = function(x) get_dist(x,method="pearson"),
+          notecol="black",col=colors,
+          na.color=par("bg"),cexCol=.8, cexRow=.9,key=FALSE,
+          sepwidth=c(0.01,0.005),
+           sepcolor="white",
+           colsep=1:ncol(sig),
+           rowsep=1:nrow(sig) )
+
+dev.off()
+#################################################################################################################################
 # LUNG
+data = read.table("GSE69405_PROCESSED_GENE_TPM_ALL.txt",sep="\t",header=T)
+genenames = as.character(data[,2])
+data = data[, grep("_SC",colnames(data))]
+######
+H2AFV = data[genenames=="H2AFV",]
+H2AFV = data.frame(cell = gsub("\\_.+","",colnames(H2AFV),perl=TRUE), gene=(as.numeric(H2AFV)) )
+H2AFZ = data[genenames=="H2AFZ",]
+H2AFZ = data.frame(cell = gsub("\\_.+","",colnames(H2AFZ),perl=TRUE), gene=(as.numeric(H2AFZ)) )
+######
+#
+pdf("LUNG_jitter.pdf")
+par(mfrow = c(2,1) )
+stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFV'),
+    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
+
+stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFZ'),
+    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
+dev.off()
+#
+pdf("LUNG_beeSwarm.pdf")
+par(mfrow = c(2,1) )
+beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq H2AFV'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = H2AFZ,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq H2AFZ'),col = alpha(colour='red',alpha=.8),cex = .8)
+dev.off()
+####################################################################################################
+# Shannon Index
+shannonIndex = function ( box ){
+    samples = as.character(unique(box[,1]))
+    shannonIndex = rep(0, length(samples))
+    names(shannonIndex) = samples
+    for( i in 1:length(samples) ){ 
+        ix = box[,1] == samples[i]
+        shannonIndex[i] = diversity(box[ix,2], index = "shannon", MARGIN = 1, base = exp(1))
+        }
+    return(shannonIndex)
+    }
+
+shannon_H2AFV = shannonIndex(H2AFV)
+shannon_H2AFZ = shannonIndex(H2AFZ)
+
+sig = rbind(shannon_H2AFV,shannon_H2AFZ)
+rownames(sig) = gsub("shannon\\_","",rownames(sig))
+sig = round(sig,digits=2)
+
+pdf("shannon_diversity_index_LUNG.pdf")
+colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
+heatmap.2(sig, dendrogram = "none",
+          cellnote=sig,
+          scale="column",  trace="none", 
+          notecex=0.9, distfun = function(x) get_dist(x,method="pearson"),
+          notecol="black",col=colors,
+          na.color=par("bg"),cexCol=.8, cexRow=.9,key=FALSE,
+          sepwidth=c(0.01,0.005),
+           sepcolor="white",
+           colsep=1:ncol(sig),
+           rowsep=1:nrow(sig) )
+
+dev.off()
+
+
+
+
