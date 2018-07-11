@@ -3,7 +3,10 @@ library(ggplot2)
 library(graphics)
 library(scales)
 library(vegan)
-
+options(scipen=999)
+library(gplots)
+library(factoextra)
+library(RColorBrewer)
 # GBM 1 - 5 #OLIG2 - cancer stem cell marker
 
 
@@ -79,8 +82,29 @@ shannonIndex = function ( box ){
     return(shannonIndex)
     }
 
-shannonIndex(H2AFZ)
+shannon_H2AFV = shannonIndex(H2AFV)
+shannon_H2AFZ = shannonIndex(H2AFZ)
+shannon_ITGA6 = shannonIndex(ITGA6)
 
+sig = rbind(shannon_H2AFV,shannon_H2AFZ,shannon_ITGA6)
+rownames(sig) = gsub("shannon\\_","",rownames(sig))
+sig = round(sig,digits=2)
+
+  colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
+  heatmap.2(sig_vsd,col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
+  xlab="", ylab="PRC1 & PRC2 Genes",key.title="Gene expression",cexCol=.65,cexRow=.2,cellnote=data,
+)
+
+pdf("shannon_diversity_index_BREAST.pdf")
+colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
+heatmap.2(sig,   
+          cellnote=sig,
+          scale="column",  trace="none", 
+          notecex=0.9, distfun = function(x) get_dist(x,method="pearson"),
+          notecol="black",col=colors,
+          na.color=par("bg"),cexCol=.8, cexRow=.9,    key=FALSE )
+
+dev.off()
 #################################################################################################################################
 
 # MELANOMA
