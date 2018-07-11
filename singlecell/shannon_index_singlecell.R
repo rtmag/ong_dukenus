@@ -97,12 +97,16 @@ sig = round(sig,digits=2)
 
 pdf("shannon_diversity_index_BREAST.pdf")
 colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
-heatmap.2(sig,   
+heatmap.2(sig, dendrogram = "none",
           cellnote=sig,
           scale="column",  trace="none", 
           notecex=0.9, distfun = function(x) get_dist(x,method="pearson"),
           notecol="black",col=colors,
-          na.color=par("bg"),cexCol=.8, cexRow=.9,    key=FALSE )
+          na.color=par("bg"),cexCol=.8, cexRow=.9,key=FALSE,
+          sepwidth=c(0.01,0.005),
+           sepcolor="white",
+           colsep=1:ncol(sig),
+           rowsep=1:nrow(sig) )
 
 dev.off()
 #################################################################################################################################
