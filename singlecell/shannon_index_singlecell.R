@@ -25,50 +25,78 @@ h2afv = data.frame(patient = c( rep(colnames(data)[1],dim(data)[1]),
                   )
 
 pdf("RNA_scope_jitter.pdf")
-stripchart(signal ~ patient, vertical = TRUE, data = h2afv, jitter = 0.3, ylab = "H2AFV RNA Scope Singal",
-    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
+stripchart(signal ~ patient, vertical = TRUE, data = h2afv, jitter = 0.3, ylab = "H2AFV RNA Scope Signal",
+    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2,cex.axis=.7)
 dev.off()
 
 pdf("RNA_scope_beeSwarm.pdf")
 beeswarm(signal ~ patient, vertical = TRUE, data = h2afv,method = "hex",pch = 16,xlab="",
-         ylab = "H2AFV RNA Scope Singal",col = alpha(colour='red',alpha=.8),cex = .8)
+         ylab = "H2AFV RNA Scope Signal",col = alpha(colour='red',alpha=.8),cex = .8,cex.axis=.7)
+dev.off()
+#################################################################################################################################
+# breast 
+data = read.xlsx("Count_RNA_scope_tissue.xlsx", sheetIndex = 2,stringsAsFactors=F)
+colnames(data) = data[1,]
+data = data[2:dim(data)[1],2:dim(data)[2]]
+h2afv = data.frame(patient = c( rep(colnames(data)[1],dim(data)[1]),
+                                rep(colnames(data)[2],dim(data)[1]),
+                                rep(colnames(data)[3],dim(data)[1]),
+                                rep(colnames(data)[4],dim(data)[1]),
+                                rep(colnames(data)[5],dim(data)[1]),
+                                rep(colnames(data)[6],dim(data)[1]),
+                                rep(colnames(data)[7],dim(data)[1]) ),
+           signal = c( as.numeric(data[,1]), as.numeric(data[,2]), as.numeric(data[,3]),
+                       as.numeric(data[,4]), as.numeric(data[,5]), as.numeric(data[,6]),as.numeric(data[,7]) ) 
+                  )
+
+pdf("RNA_scope_jitter_breast.pdf")
+stripchart(signal ~ patient, vertical = TRUE, data = h2afv, jitter = 0.3, ylab = "H2AFV RNA Scope Signal",
+    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2,cex.axis=.7)
 dev.off()
 
+pdf("RNA_scope_beeSwarm_breast.pdf")
+beeswarm(signal ~ patient, vertical = TRUE, data = h2afv,method = "hex",pch = 16,xlab="",
+         ylab = "H2AFV RNA Scope Signal",col = alpha(colour='red',alpha=.8),cex = .8,cex.axis=.7)
+dev.off()
+
+
+#################################################################################################################################
 
 #################################################################################################################################
 # MGH's  #OLIG2 - cancer stem cell marker
 data = read.table("GSE57872_GBM_data_matrix.txt",sep="\t",header=T,row.names=1)
 data = data[,grep("_",colnames(data))]
+data = data[,grep("MGH",colnames(data))]
 #
 H2AFV = data[rownames(data)=="H2AFV",]
-H2AFV = data.frame(cell = gsub("\\_.+","",colnames(H2AFV),perl=TRUE), gene=(as.numeric(H2AFV)) )
+H2AFV = data.frame(cell = gsub("\\_.+","",colnames(H2AFV),perl=TRUE), gene=2^(as.numeric(H2AFV)) )
 
-H2AFZ = data[rownames(data)=="H2AFZ",]
-H2AFZ = data.frame(cell = gsub("\\_.+","",colnames(H2AFZ),perl=TRUE), gene=(as.numeric(H2AFZ)) )
+#H2AFZ = data[rownames(data)=="H2AFZ",]
+#H2AFZ = data.frame(cell = gsub("\\_.+","",colnames(H2AFZ),perl=TRUE), gene=2^(as.numeric(H2AFZ)) )
 
-OLIG1 = data[rownames(data)=="OLIG1",]
-OLIG1 = data.frame(cell = gsub("\\_.+","",colnames(OLIG1),perl=TRUE), gene=(as.numeric(OLIG1)) )
+H2AFY = data[rownames(data)=="H2AFY",]
+H2AFY = data.frame(cell = gsub("\\_.+","",colnames(H2AFY),perl=TRUE), gene=2^(as.numeric(H2AFY)) )
 #
 pdf("MGH_jitter.pdf")
-par(mfrow = c(3,1) )
+par(mfrow = c(2,1) )
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFV'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFV'),
-    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
+#stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFZ'),
+#    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = OLIG1, jitter = 0.3, ylab = expression('Single Cell RNA-Seq OLIG1'),
+stripchart(gene ~ cell, vertical = TRUE, data = H2AFY, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFY'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 dev.off()
 #
 pdf("MGH_beeSwarm.pdf")
-par(mfrow = c(3,1) )
+par(mfrow = c(2,1) )
 beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq H2AFV'),col = alpha(colour='red',alpha=.8),cex = .8)
-beeswarm(gene ~ cell, vertical = TRUE, data = H2AFZ,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq H2AFZ'),col = alpha(colour='red',alpha=.8),cex = .8)
-beeswarm(gene ~ cell, vertical = TRUE, data = OLIG1,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq OLIG1'),col = alpha(colour='red',alpha=.8),cex = .8)
+#beeswarm(gene ~ cell, vertical = TRUE, data = H2AFZ,method = "swarm",pch = 16,xlab="",
+#         ylab = expression('Single Cell RNA-Seq H2AFZ'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = H2AFY,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq H2AFY'),col = alpha(colour='red',alpha=.8),cex = .8)
 dev.off()
 
 ####################################################################################################
@@ -84,24 +112,24 @@ shannonIndex = function ( box ){
     return(shannonIndex)
     }
 
-summary(c(H2AFV[,2],H2AFZ[,2],OLIG1[,2]))
+#summary(c(H2AFV[,2],H2AFZ[,2],OLIG1[,2]))
 
-H2AFV[,2] = H2AFV[,2]+7
-H2AFZ[,2] = H2AFZ[,2]+7
-OLIG1[,2] = OLIG1[,2]+7
+#H2AFV[,2] = H2AFV[,2]+7
+#H2AFZ[,2] = H2AFZ[,2]+7
+#H2AFY[,2] = H2AFY[,2]+7
 
 shannon_H2AFV = shannonIndex(H2AFV)
-shannon_H2AFZ = shannonIndex(H2AFZ)
-shannon_OLIG1 = shannonIndex(OLIG1)
+#shannon_H2AFZ = shannonIndex(H2AFZ)
+shannon_H2AFY = shannonIndex(H2AFY)
 
-sig = rbind(shannon_H2AFV,shannon_H2AFZ,shannon_OLIG1)
+sig = rbind(shannon_H2AFV,shannon_H2AFY)
 rownames(sig) = gsub("shannon\\_","",rownames(sig))
 sig = round(sig,digits=2)
 
 pdf("shannon_diversity_index_MGH.pdf")
 colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
 heatmap.2(sig, dendrogram = "none",
-          cellnote=sig,
+          cellnote=sig,Rowv = FALSE,
           scale="column",  trace="none", 
           notecex=0.9, distfun = function(x) get_dist(x,method="pearson"),
           notecol="black",col=colors,
@@ -152,8 +180,8 @@ H2AFV = tpm[rownames(tpm)=="H2AFV",]
 H2AFV = data.frame(cell = colnames(tpm), gene=(as.numeric(H2AFV)) )
 
 
-H2AFZ = tpm[rownames(tpm)=="H2AFZ",]
-H2AFZ = data.frame(cell = colnames(tpm), gene=(as.numeric(H2AFZ)) )
+H2AFY = tpm[rownames(tpm)=="H2AFY",]
+H2AFY = data.frame(cell = colnames(tpm), gene=(as.numeric(H2AFY)) )
 
 ITGA6 = tpm[rownames(tpm)=="ITGA6",]
 ITGA6 = data.frame(cell = colnames(tpm), gene=(as.numeric(ITGA6)) )
@@ -162,7 +190,7 @@ pdf("breast_jitter.pdf",width=13)
 par(mfrow = c(3,1) )
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell H2AFV TPM'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
-stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, jitter = 0.3, ylab = expression('Single Cell H2AFZ TPM'),
+stripchart(gene ~ cell, vertical = TRUE, data = H2AFY, jitter = 0.3, ylab = expression('Single Cell H2AFY TPM'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 stripchart(gene ~ cell, vertical = TRUE, data = ITGA6, jitter = 0.3, ylab = expression('Single Cell ITGA6 TPM'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
@@ -172,8 +200,8 @@ pdf("breast_beeSwarm.pdf",width=13)
 par(mfrow = c(3,1) )
 beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq H2AFV TPM'),col = alpha(colour='red',alpha=.8),cex = .8)
-beeswarm(gene ~ cell, vertical = TRUE, data = H2AFZ,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq H2AFZ TPM'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = H2AFY,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq H2AFY TPM'),col = alpha(colour='red',alpha=.8),cex = .8)
 beeswarm(gene ~ cell, vertical = TRUE, data = ITGA6,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq ITGA6'),col = alpha(colour='red',alpha=.8),cex = .8)
 dev.off()
@@ -192,17 +220,17 @@ shannonIndex = function ( box ){
     }
 
 shannon_H2AFV = shannonIndex(H2AFV)
-shannon_H2AFZ = shannonIndex(H2AFZ)
+shannon_H2AFY = shannonIndex(H2AFY)
 shannon_ITGA6 = shannonIndex(ITGA6)
 
-sig = rbind(shannon_H2AFV,shannon_H2AFZ,shannon_ITGA6)
+sig = rbind(shannon_H2AFV,shannon_H2AFY,shannon_ITGA6)
 rownames(sig) = gsub("shannon\\_","",rownames(sig))
 sig = round(sig,digits=2)
 
 pdf("shannon_diversity_index_BREAST.pdf")
 colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
 heatmap.2(sig, dendrogram = "none",
-          cellnote=sig,
+          cellnote=sig,Rowv = FALSE,
           scale="column",  trace="none", 
           notecex=0.9, distfun = function(x) get_dist(x,method="pearson"),
           notecol="black",col=colors,
@@ -222,14 +250,14 @@ data = data[4:dim(data)[1], 2:dim(data)[2]]
 ####
 H2AFV = data[genenames=="H2AFV",]
 H2AFV = data.frame(cell = cells, gene=(as.numeric(H2AFV)) )
-H2AFZ = data[genenames=="H2AFZ",]
-H2AFZ = data.frame(cell = cells, gene=(as.numeric(H2AFZ)) )
+H2AFY = data[genenames=="H2AFY",]
+H2AFY = data.frame(cell = cells, gene=(as.numeric(H2AFY)) )
 ####
 pdf("melanoma_jitter.pdf",width=23)
 par(mfrow = c(2,1) )
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell H2AFV TPM'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
-stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, jitter = 0.3, ylab = expression('Single Cell H2AFZ TPM'),
+stripchart(gene ~ cell, vertical = TRUE, data = H2AFY, jitter = 0.3, ylab = expression('Single Cell H2AFY TPM'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 dev.off()
 
@@ -237,8 +265,8 @@ pdf("melanoma_beeSwarm.pdf",width=33)
 par(mfrow = c(2,1) )
 beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq H2AFV TPM'),col = alpha(colour='red',alpha=.8),cex = .8)
-beeswarm(gene ~ cell, vertical = TRUE, data = H2AFZ,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq H2AFZ TPM'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = H2AFY,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq H2AFY TPM'),col = alpha(colour='red',alpha=.8),cex = .8)
 dev.off()
 ####################################################################################################
 # Shannon Index
@@ -254,16 +282,16 @@ shannonIndex = function ( box ){
     }
 
 shannon_H2AFV = shannonIndex(H2AFV)
-shannon_H2AFZ = shannonIndex(H2AFZ)
+shannon_H2AFY = shannonIndex(H2AFY)
 
-sig = rbind(shannon_H2AFV,shannon_H2AFZ)
+sig = rbind(shannon_H2AFV,shannon_H2AFY)
 rownames(sig) = gsub("shannon\\_","",rownames(sig))
 sig = round(sig,digits=2)
 
 pdf("shannon_diversity_index_MELANOMA.pdf")
 colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
 heatmap.2(sig, dendrogram = "none",
-          cellnote=sig,
+          cellnote=sig,Rowv = FALSE,
           scale="column",  trace="none", 
           notecex=0.7, distfun = function(x) get_dist(x,method="pearson"),
           notecol="black",col=colors,
@@ -282,8 +310,8 @@ data = data[, grep("_SC",colnames(data))]
 ######
 H2AFV = data[genenames=="H2AFV",]
 H2AFV = data.frame(cell = gsub("\\_.+","",colnames(H2AFV),perl=TRUE), gene=(as.numeric(H2AFV)) )
-H2AFZ = data[genenames=="H2AFZ",]
-H2AFZ = data.frame(cell = gsub("\\_.+","",colnames(H2AFZ),perl=TRUE), gene=(as.numeric(H2AFZ)) )
+H2AFY = data[genenames=="H2AFY",]
+H2AFY = data.frame(cell = gsub("\\_.+","",colnames(H2AFY),perl=TRUE), gene=(as.numeric(H2AFY)) )
 ######
 #
 pdf("LUNG_jitter.pdf")
@@ -291,7 +319,7 @@ par(mfrow = c(2,1) )
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFV'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = H2AFZ, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFZ'),
+stripchart(gene ~ cell, vertical = TRUE, data = H2AFY, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFY'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 dev.off()
 #
@@ -299,8 +327,8 @@ pdf("LUNG_beeSwarm.pdf")
 par(mfrow = c(2,1) )
 beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq H2AFV'),col = alpha(colour='red',alpha=.8),cex = .8)
-beeswarm(gene ~ cell, vertical = TRUE, data = H2AFZ,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq H2AFZ'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = H2AFY,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq H2AFY'),col = alpha(colour='red',alpha=.8),cex = .8)
 dev.off()
 ####################################################################################################
 # Shannon Index
@@ -316,16 +344,16 @@ shannonIndex = function ( box ){
     }
 
 shannon_H2AFV = shannonIndex(H2AFV)
-shannon_H2AFZ = shannonIndex(H2AFZ)
+shannon_H2AFZ = shannonIndex(H2AFY)
 
-sig = rbind(shannon_H2AFV,shannon_H2AFZ)
+sig = rbind(shannon_H2AFV,shannon_H2AFY)
 rownames(sig) = gsub("shannon\\_","",rownames(sig))
 sig = round(sig,digits=2)
 
 pdf("shannon_diversity_index_LUNG.pdf")
 colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
 heatmap.2(sig, dendrogram = "none",
-          cellnote=sig,
+          cellnote=sig,Rowv = FALSE,
           scale="column",  trace="none", 
           notecex=0.9, distfun = function(x) get_dist(x,method="pearson"),
           notecol="black",col=colors,
