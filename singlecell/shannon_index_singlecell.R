@@ -344,7 +344,7 @@ shannonIndex = function ( box ){
     }
 
 shannon_H2AFV = shannonIndex(H2AFV)
-shannon_H2AFZ = shannonIndex(H2AFY)
+shannon_H2AFY = shannonIndex(H2AFY)
 
 sig = rbind(shannon_H2AFV,shannon_H2AFY)
 rownames(sig) = gsub("shannon\\_","",rownames(sig))
