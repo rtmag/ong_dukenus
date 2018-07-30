@@ -236,3 +236,7 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFZ peak" --color
 -m mnase_tss2.mat --regionsLabel "peaks" \
  --samplesLabel "sh143_2" "sh400_2" "shNT_2" \
 -out /root/ong_dukenus/mnase_batch2/bw/mnase_tss2.pdf
+
+###########
+/root/myPrograms/kentUtils/bin/wigToBigWig shH2.Fnor.smooth.wig hg19.chrom.sizes shH2.Fnor.smooth.bw
+/root/myPrograms/kentUtils/bin/wigToBigWig shNT.Fnor.smooth.wig hg19.chrom.sizes shNT.Fnor.smooth.bw
