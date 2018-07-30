@@ -240,3 +240,32 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFZ peak" --color
 ###########
 /root/myPrograms/kentUtils/bin/wigToBigWig shH2.Fnor.smooth.wig hg19.chrom.sizes shH2.Fnor.smooth.bw
 /root/myPrograms/kentUtils/bin/wigToBigWig shNT.Fnor.smooth.wig hg19.chrom.sizes shNT.Fnor.smooth.bw
+###################################################################################################
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/mnase_batch2/danpos2/shH2.Fnor.smooth.bw \
+/root/ong_dukenus/mnase_batch2/danpos2/shNT.Fnor.smooth.bw \
+-R /root/resources/hg19_tss_knownCanonical_noUnasembled.bed --referencePoint center \
+--sortRegions descend -bs 20 -a 1000 -b 1000 -p max -out mnasedanpose_tss2.mat
+
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "TSS" --colorMap Blues \
+-m mnasedanpose_tss2.mat --regionsLabel "genes" \
+ --samplesLabel "shH2" "shNT"  \
+-out /root/ong_dukenus/mnase_batch2/bw/mnasedanpose_tss2.pdf
+
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/mnase_batch2/danpos2/shH2.Fnor.smooth.bw \
+/root/ong_dukenus/mnase_batch2/danpos2/shNT.Fnor.smooth.bw \
+-R /root/ong_dukenus/chip-seq/macs2/shNT_IP_2_broad_.001_peaks.broadPeak --referencePoint center \
+--sortRegions descend -bs 20 -a 2000 -b 2000 -p max -out mnasedanpose_peak2.mat
+
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFZ peak" --colorMap Blues \
+-m mnasedanpose_peak2.mat --regionsLabel "peaks" \
+ --samplesLabel "shH2" "shNT"  \
+-out /root/ong_dukenus/mnase_batch2/danpos2/mnasedanpose_peak2.pdf
+
+#########################################################################################################################
