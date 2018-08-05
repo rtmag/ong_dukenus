@@ -33,9 +33,6 @@ data = data[,grep("MGH",colnames(data))]
 H2AFV = data[rownames(data)=="H2AFV",]
 H2AFV = data.frame(cell = gsub("\\_.+","",colnames(H2AFV),perl=TRUE), gene=2^(as.numeric(H2AFV)) )
 
-RPL5 = data[rownames(data)=="RPL5",]
-RPL5 = data.frame(cell = gsub("\\_.+","",colnames(RPL5),perl=TRUE), gene=2^(as.numeric(RPL5)) )
-
 RUVBL1 = data[rownames(data)=="RUVBL1",]
 RUVBL1 = data.frame(cell = gsub("\\_.+","",colnames(RUVBL1),perl=TRUE), gene=2^(as.numeric(RUVBL1)) )
 
@@ -44,16 +41,10 @@ RUVBL2 = data.frame(cell = gsub("\\_.+","",colnames(RUVBL2),perl=TRUE), gene=2^(
 
 ACTL6A = data[rownames(data)=="ACTL6A",]
 ACTL6A = data.frame(cell = gsub("\\_.+","",colnames(ACTL6A),perl=TRUE), gene=2^(as.numeric(ACTL6A)) )
-
-YEATS4 = data[rownames(data)=="YEATS4",]
-YEATS4 = data.frame(cell = gsub("\\_.+","",colnames(YEATS4),perl=TRUE), gene=2^(as.numeric(YEATS4)) )
 #
 pdf("MGH_jitter.pdf")
-par(mfrow = c(6,1) )
+par(mfrow = c(4,1) )
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFV'),
-    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
-
-stripchart(gene ~ cell, vertical = TRUE, data = RPL5, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RPL5'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
 stripchart(gene ~ cell, vertical = TRUE, data = RUVBL1, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RUVBL1'),
@@ -65,18 +56,12 @@ stripchart(gene ~ cell, vertical = TRUE, data = RUVBL2, jitter = 0.3, ylab = exp
 stripchart(gene ~ cell, vertical = TRUE, data = ACTL6A, jitter = 0.3, ylab = expression('Single Cell RNA-Seq ACTL6A'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = YEATS4, jitter = 0.3, ylab = expression('Single Cell RNA-Seq YEATS4'),
-    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
-
 dev.off()
 #
 pdf("MGH_beeSwarm.pdf")
-par(mfrow = c(6,1) )
+par(mfrow = c(4,1) )
 beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq H2AFV'),col = alpha(colour='red',alpha=.8),cex = .8)
-
-beeswarm(gene ~ cell, vertical = TRUE, data = RPL5,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq RPL5'),col = alpha(colour='red',alpha=.8),cex = .8)
 
 beeswarm(gene ~ cell, vertical = TRUE, data = RUVBL1,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq RUVBL1'),col = alpha(colour='red',alpha=.8),cex = .8)
@@ -86,19 +71,14 @@ beeswarm(gene ~ cell, vertical = TRUE, data = RUVBL2,method = "swarm",pch = 16,x
 
 beeswarm(gene ~ cell, vertical = TRUE, data = ACTL6A,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq ACTL6A'),col = alpha(colour='red',alpha=.8),cex = .8)
-
-beeswarm(gene ~ cell, vertical = TRUE, data = YEATS4,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq YEATS4'),col = alpha(colour='red',alpha=.8),cex = .8)
 dev.off()
 
 shannon_H2AFV = shannonIndex(H2AFV)
-shannon_RPL5 = shannonIndex(RPL5)
 shannon_RUVBL1 = shannonIndex(RUVBL1)
 shannon_RUVBL2 = shannonIndex(RUVBL2)
 shannon_ACTL6A = shannonIndex(ACTL6A)
-shannon_YEATS4 = shannonIndex(YEATS4)
 
-sig = rbind(shannon_H2AFV,shannon_RPL5,shannon_RUVBL1,shannon_RUVBL2,shannon_ACTL6A,shannon_YEATS4)
+sig = rbind(shannon_H2AFV,shannon_RUVBL1,shannon_RUVBL2,shannon_ACTL6A)
 rownames(sig) = gsub("shannon\\_","",rownames(sig))
 sig = round(sig,digits=2)
 
@@ -176,7 +156,7 @@ YEATS4 = tpm[rownames(tpm)=="YEATS4",]
 YEATS4 = data.frame(cell = colnames(tpm), gene=(as.numeric(YEATS4)) )
 
 pdf("breast_jitter.pdf",width=13)
-par(mfrow = c(6,1) )
+par(mfrow = c(3,1) )
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFV'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
@@ -197,7 +177,7 @@ stripchart(gene ~ cell, vertical = TRUE, data = YEATS4, jitter = 0.3, ylab = exp
 dev.off()
 
 pdf("breast_beeSwarm.pdf",width=13)
-par(mfrow = c(6,1) )
+par(mfrow = c(3,1) )
 beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq H2AFV'),col = alpha(colour='red',alpha=.8),cex = .8)
 
@@ -269,7 +249,7 @@ YEATS4 = data[genenames=="YEATS4",]
 YEATS4 = data.frame(cell = cells, gene=(as.numeric(YEATS4)) )
 ####
 pdf("melanoma_jitter.pdf",width=23)
-par(mfrow = c(6,1) )
+par(mfrow = c(3,1) )
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFV'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
@@ -290,7 +270,7 @@ stripchart(gene ~ cell, vertical = TRUE, data = YEATS4, jitter = 0.3, ylab = exp
 dev.off()
 
 pdf("melanoma_beeSwarm.pdf",width=33)
-par(mfrow = c(6,1) )
+par(mfrow = c(3,1) )
 beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq H2AFV'),col = alpha(colour='red',alpha=.8),cex = .8)
 
@@ -363,7 +343,7 @@ YEATS4 = data.frame(cell = gsub("\\_.+","",colnames(YEATS4),perl=TRUE), gene=(as
 ######
 #
 pdf("LUNG_jitter.pdf")
-par(mfrow = c(6,1) )
+par(mfrow = c(3,1) )
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFV'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
@@ -384,7 +364,7 @@ stripchart(gene ~ cell, vertical = TRUE, data = YEATS4, jitter = 0.3, ylab = exp
 dev.off()
 #
 pdf("LUNG_beeSwarm.pdf")
-par(mfrow = c(6,1) )
+par(mfrow = c(3,1) )
 beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq H2AFV'),col = alpha(colour='red',alpha=.8),cex = .8)
 
