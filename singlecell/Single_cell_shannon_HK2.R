@@ -7,7 +7,7 @@ options(scipen=999)
 library(gplots)
 library(factoextra)
 library(RColorBrewer)
-library("xlsx")
+library(openxlsx)
 library(beeswarm)
 
 # Shannon Index
