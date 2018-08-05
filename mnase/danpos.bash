@@ -31,3 +31,19 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "TSS" --colorMap Blu
 -m /root/ong_dukenus/mnase_analysis/batch1/mnasedanpose_tss.mat --regionsLabel "genes" \
  --samplesLabel "shH2" "shNT"  \
 -out /root/ong_dukenus/mnase_analysis/batch1/mnasedanpose_tss_batch1.pdf
+
+#############################################################################
+
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/mnase_batch2/danpos2/shH2.Fnor.smooth.bw \
+/root/ong_dukenus/mnase_batch2/danpos2/shNT.Fnor.smooth.bw \
+-R /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.bed --referencePoint center \
+--sortRegions descend -bs 20 -a 2000 -b 2000 -p max -out mnasedanpose_atac.mat
+
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC" --colorMap Blues \
+-m mnasedanpose_atac.mat  \
+ --samplesLabel "shH2" "shNT"  \
+-out /root/ong_dukenus/mnase_batch2/danpos2/mnasedanpose_atac.pdf
