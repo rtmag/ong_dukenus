@@ -13,7 +13,7 @@ macs2 callpeak -f BAMPE -g hs -q 0.00001 --broad --keep-dup auto -n sh143_2 --ou
 
 #
 macs2 callpeak -f BAMPE -g hs -q 0.00001 --broad --keep-dup auto -n sh400_1 --outdir /root/ong_dukenus/chip-DIFF/macs/ \
--t /root/ong_dukenus/chip-seq/bam/sh400_IP_1_rmdup.bam -c /root/ong_dukenus/chip-seq/bam/sh400_input_1_rmdup.bam &
+-t /root/ong_dukenus/chip-seq/bam/sh400_IP_1_rmdup.bam -c /root/ong_dukenus/chip-seq/bam/sh400-input_1_rmdup.bam &
 
 macs2 callpeak -f BAMPE -g hs -q 0.00001 --broad --keep-dup auto -n sh400_2 --outdir /root/ong_dukenus/chip-DIFF/macs/ \
 -t /root/ong_dukenus/mnase_batch2/bam/sh400_IP_2_rmdup.bam -c /root/ong_dukenus/mnase_batch2/bam/sh400_mnase_2_rmdup.bam &
