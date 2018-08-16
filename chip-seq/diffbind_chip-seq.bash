@@ -36,6 +36,11 @@ diffReps.pl --treatment ./bed/sh143_IP_2_rmdup.bed \
 ./bed/sh400_IP_2_rmdup.bed \
 --control ./bed/shNT_IP_2_rmdup.bed \
 --meth gt --gname hg19 --report /root/ong_dukenus/chip-DIFF/diffreps/diffChip_batch2 --frag 0 --nproc 30 &
+
+diffReps.pl --treatment ./bed/sh143_IP_2_rmdup.bed \
+./bed/sh400_IP_2_rmdup.bed \
+--control ./bed/shNT_IP_2_rmdup.bed \
+--meth gt --gname hg19 --mode n --report /root/ong_dukenus/chip-DIFF/diffreps/diffChip_batch2 --frag 0 --nproc 60 &
 ##################v
 more ../diffreps/diffChip_both|grep -v "#"|grep -w Up |cut -f1,2,3 > diffboth.bed
 echo "#shH2AFV-up" >> diffboth.bed
