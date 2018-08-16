@@ -88,3 +88,23 @@ bedtools intersect -v -a - -b ~/resources/hg19_consensusBlacklist.bed -wa|cut -f
 
 more diffChip_both |grep -v "#"|grep -v "Treatment.avg"| \
 bedtools intersect -v -a - -b ~/resources/hg19_consensusBlacklist.bed -wa|cut -f1,2,3,11,12 > diffChip_both.bed
+###################################################################
+more diffChip_batch2 |grep -v "#"|grep -v "Treatment.avg"| bedtools intersect -v -a - -b ~/resources/hg19_consensusBlacklist.bed -wa| \
+cut -f1,2,3,11,12 | awk -F"\t" '{ if( $5>1 || $5<(-1) ){print $0} }' > diffChip_batch2_m.bed
+
+more ../diffreps/diffChip_batch2_m.bed|grep -v "#"|grep -w Up |cut -f1,2,3 > diffbatch2_m.bed
+echo "#shH2AFV-up" >> diffbatch2_m.bed
+more ../diffreps/diffChip_batch2_m.bed|grep -v "#"|grep -w Down |cut -f1,2,3 >> diffbatch2_m.bed
+echo "#shNT-up" >> diffbatch2_m.bed
+
+computeMatrix reference-point -S \
+/root/ong_dukenus/mnase_batch2/bw/sh143_IP_2.bw \
+/root/ong_dukenus/mnase_batch2/bw/sh400_IP_2.bw \
+/root/ong_dukenus/mnase_batch2/bw/shNT_IP_2.bw \
+-R diffbatch2_m.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 3 -bs 20 -a 2000 -b 2000 -p max -out diffbatch2_m.mat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC" --colorMap Blues \
+-m diffbatch2_m.mat \
+ --samplesLabel "shH2AFV I" "shH2AFV II" "shNT" \
+-out diffbatch2_m.pdf
