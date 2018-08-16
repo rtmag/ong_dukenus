@@ -76,3 +76,10 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC" --colorMap Bl
 -m diffbatch2.mat \
  --samplesLabel "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" "shNT" "shNT" \
 -out diffbatch2.pdf
+###############################################################
+more diffChip_batch2 |grep -v "#"|grep -v "Treatment.avg"| \
+bedtools intersect -v -a - -b ~/resources/hg19_consensusBlacklist.bed -wa|cut -f1,2,3,11,12 > diffChip_batch2.bed
+
+
+more diffChip_both |grep -v "#"|grep -v "Treatment.avg"| \
+bedtools intersect -v -a - -b ~/resources/hg19_consensusBlacklist.bed -wa|cut -f1,2,3,11,12 > diffChip_both.bed
