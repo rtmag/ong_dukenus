@@ -24,3 +24,19 @@ saveRDS(countData,'chip_deseq2_counts.rds')
 #
 
 countData=readRDS('chip_deseq2_counts.rds')
+
+require(DESeq2)
+colData <- data.frame(group=c("shNT","shNT","shH2","shH2","shH2","shH2"))
+dds <- DESeqDataSetFromMatrix(
+       countData = countData,
+       colData = colData,
+       design = ~ group)
+
+dLRT <- DESeq(dds, test="LRT", reduced=~1)
+dLRT_vsd <- varianceStabilizingTransformation(dLRT)
+dLRT_res <- results(dLRT)
+dLRT_res$padj[is.na(dLRT_res$padj)]=1
+
+saveRDS(dLRT_res,"deseq2_res.rds")
+
+dLRT_res$padj<0.05
