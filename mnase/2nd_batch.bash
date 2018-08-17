@@ -269,3 +269,31 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AFZ peak" --color
 -out /root/ong_dukenus/mnase_batch2/danpos2/mnasedanpose_peak2.pdf
 
 #########################################################################################################################
+annotatePeaks.pl chip_down_forGREAT.bed hg19 -annStats chip_down_forGREAT.annStats > chip_down_forGREAT.bed.anno
+
+pdf("chip_down_forGREAT.pdf")
+res=read.table(pipe("more chip_down_forGREAT.annStats|cut -f1,2,4"), sep="\t",header=F)
+i1 = which(res[,1]=="Annotation")[2]+1
+i2 = dim(res)[1]
+res = res[ i1:i2,]
+tdown = as.numeric(as.character(res[,2]))
+names(tdown) = res[,1]
+names(tdown) = paste(names(tdown)," ",round(tdown/sum(tdown)*100,digits=2),"%",sep="")
+tdown = tdown[tdown>300]
+pie(sort(tdown), main=,cex=.8)
+title("ChIP peaks lost after knock-down\n(38,274 regions)", cex.main=.9)
+dev.off()
+
+
+pdf("enrichment_chip_down_forGREAT.pdf")
+par(mar=c(11.1,4.1,4.1,2))
+res=read.table(pipe("more chip_down_forGREAT.annStats|cut -f1,2,4"), sep="\t",header=F)
+i1 = which(res[,1]=="Annotation")[2]+1
+i2 = dim(res)[1]
+res = res[ i1:i2,]
+tdown = as.numeric(as.character(res[,3]))
+names(tdown) = res[,1]
+tdown = tdown[as.numeric(as.character(res[,2]))>50]
+barplot(sort(tdown),las=2,ylim=c(-4,6),ylab="Log2 Enrichment over random genomic background",col="lightblue3")
+abline(h=0)
+dev.off()
