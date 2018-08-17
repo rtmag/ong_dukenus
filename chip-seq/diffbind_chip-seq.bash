@@ -108,3 +108,44 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC" --colorMap Bl
 -m diffbatch2_m.mat \
  --samplesLabel "shH2AFV I" "shH2AFV II" "shNT" \
 -out diffbatch2_m.pdf
+###
+computeMatrix reference-point -S \
+/root/ong_dukenus/chip-seq/bw/sh143_IP_1.bw \
+/root/ong_dukenus/mnase_batch2/bw/sh143_IP_2.bw \
+/root/ong_dukenus/chip-seq/bw/sh400-IP_1.bw \
+/root/ong_dukenus/mnase_batch2/bw/sh400_IP_2.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw \
+/root/ong_dukenus/mnase_batch2/bw/shNT_IP_2.bw \
+-R diffbatch2_m.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 3 -bs 20 -a 2000 -b 2000 -p max -out diffbatch2_m_all.mat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC" --colorMap Blues \
+-m diffbatch2_m_all.mat \
+ --samplesLabel "shH2AFV I 1" "shH2AFV I 2" "shH2AFV II 1" "shH2AFV II 2" "shNT 1" "shNT 2" \
+-out diffbatch2_m_all.pdf
+###ATAC
+computeMatrix reference-point -S \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
+-R diffbatch2_m.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 5 6 -bs 20 -a 2000 -b 2000 -p max -out chip_atac.mat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC" --colorMap Blues \
+-m chip_atac.mat \
+ --samplesLabel "shH2AFV I 1" "shH2AFV I 2" "shH2AFV II 1" "shH2AFV II 2" "shNT 1" "shNT 2" \
+-out chip_atac.pdf
+###MNASE
+computeMatrix reference-point -S \
+/root/ong_dukenus/mnase_batch2/danpos2/shH2.Fnor.smooth.bw \
+/root/ong_dukenus/mnase_batch2/danpos2/shNT.Fnor.smooth.bw \
+-R diffbatch2_m.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 2 -bs 20 -a 300 -b 300 -p max -out chip_mnase.mat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC" --colorMap Blues \
+-m chip_mnase.mat \
+ --samplesLabel "shH2AFV" "shNT" \
+-out chip_mnase.pdf
