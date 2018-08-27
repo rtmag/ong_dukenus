@@ -51,7 +51,7 @@ res = res[ i1:i2,]
 tdown = as.numeric(as.character(res[,2]))
 names(tdown) = res[,1]
 names(tdown) = paste(names(tdown)," ",round(tdown/sum(tdown)*100,digits=2),"%",sep="")
-tdown = tdown[tdown>300]
+tdown = tdown[tdown>50]
 pie(sort(tdown), main=,cex=.8)
 title("ChIP peaks gained after knock-down\n(9,431 regions)", cex.main=.9)
 dev.off()
