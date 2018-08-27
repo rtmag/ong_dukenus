@@ -148,66 +148,62 @@ colnames(tpm)[colnames(tpm)=="BC09"] = "TNBC #3"
 colnames(tpm)[colnames(tpm)=="BC10"] = "TNBC #4"
 colnames(tpm)[colnames(tpm)=="BC11"] = "TNBC #5"
 
-# RPL5, RUVBL1, RUVBL2, ACTL6A, YEATS4 .
+# UBC, RPL4, HIST1H2AC, HIST2H2BE
 
 H2AFV = tpm[rownames(tpm)=="H2AFV",]
 H2AFV = data.frame(cell = colnames(tpm), gene=(as.numeric(H2AFV)) )
 
-RPL5 = tpm[rownames(tpm)=="RPL5",]
-RPL5 = data.frame(cell = colnames(tpm), gene=(as.numeric(RPL5)) )
+UBC = tpm[rownames(tpm)=="UBC",]
+UBC = data.frame(cell = colnames(tpm), gene=(as.numeric(UBC)) )
 
-RUVBL1 = tpm[rownames(tpm)=="RUVBL1",]
-RUVBL1 = data.frame(cell = colnames(tpm), gene=(as.numeric(RUVBL1)) )
+RPL4 = tpm[rownames(tpm)=="RPL4",]
+RPL4 = data.frame(cell = colnames(tpm), gene=(as.numeric(RPL4)) )
 
-RUVBL2 = tpm[rownames(tpm)=="RUVBL2",]
-RUVBL2 = data.frame(cell = colnames(tpm), gene=(as.numeric(RUVBL2)) )
+HIST1H2AC = tpm[rownames(tpm)=="HIST1H2AC",]
+HIST1H2AC = data.frame(cell = colnames(tpm), gene=(as.numeric(HIST1H2AC)) )
 
-ACTL6A = tpm[rownames(tpm)=="ACTL6A",]
-ACTL6A = data.frame(cell = colnames(tpm), gene=(as.numeric(ACTL6A)) )
+HIST2H2BE = tpm[rownames(tpm)=="HIST2H2BE",]
+HIST2H2BE = data.frame(cell = colnames(tpm), gene=(as.numeric(HIST2H2BE)) )
 
-YEATS4 = tpm[rownames(tpm)=="YEATS4",]
-YEATS4 = data.frame(cell = colnames(tpm), gene=(as.numeric(YEATS4)) )
+# UBC, RPL4, HIST1H2AC, HIST2H2BE
 
 pdf("breast_jitter.pdf",width=13)
 par(mfrow = c(3,1) )
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFV'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = RPL5, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RPL5'),
+stripchart(gene ~ cell, vertical = TRUE, data = UBC, jitter = 0.3, ylab = expression('Single Cell RNA-Seq UBC'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = RUVBL1, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RUVBL1'),
+stripchart(gene ~ cell, vertical = TRUE, data = RPL4, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RPL4'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = RUVBL2, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RUVBL2'),
+stripchart(gene ~ cell, vertical = TRUE, data = HIST1H2AC, jitter = 0.3, ylab = expression('Single Cell RNA-Seq HIST1H2AC'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = ACTL6A, jitter = 0.3, ylab = expression('Single Cell RNA-Seq ACTL6A'),
+stripchart(gene ~ cell, vertical = TRUE, data = HIST2H2BE, jitter = 0.3, ylab = expression('Single Cell RNA-Seq HIST2H2BE'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = YEATS4, jitter = 0.3, ylab = expression('Single Cell RNA-Seq YEATS4'),
-    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 dev.off()
+
+# UBC, RPL4, HIST1H2AC, HIST2H2BE
 
 pdf("breast_beeSwarm.pdf",width=13)
 par(mfrow = c(3,1) )
 beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq H2AFV'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = RPL5,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq RPL5'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = UBC,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq UBC'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = RUVBL1,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq RUVBL1'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = RPL4,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq RPL4'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = RUVBL2,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq RUVBL2'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = HIST1H2AC,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq HIST1H2AC'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = ACTL6A,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq ACTL6A'),col = alpha(colour='red',alpha=.8),cex = .8)
-
-beeswarm(gene ~ cell, vertical = TRUE, data = YEATS4,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq YEATS4'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = HIST2H2BE,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq HIST2H2BE'),col = alpha(colour='red',alpha=.8),cex = .8)
 dev.off()
 
 shannon_H2AFV = shannonIndex(H2AFV)
@@ -241,65 +237,61 @@ genenames = as.character( data[ 4:dim(data)[1], 1 ] )
 cells = as.character(data[1,2:dim(data)[2]])
 data = data[4:dim(data)[1], 2:dim(data)[2]]
 ####
-# RPL5, RUVBL1, RUVBL2, ACTL6A, YEATS4 .
+# UBC, RPL4, HIST1H2AC, HIST2H2BE
 H2AFV = data[genenames=="H2AFV",]
 H2AFV = data.frame(cell = cells, gene=(as.numeric(H2AFV)) )
 
-RPL5 = data[genenames=="RPL5",]
-RPL5 = data.frame(cell = cells, gene=(as.numeric(RPL5)) )
+UBC = data[genenames=="UBC",]
+UBC = data.frame(cell = cells, gene=(as.numeric(UBC)) )
 
-RUVBL1 = data[genenames=="RUVBL1",]
-RUVBL1 = data.frame(cell = cells, gene=(as.numeric(RUVBL1)) )
+RPL4 = data[genenames=="RPL4",]
+RPL4 = data.frame(cell = cells, gene=(as.numeric(RPL4)) )
 
-RUVBL2 = data[genenames=="RUVBL2",]
-RUVBL2 = data.frame(cell = cells, gene=(as.numeric(RUVBL2)) )
+HIST1H2AC = data[genenames=="HIST1H2AC",]
+HIST1H2AC = data.frame(cell = cells, gene=(as.numeric(HIST1H2AC)) )
 
-ACTL6A = data[genenames=="ACTL6A",]
-ACTL6A = data.frame(cell = cells, gene=(as.numeric(ACTL6A)) )
+HIST2H2BE = data[genenames=="HIST2H2BE",]
+HIST2H2BE = data.frame(cell = cells, gene=(as.numeric(HIST2H2BE)) )
 
-YEATS4 = data[genenames=="YEATS4",]
-YEATS4 = data.frame(cell = cells, gene=(as.numeric(YEATS4)) )
 ####
+# UBC, RPL4, HIST1H2AC, HIST2H2BE
 pdf("melanoma_jitter.pdf",width=23)
 par(mfrow = c(3,1) )
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFV'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = RPL5, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RPL5'),
+stripchart(gene ~ cell, vertical = TRUE, data = UBC, jitter = 0.3, ylab = expression('Single Cell RNA-Seq UBC'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = RUVBL1, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RUVBL1'),
+stripchart(gene ~ cell, vertical = TRUE, data = RPL4, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RPL4'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = RUVBL2, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RUVBL2'),
+stripchart(gene ~ cell, vertical = TRUE, data = HIST1H2AC, jitter = 0.3, ylab = expression('Single Cell RNA-Seq HIST1H2AC'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = ACTL6A, jitter = 0.3, ylab = expression('Single Cell RNA-Seq ACTL6A'),
+stripchart(gene ~ cell, vertical = TRUE, data = HIST2H2BE, jitter = 0.3, ylab = expression('Single Cell RNA-Seq HIST2H2BE'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = YEATS4, jitter = 0.3, ylab = expression('Single Cell RNA-Seq YEATS4'),
-    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 dev.off()
 
+# UBC, RPL4, HIST1H2AC, HIST2H2BE
 pdf("melanoma_beeSwarm.pdf",width=33)
 par(mfrow = c(3,1) )
 beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq H2AFV'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = RPL5,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq RPL5'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = UBC,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq UBC'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = RUVBL1,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq RUVBL1'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = RPL4,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq RPL4'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = RUVBL2,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq RUVBL2'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = HIST1H2AC,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq HIST1H2AC'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = ACTL6A,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq ACTL6A'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = HIST2H2BE,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq HIST2H2BE'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = YEATS4,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq YEATS4'),col = alpha(colour='red',alpha=.8),cex = .8)
 dev.off()
 
 
@@ -333,67 +325,61 @@ data = read.table("GSE69405_PROCESSED_GENE_TPM_ALL.txt",sep="\t",header=T)
 genenames = as.character(data[,2])
 data = data[, grep("_SC",colnames(data))]
 ######
-# RPL5, RUVBL1, RUVBL2, ACTL6A, YEATS4 .
+# UBC, RPL4, HIST1H2AC, HIST2H2BE
 
 H2AFV = data[genenames=="H2AFV",]
 H2AFV = data.frame(cell = gsub("\\_.+","",colnames(H2AFV),perl=TRUE), gene=(as.numeric(H2AFV)) )
 
-RPL5 = data[genenames=="RPL5",]
-RPL5 = data.frame(cell = gsub("\\_.+","",colnames(RPL5),perl=TRUE), gene=(as.numeric(RPL5)) )
+RPL5 = data[genenames=="UBC",]
+RPL5 = data.frame(cell = gsub("\\_.+","",colnames(UBC),perl=TRUE), gene=(as.numeric(UBC)) )
 
-RUVBL1 = data[genenames=="RUVBL1",]
-RUVBL1 = data.frame(cell = gsub("\\_.+","",colnames(RUVBL1),perl=TRUE), gene=(as.numeric(RUVBL1)) )
+RUVBL1 = data[genenames=="RPL4",]
+RUVBL1 = data.frame(cell = gsub("\\_.+","",colnames(RPL4),perl=TRUE), gene=(as.numeric(RPL4)) )
 
-RUVBL2 = data[genenames=="RUVBL2",]
-RUVBL2 = data.frame(cell = gsub("\\_.+","",colnames(RUVBL2),perl=TRUE), gene=(as.numeric(RUVBL2)) )
+RUVBL2 = data[genenames=="HIST1H2AC",]
+RUVBL2 = data.frame(cell = gsub("\\_.+","",colnames(HIST1H2AC),perl=TRUE), gene=(as.numeric(HIST1H2AC)) )
 
-ACTL6A = data[genenames=="ACTL6A",]
-ACTL6A = data.frame(cell = gsub("\\_.+","",colnames(ACTL6A),perl=TRUE), gene=(as.numeric(ACTL6A)) )
+ACTL6A = data[genenames=="HIST2H2BE",]
+ACTL6A = data.frame(cell = gsub("\\_.+","",colnames(HIST2H2BE),perl=TRUE), gene=(as.numeric(HIST2H2BE)) )
 
-YEATS4 = data[genenames=="YEATS4",]
-YEATS4 = data.frame(cell = gsub("\\_.+","",colnames(YEATS4),perl=TRUE), gene=(as.numeric(YEATS4)) )
 ######
-#
+## UBC, RPL4, HIST1H2AC, HIST2H2BE
 pdf("LUNG_jitter.pdf")
 par(mfrow = c(3,1) )
 stripchart(gene ~ cell, vertical = TRUE, data = H2AFV, jitter = 0.3, ylab = expression('Single Cell RNA-Seq H2AFV'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = RPL5, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RPL5'),
+stripchart(gene ~ cell, vertical = TRUE, data = UBC, jitter = 0.3, ylab = expression('Single Cell RNA-Seq UBC'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = RUVBL1, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RUVBL1'),
+stripchart(gene ~ cell, vertical = TRUE, data = RPL4, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RPL4'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = RUVBL2, jitter = 0.3, ylab = expression('Single Cell RNA-Seq RUVBL2'),
+stripchart(gene ~ cell, vertical = TRUE, data = HIST1H2AC, jitter = 0.3, ylab = expression('Single Cell RNA-Seq HIST1H2AC'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = ACTL6A, jitter = 0.3, ylab = expression('Single Cell RNA-Seq ACTL6A'),
+stripchart(gene ~ cell, vertical = TRUE, data = HIST2H2BE, jitter = 0.3, ylab = expression('Single Cell RNA-Seq HIST2H2BE'),
     method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 
-stripchart(gene ~ cell, vertical = TRUE, data = YEATS4, jitter = 0.3, ylab = expression('Single Cell RNA-Seq YEATS4'),
-    method = "jitter", pch = 20, col = alpha(colour='red',alpha=.5),cex = 2)
 dev.off()
-#
+### UBC, RPL4, HIST1H2AC, HIST2H2BE
 pdf("LUNG_beeSwarm.pdf")
 par(mfrow = c(3,1) )
 beeswarm(gene ~ cell, vertical = TRUE, data = H2AFV,method = "swarm",pch = 16,xlab="",
          ylab = expression('Single Cell RNA-Seq H2AFV'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = RPL5,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq RPL5'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = UBC,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq UBC'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = RUVBL1,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq RUVBL1'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = RPL4,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq RPL4'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = RUVBL2,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq RUVBL2'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = HIST1H2AC,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq HIST1H2AC'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = ACTL6A,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq ACTL6A'),col = alpha(colour='red',alpha=.8),cex = .8)
+beeswarm(gene ~ cell, vertical = TRUE, data = HIST2H2BE,method = "swarm",pch = 16,xlab="",
+         ylab = expression('Single Cell RNA-Seq HIST2H2BE'),col = alpha(colour='red',alpha=.8),cex = .8)
 
-beeswarm(gene ~ cell, vertical = TRUE, data = YEATS4,method = "swarm",pch = 16,xlab="",
-         ylab = expression('Single Cell RNA-Seq YEATS4'),col = alpha(colour='red',alpha=.8),cex = .8)
 dev.off()
 
 
