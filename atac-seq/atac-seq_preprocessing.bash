@@ -234,6 +234,11 @@ diffReps.pl --treatment shH2_I_1.bed shH2_I_2.bed shH2_II_1.bed shH2_II_2.bed \
 --control shNT_1.bed shNT_2.bed \
 --meth nb --gname hg19 --report atac.diffreps_w600_nsd20 --frag 0 --nproc 50 --window 600 --nsd 20
 
+
+diffReps.pl --treatment shH2_I_1.bed shH2_I_2.bed shH2_II_1.bed shH2_II_2.bed \
+--control shNT_1.bed shNT_2.bed --nohs --noanno \
+--meth nb --gname hg19 --report atac.diffreps_w100_cell --frag 0 --nproc 50 --window 100 --step 10/10 --pval 0.05
+
 #####################################################################################################################
 grep "Up" /root/ong_dukenus/ATAC-SEQ/bed/atac_diffreps_blacklist.bed|cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt.bed
 echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt.bed
