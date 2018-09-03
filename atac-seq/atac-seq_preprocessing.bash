@@ -367,3 +367,20 @@ process_atac --prefix '104_narrow_shH2AFV' --threads 60 --atac-peaks /root/ong_d
 
 differential_md_score --prefix 104_narrow --assay-1 shH2AFV --assay-2 shNT --p-value 0.0001 -b
 #####
+###############################################################################################################
+###############################################################################################################
+###############################################################################################################
+# SICER
+bamToBed -i shH2_I_1_rmdup.bam 
+bamToBed -i shH2_I_2_rmdup.bam > ../bed/shH2_I_2.bed &
+bamToBed -i shH2_II_1_rmdup.bam > ../bed/shH2_II_1.bed &
+bamToBed -i shH2_II_2_rmdup.bam > ../bed/shH2_II_2.bed &
+bamToBed -i shNT_1_rmdup.bam > ../bed/shNT_1.bed &
+bamToBed -i shNT_2_rmdup.bam > ../bed/shNT_2.bed &
+
+
+samtools merge -f -h shH2_I_1_rmdup.bam shH2_merge.bam \
+shH2_I_1_rmdup.bam shH2_I_2_rmdup.bam shH2_II_1_rmdup.bam shH2_II_2_rmdup.bam &
+
+samtools merge -f -h shH2_I_1_rmdup.bam shNT_merge.bam \
+shNT_1_rmdup.bam shNT_2_rmdup.bam &
