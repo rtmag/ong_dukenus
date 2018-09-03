@@ -400,4 +400,10 @@ I=shH2_merge_sort.bam \
 O=shH2_merge_rmdup.bam \
 M=shH2_merge_sort.mfile
 ###################
-######
+######BEDS
+
+#
+/root/myPrograms/SICERpy/SICERpy/SICER-df-rb.sh \
+/root/ong_dukenus/ATAC-SEQ/bed/shH2_merge.bed \
+/root/ong_dukenus/ATAC-SEQ/bed/shNT_merge.bed \
+100 100 0.01 0.05 > /root/ong_dukenus/ATAC-SEQ/sicer/results.txt
