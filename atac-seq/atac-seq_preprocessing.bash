@@ -384,3 +384,20 @@ shH2_I_1_rmdup.bam shH2_I_2_rmdup.bam shH2_II_1_rmdup.bam shH2_II_2_rmdup.bam &
 
 samtools merge -f -h shH2_I_1_rmdup.bam shNT_merge.bam \
 shNT_1_rmdup.bam shNT_2_rmdup.bam &
+
+samtools sort shNT_merge.bam > shNT_merge_sort.bam &
+samtools sort shH2_merge.bam > shH2_merge_sort.bam &
+
+wait
+
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=shNT_merge_sort.bam \
+O=shNT_merge_rmdup.bam \
+M=shNT_merge_sort.mfile
+
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=shH2_merge_sort.bam \
+O=shH2_merge_rmdup.bam \
+M=shH2_merge_sort.mfile
+###################
+######
