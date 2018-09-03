@@ -1,3 +1,6 @@
+#STAR --runThreadN 35 --runMode genomeGenerate --genomeDir /root/resources/hg38_noanno/ \
+#--genomeFastaFiles /root/resources/hg38_allchr.fasta
+
 #########################################################################################
 # Trimmed
 
