@@ -407,3 +407,10 @@ M=shH2_merge_sort.mfile
 /root/ong_dukenus/ATAC-SEQ/bed/shH2_merge.bed \
 /root/ong_dukenus/ATAC-SEQ/bed/shNT_merge.bed \
 100 100 0.01 0.05 > /root/ong_dukenus/ATAC-SEQ/sicer/results.txt
+
+
+/root/myPrograms/sicer/SICER-df-rb.sh \
+/root/ong_dukenus/ATAC-SEQ/bed/shH2_merge.bed \
+/root/ong_dukenus/ATAC-SEQ/bed/shNT_merge.bed \
+100 100 0.01 0.05 > /root/ong_dukenus/ATAC-SEQ/sicer/results.txt
+
