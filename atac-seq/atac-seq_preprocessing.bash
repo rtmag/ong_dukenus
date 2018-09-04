@@ -415,3 +415,27 @@ M=shH2_merge_sort.mfile
 100 100 0.01 0.05 > /root/ong_dukenus/ATAC-SEQ/sicer/results.txt
 
 /root/myPrograms/sicer/SICER-df-rb.sh shH2_merge.bed shNT_merge.bed 100 100 0.01 0.05 > /root/ong_dukenus/ATAC-SEQ/sicer/results.txt
+###
+
+diffReps.pl --treatment shH2_I_1.bed shH2_I_2.bed shH2_II_1.bed shH2_II_2.bed \
+--control shNT_1.bed shNT_2.bed --nohs --noanno \
+--meth nb --gname hg19 --report atac_diffreps_w100 --frag 0 --nproc 50 --window 100 --pval 0.001
+
+diffReps.pl --treatment shH2_I_1.bed shH2_I_2.bed shH2_II_1.bed shH2_II_2.bed \
+--control shNT_1.bed shNT_2.bed --nohs --noanno \
+--meth nb --gname hg19 --report atac_diffreps_w200 --frag 0 --nproc 50 --window 200 --pval 0.001
+
+diffReps.pl --treatment shH2_I_1.bed shH2_I_2.bed shH2_II_1.bed shH2_II_2.bed \
+--control shNT_1.bed shNT_2.bed --nohs --noanno \
+--meth nb --gname hg19 --report atac_diffreps_w400 --frag 0 --nproc 50 --window 400 --pval 0.001
+
+diffReps.pl --treatment shH2_I_1.bed shH2_I_2.bed shH2_II_1.bed shH2_II_2.bed \
+--control shNT_1.bed shNT_2.bed --nohs --noanno \
+--meth nb --gname hg19 --report atac_diffreps_w500 --frag 0 --nproc 50 --window 500 --pval 0.001
+
+diffReps.pl --treatment shH2_I_1.bed shH2_I_2.bed shH2_II_1.bed shH2_II_2.bed \
+--control shNT_1.bed shNT_2.bed --nohs --noanno \
+--meth nb --gname hg19 --report atac_diffreps_w600 --frag 0 --nproc 50 --window 600 --pval 0.001
+
+
+####
