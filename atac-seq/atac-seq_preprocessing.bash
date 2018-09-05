@@ -440,31 +440,36 @@ diffReps.pl --treatment shH2_I_1.bed shH2_I_2.bed shH2_II_1.bed shH2_II_2.bed \
 more atac_diffreps_w100|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
 grep "Up" |cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.bed
 echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.bed
-grep "Down" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.bed
+more atac_diffreps_w100|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+grep "Down" |cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.bed
 echo "#shNT specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.bed
 
-more atac_diffreps_w100|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+more atac_diffreps_w200|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
 grep "Up" |cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.bed
 echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.bed
-grep "Down" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.bed
+more atac_diffreps_w200|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+grep "Down" |cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.bed
 echo "#shNT specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.bed
 
-more atac_diffreps_w100|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+more atac_diffreps_w400|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
 grep "Up" |cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.bed
 echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.bed
-grep "Down" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.bed
+more atac_diffreps_w400|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+grep "Down" |cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.bed
 echo "#shNT specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.bed
 
-more atac_diffreps_w100|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+more atac_diffreps_w500|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
 grep "Up" |cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.bed
 echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.bed
-grep "Down" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.bed
+more atac_diffreps_w500|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+grep "Down" |cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.bed
 echo "#shNT specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.bed
 
-more atac_diffreps_w100|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+more atac_diffreps_w600|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
 grep "Up" |cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.bed
 echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.bed
-grep "Down" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.bed
+more atac_diffreps_w600|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+grep "Down" |cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.bed
 echo "#shNT specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.bed
 
 ####
@@ -547,8 +552,7 @@ computeMatrix reference-point \
 /root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
 /root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
 -R /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.bed --referencePoint center \
---sortRegions descend --sortUsingSamples 5 6 -bs 20 -a 2000 -b 2000 -p max -out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.mat \
---outFileNameMatrix /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.rmat
+--sortRegions descend --sortUsingSamples 5 6 -bs 20 -a 2000 -b 2000 -p max -out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.mat 
 
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorMap Blues \
 -m /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.mat \
