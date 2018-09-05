@@ -437,27 +437,121 @@ diffReps.pl --treatment shH2_I_1.bed shH2_I_2.bed shH2_II_1.bed shH2_II_2.bed \
 --control shNT_1.bed shNT_2.bed --nohs --noanno \
 --meth nb --gname hg19 --report atac_diffreps_w600 --frag 0 --nproc 50 --window 600 --pval 0.001
 
-awk -F"\t" '{}' atac_diffreps_w100
+more atac_diffreps_w100|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+grep "Up" |cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.bed
+echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.bed
+grep "Down" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.bed
+echo "#shNT specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.bed
+
+more atac_diffreps_w100|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+grep "Up" |cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.bed
+echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.bed
+grep "Down" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.bed
+echo "#shNT specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.bed
+
+more atac_diffreps_w100|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+grep "Up" |cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.bed
+echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.bed
+grep "Down" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.bed
+echo "#shNT specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.bed
+
+more atac_diffreps_w100|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+grep "Up" |cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.bed
+echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.bed
+grep "Down" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.bed
+echo "#shNT specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.bed
+
+more atac_diffreps_w100|grep -v "#"|grep -v "Treatment.avg"|awk -F"\t" '{if($14<0.05){print$0}}' | \
+grep "Up" |cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.bed
+echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.bed
+grep "Down" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.bed
+echo "#shNT specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.bed
+
 ####
-grep "Up" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 > /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.bed
-echo "#shH2AFV specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.bed
-grep "Down" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.bed
-echo "#shNT specific" >> /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.bed
+
 
 computeMatrix reference-point \
 -S \
-/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
-/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
 /root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw \
 /root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw \
 /root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
 /root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
--R /root/resources/hg19_tss_knownCanonical_noUnasembled.bed --referencePoint center \
---sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 2000 -b 2000 -p max -out /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads_tss.mat \
---outFileNameMatrix /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads_tss.rmat
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
+-R /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 5 6 -bs 20 -a 2000 -b 2000 -p max -out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.mat \
+--outFileNameMatrix /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.rmat
 
 plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorMap Blues \
--m /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.mat \
- --samplesLabel "shNT" "shNT" "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" \
--out /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.pdf
+-m /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.mat \
+ --samplesLabel "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" "shNT" "shNT" \
+-out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100.pdf
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
+-R /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 5 6 -bs 20 -a 2000 -b 2000 -p max -out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.mat \
+--outFileNameMatrix /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.rmat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorMap Blues \
+-m /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.mat \
+ --samplesLabel "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" "shNT" "shNT" \
+-out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w200.pdf
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
+-R /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 5 6 -bs 20 -a 2000 -b 2000 -p max -out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.mat \
+--outFileNameMatrix /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.rmat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorMap Blues \
+-m /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.mat \
+ --samplesLabel "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" "shNT" "shNT" \
+-out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w400.pdf
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
+-R /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 5 6 -bs 20 -a 2000 -b 2000 -p max -out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.mat \
+--outFileNameMatrix /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.rmat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorMap Blues \
+-m /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.mat \
+ --samplesLabel "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" "shNT" "shNT" \
+-out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w500.pdf
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
+-R /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 5 6 -bs 20 -a 2000 -b 2000 -p max -out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.mat \
+--outFileNameMatrix /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.rmat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorMap Blues \
+-m /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.mat \
+ --samplesLabel "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" "shNT" "shNT" \
+-out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w600.pdf
 #######################
