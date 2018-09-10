@@ -80,6 +80,6 @@ sig_vsd = sig_vsd/rowMeans(sig_vsd)
 sig_vsd = sig_vsd[complete.cases(sig_vsd),]
 
   colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
-  heatmap.2(as.matrix(sig_vsd),col=colors,scale="none", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
+  heatmap.2(as.matrix(sig_vsd),col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
   xlab="", ylab="TF Genes",key.title="Gene expression",cexCol=.65,cexRow=.6)
 dev.off()
