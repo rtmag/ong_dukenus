@@ -584,7 +584,7 @@ computeMatrix reference-point \
 /root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
 /root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
 -R /root/resources/hg19_tss_knownCanonical_noUnasembled.bed --referencePoint center \
---sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 500 -b 500 -p max -out /root/ong_dukenus/ATAC-SEQ/heatmap/ATAC_TSS_500bp.mat \
---outFileNameMatrix /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads_tss.rmat
+--sortRegions keep -bs 20 -a 500 -b 500 -p max -out /root/ong_dukenus/ATAC-SEQ/heatmap/ATAC_TSS_500bp_20bp.mat \
+--outFileNameMatrix /root/ong_dukenus/ATAC-SEQ/heatmap/ATAC_TSS_500bp_20bp.rmat
 
 
