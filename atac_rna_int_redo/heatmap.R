@@ -100,6 +100,74 @@ pdf("TARGET_GENES.pdf")
   heatmap.2(as.matrix(sig_vsd),dendrogram='none',col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
   xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=1, key=FALSE)
 dev.off()
+##############################################################################################################################
+atac_down = read.table(pipe("cut -f 16 /Users/wone/CSI/ong/atacseq_redo/variantWindows/anno/ATAC-down_promoter.anno"),sep="\t",header=T)
+rna = readRDS("MASTER_RNASEQ_TABLE_OLEG.rds")
+gmt = read.table("~/Downloads/CEBPD_targets.human.tsv",sep = "\t", head=T,stringsAsFactors=F)
+
+sig_vsd = vsd[which( rna$PPEE<0.05 & (rna[,1] %in% gmt[,2])),]
+sig_vsd = sig_vsd[complete.cases(sig_vsd),]
+sig_vsd = sig_vsd/rowMeans(sig_vsd)
+sig_vsd = sig_vsd[complete.cases(sig_vsd),]
+
+pdf("CEBPD_TARGET_GENES.pdf")
+  colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
+  heatmap.2(as.matrix(sig_vsd),dendrogram='none',col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
+  xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=1, key=FALSE)
+dev.off()
+##############################################################################################################################
+atac_down = read.table(pipe("cut -f 16 /Users/wone/CSI/ong/atacseq_redo/variantWindows/anno/ATAC-down_promoter.anno"),sep="\t",header=T)
+rna = readRDS("MASTER_RNASEQ_TABLE_OLEG.rds")
+gmt = read.table("~/Downloads/REST_targets.human.tsv",sep = "\t", head=T,stringsAsFactors=F)
+
+sig_vsd = vsd[which( rna$PPEE<0.05 & (rna[,1] %in% gmt[,2])),]
+sig_vsd = sig_vsd[complete.cases(sig_vsd),]
+sig_vsd = sig_vsd/rowMeans(sig_vsd)
+sig_vsd = sig_vsd[complete.cases(sig_vsd),]
+
+pdf("REST_TARGET_GENES.pdf")
+  colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
+  heatmap.2(as.matrix(sig_vsd),dendrogram='none',col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
+  xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=1, key=FALSE)
+dev.off()
+##############################################################################################################################
+##############################################################################################################################
+##############################################################################################################################
+# prediction
+more /Users/wone/CSI/ong/atacseq_redo/variantWindows/anno/ATAC-down_promoter.anno |cut -f2,3,4,16|grep -v "Gene Name"| \
+bedtools intersect -a - -b /Users/wone/Downloads/CEBPD.bed|cut -f4 > putative_cebpd_targets.txt
+
+more /Users/wone/CSI/ong/atacseq_redo/variantWindows/anno/ATAC-down_promoter.anno |cut -f2,3,4,16|grep -v "Gene Name"| \
+bedtools intersect -a - -b /Users/wone/Downloads/REST.bed|cut -f4 > putative_rest_targets.txt
+# CEBPD
+atac_down = read.table(pipe("cut -f 16 /Users/wone/CSI/ong/atacseq_redo/variantWindows/anno/ATAC-down_promoter.anno"),sep="\t",header=T)
+rna = readRDS("MASTER_RNASEQ_TABLE_OLEG.rds")
+gmt = read.table("putative_cebpd_targets.txt",sep = "\t", head=T,stringsAsFactors=F)
 
 
+sig_vsd = vsd[which( (rna[,1] %in% atac_down[,1]) & rna$PPEE<0.05 & (-log2(rna$PostFC))<(-.37) & (rna[,1] %in% gmt[,1])),]
+sig_vsd = sig_vsd[complete.cases(sig_vsd),]
+sig_vsd = sig_vsd/rowMeans(sig_vsd)
+sig_vsd = sig_vsd[complete.cases(sig_vsd),]
 
+pdf("CEBPD_TARGET_GENES.pdf")
+  colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
+  heatmap.2(as.matrix(sig_vsd),dendrogram='none',col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
+  xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=.4, key=FALSE,Colv="none")
+dev.off()
+# REST
+atac_down = read.table(pipe("cut -f 16 /Users/wone/CSI/ong/atacseq_redo/variantWindows/anno/ATAC-down_promoter.anno"),sep="\t",header=T)
+rna = readRDS("MASTER_RNASEQ_TABLE_OLEG.rds")
+gmt = read.table("putative_rest_targets.txt",sep = "\t", head=T,stringsAsFactors=F)
+
+
+sig_vsd = vsd[which( (rna[,1] %in% atac_down[,1]) & rna$PPEE<0.05 & (-log2(rna$PostFC))>(.37) & (rna[,1] %in% gmt[,1])),]
+sig_vsd = sig_vsd[complete.cases(sig_vsd),]
+sig_vsd = sig_vsd/rowMeans(sig_vsd)
+sig_vsd = sig_vsd[complete.cases(sig_vsd),]
+
+pdf("REST_TARGET_GENES.pdf")
+  colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
+  heatmap.2(as.matrix(sig_vsd),dendrogram='none',col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
+  xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=.4, key=FALSE,Colv="none")
+dev.off()
