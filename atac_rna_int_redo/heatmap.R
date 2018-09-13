@@ -171,3 +171,51 @@ pdf("REST_TARGET_GENES.pdf")
   heatmap.2(as.matrix(sig_vsd),dendrogram='none',col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
   xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=.4, key=FALSE,Colv="none")
 dev.off()
+
+##########################
+# CEBPD
+
+gmt = rbind(
+"FASN",
+"HMGB2",
+"VDAC1",
+"PTTG1",
+"PYGL",
+"SOCS2",
+"SOD2",
+"ACTN1",
+"CTNNAL1",
+"JMJD6")
+
+
+sig_vsd = vsd[which( rownames(vsd) %in% gmt[,1]),]
+sig_vsd = sig_vsd[complete.cases(sig_vsd),]
+sig_vsd = sig_vsd/rowMeans(sig_vsd)
+sig_vsd = sig_vsd[complete.cases(sig_vsd),]
+
+pdf("CEBPD_TARGET_GENES.pdf")
+  colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
+  heatmap.2(as.matrix(sig_vsd),dendrogram='none',col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
+  xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=.6, key=FALSE,Colv="none")
+dev.off()
+# REST
+
+gmt = rbind('MAP2',
+'ARPC3',
+'MXD4',
+'MTSS1',
+'HOMER1',
+'PBX3',
+'DUSP16',
+'TULP3')
+
+sig_vsd = vsd[which( rownames(vsd) %in% gmt[,1]),]
+sig_vsd = sig_vsd[complete.cases(sig_vsd),]
+sig_vsd = sig_vsd/rowMeans(sig_vsd)
+sig_vsd = sig_vsd[complete.cases(sig_vsd),]
+
+pdf("REST_TARGET_GENES.pdf")
+  colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
+  heatmap.2(as.matrix(sig_vsd),dendrogram='none',col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
+  xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=.4, key=FALSE,Colv="none")
+dev.off()
