@@ -574,6 +574,12 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorM
 -m /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100_FDR5_50R_l2FC5.mat \
  --samplesLabel "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" "shNT" "shNT" \
 -out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100_FDR5_50R_l2FC5.pdf
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorMap Blues \
+-m /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100_FDR5_50R_l2FC5.mat \
+ --samplesLabel "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" "shNT" "shNT" \
+-out /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_w100_FDR5_50R_l2FC5.svg
+####
 ####
 computeMatrix reference-point \
 -S \
