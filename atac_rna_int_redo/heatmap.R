@@ -196,7 +196,7 @@ sig_vsd = sig_vsd[complete.cases(sig_vsd),]
 pdf("CEBPD_TARGET_GENES.pdf")
   colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
   heatmap.2(as.matrix(sig_vsd),dendrogram='none',col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
-  xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=.6, key=FALSE,Colv="none")
+  xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=.8, key=FALSE,Colv="none")
 dev.off()
 # REST
 
@@ -217,5 +217,5 @@ sig_vsd = sig_vsd[complete.cases(sig_vsd),]
 pdf("REST_TARGET_GENES.pdf")
   colors <- rev(colorRampPalette( (brewer.pal(9, "RdBu")) )(20))
   heatmap.2(as.matrix(sig_vsd),dendrogram='none',col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
-  xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=.4, key=FALSE,Colv="none")
+  xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=.8, key=FALSE,Colv="none")
 dev.off()
