@@ -219,3 +219,19 @@ pdf("REST_TARGET_GENES.pdf")
   heatmap.2(as.matrix(sig_vsd),dendrogram='none',col=colors,scale="row", trace="none",distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
   xlab="", ylab="",key.title="Gene expression",cexCol=.6,cexRow=.8, key=FALSE,Colv="none")
 dev.off()
+
+
+##########
+
+
+ sig_rna = rna[which( (rna[,1] %in% atac_down[,1]) & rna$PPEE<0.05 & abs(log2(rna$PostFC))>(.37) ),]
+
+
+sig_rna[,3]=-log2(sig_rna[,3])
+
+sig_rna= sig_rna[order(sig_rna[,1]),]
+colnames(sig_rna) = c("GeneName","PPEE","Log2FC","shH2AFVmean","shNTmean",
+                      "shNT_1","shNT_2","shNT_3","shH2AFV_I_1","shH2AFV_I_2","shH2AFV_I_3",
+                      "shH2AFV_II_1","shH2AFV_II_2","shH2AFV_II_3")
+
+write.csv(sig_rna,"GENES_WITH_decreased_atacseq_atPromoters_AND_different_geneExpression.csv",row.names=F)
