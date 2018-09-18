@@ -50,6 +50,9 @@ points(dds_res$log2FoldChange[abs(dds_res$log2FoldChange)>.37 & dds_res$padj<0.0
       col="red")
 legend("topright", paste("shNT:",length(which(dds_res$log2FoldChange>.37 & dds_res$padj<0.05))), bty="n") 
 legend("topleft", paste("shH2AFV:",length(which(dds_res$log2FoldChange<(-.37) & dds_res$padj<0.05))), bty="n") 
+abline(v=-.37,lty = 2,col="grey")
+abline(v=.37,lty = 2,col="grey")
+abline(h=-log10(0.05),lty = 2,col="grey")
 dev.off()
 
 pdf("oleg_rnaseq_volcanoPlot_30perc_log2FC37_withoutNUMBERS.pdf")
@@ -61,4 +64,7 @@ abline(h=-log10(0.05),lty = 2,col="grey")
 points(dds_res$log2FoldChange[abs(dds_res$log2FoldChange)>.37 & dds_res$padj<0.05],
        -log10(dds_res$padj)[abs(dds_res$log2FoldChange)>.37 & dds_res$padj<0.05],
       col="red")
+abline(v=-.37,lty = 2,col="grey")
+abline(v=.37,lty = 2,col="grey")
+abline(h=-log10(0.05),lty = 2,col="grey")
 dev.off()
