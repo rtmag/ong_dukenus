@@ -45,7 +45,7 @@ GBMLGG_sig_centered[GBMLGG_sig_centered < (-6)] = -6
 
 colors <- rev(colorRampPalette( (brewer.pal(11, "RdBu")) )(11))
 
-heatmap.2(as.matrix(GBMLGG_sig_centered),col=colors,scale="none", trace="none",
+x=heatmap.2(as.matrix(GBMLGG_sig_centered),col=colors,scale="none", trace="none",
               distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
 labRow = "",labCol = "",xlab="GBM-LGG Patient Sample", ylab="Signature Genes",key.title="",
          RowSideColors=rlab,ColSideColors=clab)
@@ -57,4 +57,42 @@ legend("center",legend=c("EGFR","Mesenchymal","GenerationOfNeurons",
                            "Astrocytoma","GBM","Oligoastrocytoma","Oligodendroglioma"),
        fill=c("#ffb3ba","#baffc9","#bae1ff","grey","black","#ffb347","#966fd6"), border=T, bty="n" )
 
+dev.off()
+
+hc <- as.hclust( x$colDendrogram )
+groups=cutree( hc, k=4 )
+
+track=as.numeric(groups)
+colores=c("red","blue","green","orange")
+clab=(colores[track])
+
+png("heatmap_TCGA_GBMLG_Signature_K4Cut.png",width= 7.25,
+  height= 7.25,units="in",
+  res=1200,pointsize=4)
+
+heatmap.2(as.matrix(GBMLGG_sig_centered),col=colors,scale="none", trace="none",
+              distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
+labRow = "",labCol = "",xlab="GBM-LGG Patient Sample", ylab="Signature Genes",key.title="",
+         RowSideColors=rlab,ColSideColors=clab)
+dev.off()
+
+library(RTCGA.clinical)
+
+clinical <- data.frame(times = GBMLGG.pheno$survival,
+                       bcr_patient_barcode = rownames(GBMLGG.pheno),
+                       patient.vital_status = as.numeric(GBMLGG.pheno$status),
+                       signature = as.factor(groups))
+# alive=0 and dead=1
+clinical$bcr_patient_barcode == colnames(GBMLGG_sig_centered)
+
+pdf("survival_GBMLG_Signature_K4Cut_pval.pdf")
+kmTCGA(clinical, explanatory.names="signature",  pval = TRUE,conf.int = FALSE, risk.table=FALSE,palette = c("red","blue","green","orange"))
+dev.off()
+
+pdf("survival_GBMLG_Signature_K4Cut.pdf")
+kmTCGA(clinical, explanatory.names="signature",  pval = FALSE,conf.int = FALSE, risk.table=FALSE,palette = c("red","blue","green","orange"))
+dev.off()
+
+pdf("survival_GBMLG_Signature_K4Cut_pval_table.pdf")
+kmTCGA(clinical, explanatory.names="signature",  pval = TRUE,conf.int = FALSE, risk.table=TRUE,palette = c("red","blue","green","orange"))
 dev.off()
