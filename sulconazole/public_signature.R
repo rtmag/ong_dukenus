@@ -34,22 +34,27 @@ ctrack[ctrack=="Oligodendroglioma"]=4
 colores=c("grey","black","#ffb347","#966fd6")
 clab=as.character(colores[as.numeric(ctrack)])
 
-png("heatmap_diff_TUMOR_VS_NORMAL_FDR5p.png",width= 3.25,
-  height= 3.25,units="in",
+png("heatmap_TCGA_GBMLG_Signature.png",width= 7.25,
+  height= 7.25,units="in",
   res=1200,pointsize=4)
 
 GBMLGG_sig_centered = GBMLGG_sig - rowMeans(GBMLGG_sig)
-GBMLGG_sig_centered[GBMLGG_sig_centered > 7] = 7
-GBMLGG_sig_centered[GBMLGG_sig_centered < (-7)] = -7
 
-colors <- rev(colorRampPalette( (brewer.pal(11, "RdBu")) )(29))
+GBMLGG_sig_centered[GBMLGG_sig_centered > 6] = 6
+GBMLGG_sig_centered[GBMLGG_sig_centered < (-6)] = -6
+
+colors <- rev(colorRampPalette( (brewer.pal(11, "RdBu")) )(11))
 
 heatmap.2(as.matrix(GBMLGG_sig_centered),col=colors,scale="none", trace="none",
               distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
 labRow = "",labCol = "",xlab="GBM-LGG Patient Sample", ylab="Signature Genes",key.title="",
          RowSideColors=rlab,ColSideColors=clab)
+dev.off()
 
-legend("topright",legend=c("EGFR","Mesenchymal","GenerationOfNeurons",""),
-       fill=c("#ffb3ba","#baffc9","#bae1ff","white"), border=T, bty="n" )
+pdf("heatmap_TCGA_GBMLG_labels.pdf")
+plot.new()
+legend("center",legend=c("EGFR","Mesenchymal","GenerationOfNeurons",
+                           "Astrocytoma","GBM","Oligoastrocytoma","Oligodendroglioma"),
+       fill=c("#ffb3ba","#baffc9","#bae1ff","grey","black","#ffb347","#966fd6"), border=T, bty="n" )
 
 dev.off()
