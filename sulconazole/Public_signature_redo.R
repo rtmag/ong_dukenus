@@ -158,10 +158,10 @@ dev.off()
 
 
 hc <- as.hclust( x$colDendrogram )
-groups=cutree( hc, k=3 )
+groups=cutree( hc, k=4 )
 
 track=as.numeric(groups)
-colores=c("purple","orange","blue")
+colores=c("purple","orange","blue","darkgreen")
 clab=(colores[track])
 
 
@@ -183,11 +183,11 @@ clinical <- data.frame(times = GBMLGG_astro_gbm.pheno$survival,
 # alive=0 and dead=1
 
 pdf("survival_GBMonly_GBMLG_Signature_K3Cut_pval.pdf")
-kmTCGA(clinical, explanatory.names="signature",  pval = TRUE,conf.int = FALSE, risk.table=FALSE,palette = c("purple","orange","blue"))
+kmTCGA(clinical, explanatory.names="signature",  pval = TRUE,conf.int = FALSE, risk.table=FALSE,palette = c("purple","orange","blue","darkgreen"))
 dev.off()
 
 pdf("survival_GBMonly_GBMLG_Signature_K3Cut.pdf")
-kmTCGA(clinical, explanatory.names="signature",  pval = FALSE,conf.int = FALSE, risk.table=FALSE,palette = c("purple","orange","blue"))
+kmTCGA(clinical, explanatory.names="signature",  pval = FALSE,conf.int = FALSE, risk.table=FALSE,palette = c("purple","orange","blue","darkgreen"))
 dev.off()
 
 ###########################
