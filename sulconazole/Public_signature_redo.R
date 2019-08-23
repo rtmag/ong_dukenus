@@ -168,7 +168,7 @@ clab=(colores[track])
 png("heatmap_TCGA_GBMonly_Signature_K3Cut.png",width= 7.25,
   height= 7.25,units="in",
   res=1200,pointsize=4)
-heatmap.2(as.matrix(GBMLGG_sig_centered),col=colors,scale="none", trace="none",
+heatmap.2(as.matrix(GBMLGG_astro_gbm_sig),col=colors,scale="none", trace="none",
               distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
 labRow = "",labCol = "",xlab="TCGA GBM Patient Sample", ylab="Signature Genes",key.title="",
          RowSideColors=rlab,ColSideColors=clab)
