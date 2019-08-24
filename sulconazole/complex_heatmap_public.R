@@ -51,11 +51,11 @@ labRow = "",labCol = "",xlab="TCGA GBM-LGG Patient Sample", ylab="Signature Gene
 rdend = dendsort(hclust(dist(mat)))
 
 column_ha = HeatmapAnnotation(Grade = ctrack, col = list(Grade = c("II" = "black", "III" = "grey", "IV" = "red")))
-row_ha = rowAnnotation(Signature = track,
+row_ha = rowAnnotation(Signature = track,show_annotation_name = FALSE,
               col = list(Signature = c("EGFR" = "#ffb3ba", "Mesenchymal" = "#baffc9", "GenerationOfNeurons" = "#bae1ff")))
 
 Heatmap(GBMLGG_sig_centered,
-show_row_names = FALSE,show_column_names = FALSE,name = "Expression",
+show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = TRUE, column_dend_reorder = TRUE,
 column_title="TCGA GBM-LGG Patients", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
 bottom_annotation = column_ha, right_annotation = row_ha)
 
