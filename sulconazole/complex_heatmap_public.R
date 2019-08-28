@@ -86,47 +86,53 @@ GBMLGG_sig_centered = GBMLGG_astro_gbm_sig - rowMeans(GBMLGG_astro_gbm_sig)
 GBMLGG_sig_centered[GBMLGG_sig_centered >= 6] = 6
 GBMLGG_sig_centered[GBMLGG_sig_centered <= (-6)] = -6
 
-x=heatmap.2(as.matrix(GBMLGG_sig_centered),col=colors,scale="none", trace="none",
-              distfun = function(x) get_dist(x,method="pearson"),srtCol=90,
-labRow = "",labCol = "",xlab="TCGA GBM-LGG Patient Sample", ylab="Signature Genes",key.title="",
-         RowSideColors=rlab,ColSideColors=clab)
-
-rdend = dendsort(hclust(dist(mat)))
-
 column_ha = HeatmapAnnotation(Grade = ctrack,Subtype = ctrack2,
                               col = list(Grade = c("II" = "black", "III" = "grey", "IV" = "red"),
                                       Subtype= c("Classical"="darkgreen","G-CIMP"="gray","IDHmut-codel"="brown",
                                                  "IDHmut-non-codel"="darkblue",
                                                   "IDHwt"="darkred","Mesenchymal"="purple","Neural"="orange","Proneural"="black")))
 row_ha = rowAnnotation(Signature = track,show_annotation_name = FALSE,
-              col = list(Signature = c("EGFR" = "#ffb3ba", "Mesenchymal" = "#baffc9", "GenerationOfNeurons" = "#bae1ff")))
-
-robust_dist = function(x, y) {
-    qx = quantile(x, c(0.1, 0.9))
-    qy = quantile(y, c(0.1, 0.9))
-    l = x > qx[1] & x < qx[2] & y > qy[1] & y < qy[2]
-    x = x[l]
-    y = y[l]
-    sqrt(sum((x - y)^2))
-}
+              col = list(Signature = c("GenerationOfNeurons" = "#bae1ff","EGFR" = "#ffb3ba", "Mesenchymal" = "#baffc9")))
 
 ht=Heatmap(GBMLGG_sig_centered,
 show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
 column_title="TCGA GBM-LGG Patients", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
 bottom_annotation = column_ha, right_annotation = row_ha,
         clustering_distance_columns = "pearson",
-        clustering_distance_rows = "pearson")
+        clustering_distance_rows = "pearson",row_split =track)
 
 
 hc <- as.hclust( column_dend(ht) )
 groups=cutree( hc, k=3 )
 
-column_ha = HeatmapAnnotation(Grade = ctrack,Subtype = ctrack2,Cluster = as.character(groups),
-                              col = list(Grade = c("II" = "black", "III" = "grey", "IV" = "red"),
-                                      Subtype= c("Classical"="darkgreen","G-CIMP"="gray","IDHmut-codel"="brown",
-                                                 "IDHmut-non-codel"="darkblue",
-                                                  "IDHwt"="darkred","Mesenchymal"="purple","Neural"="orange","Proneural"="black"),
-                                         Cluster = c("1"="purple","2"="orange","3"="blue")
+#column_ha = HeatmapAnnotation(Grade = ctrack,Subtype = ctrack2,Cluster = as.character(groups),
+#                              col = list(Grade = c("II" = "black", "III" = "grey", "IV" = "red"),
+#                                      Subtype= c("Classical"="darkgreen","G-CIMP"="gray","IDHmut-codel"="brown",
+#                                                 "IDHmut-non-codel"="darkblue",
+#                                                  "IDHwt"="darkred","Mesenchymal"="purple","Neural"="orange","Proneural"="black"),
+#                                         Cluster = c("1"="purple","2"="orange","3"="blue")
+#                                        )
+#                             )
+
+codel =  as.character(GBMLGG_astro_gbm.pheno$Chr.1p_19q.codeletion)
+cogain =  as.character(GBMLGG_astro_gbm.pheno$Chr.19_20.co_gain)
+IDH.status =  as.character(GBMLGG_astro_gbm.pheno$IDH.status)
+
+codel[is.na(codel)] = "NA"
+cogain[is.na(cogain)] = "NA"
+IDH.status[is.na(IDH.status)] = "NA"
+
+cogain[cogain=="Gain chr 19/20"] = "gain"
+cogain[cogain=="No chr 19/20 gain"] = "no-gain"
+
+column_ha = HeatmapAnnotation(Cluster = as.character(groups),
+                              coDeletion.1p_19q=codel,
+                              IDH.status=IDH.status,
+                              Grade = ctrack,
+                              col = list( Cluster = c("1"="purple","2"="orange","3"="blue"),
+                                         coDeletion.1p_19q = c("codel"="red","non-codel"="grey","NA"="black"),
+                                         IDH.status = c("WT"="grey","Mutant"="red","NA"="black"),
+                                         Grade = c("II" = "grey", "III" = "orange", "IV" = "red")
                                         )
                              )
 
@@ -136,7 +142,7 @@ show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_re
 column_title="TCGA GBM-LGG Patients", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
 bottom_annotation = column_ha, right_annotation = row_ha,
         clustering_distance_columns = "pearson",column_split = 3,
-        clustering_distance_rows = "pearson")
+        clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
 dev.off()
 
 clinical <- data.frame(times = GBMLGG_astro_gbm.pheno$survival,
@@ -155,7 +161,7 @@ kmTCGA(clinical, explanatory.names="signature",  pval = FALSE,conf.int = FALSE, 
 dev.off()
 
 pdf("Survival_pvalues_TCGA.pdf")
- grid.ftable(round(res$p.value,digits=5),x=.14,y=.14,
+ grid.ftable(formatC(res$p.value, format = "e", digits = 2),x=.14,y=.14,
            gp = gpar(fill = rep(c("grey90", "grey95"), each = 6)))
 dev.off()
 #####################################################################################################################################
@@ -190,11 +196,11 @@ ctrack2 = as.character(remb_imp.pheno$Subtype_Verhaak_2010)
 ctrack2[is.na(ctrack2)]="NA"
 
 column_ha = HeatmapAnnotation(Grade = ctrack,Subtype = ctrack2,
-                              col = list(Grade = c("II" = "black", "III" = "grey", "IV" = "red"),
+                              col = list(Grade = c("II" = "black", "III" = "orange", "IV" = "red"),
                                       Subtype= c("Classical"="darkgreen",
                                                 "Mesenchymal"="purple","Neural"="darkred","Proneural"="darkblue","NA"="grey")))
 row_ha = rowAnnotation(Signature = track,show_annotation_name = FALSE,
-              col = list(Signature = c("EGFR" = "#ffb3ba", "Mesenchymal" = "#baffc9", "GenerationOfNeurons" = "#bae1ff")))
+              col = list(Signature = c("GenerationOfNeurons" = "#bae1ff","EGFR" = "#ffb3ba", "Mesenchymal" = "#baffc9")))
 
 GBMLGG_sig_centered = remb_imp_sig - rowMeans(remb_imp_sig)
 GBMLGG_sig_centered[GBMLGG_sig_centered >= 4] = 4
@@ -211,11 +217,9 @@ bottom_annotation = column_ha, right_annotation = row_ha,
 hc <- as.hclust( column_dend(ht) )
 groups=cutree( hc, k=4 )
 
-column_ha = HeatmapAnnotation(Grade = ctrack,Subtype = ctrack2,Cluster = as.character(groups),
-                              col = list(Grade = c("II" = "black", "III" = "grey", "IV" = "red"),
-                                      Subtype= c("Classical"="darkgreen",
-                                                "Mesenchymal"="purple","Neural"="darkred","Proneural"="darkblue","NA"="grey"),
-                                      Cluster = c("1"="purple","2"="orange","3"="blue","4"="darkgreen")
+column_ha = HeatmapAnnotation(Cluster = as.character(groups),Grade = ctrack,
+                              col = list( Cluster = c("1"="purple","2"="orange","3"="blue","4"="darkgreen"),
+                                         Grade = c("II" = "grey", "III" = "orange", "IV" = "red")
                                         )
                              )
 pdf("Rembrandt_complexHeatmap.pdf")
@@ -224,7 +228,7 @@ show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_re
 column_title="Rembrandt patient samples", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
 bottom_annotation = column_ha, right_annotation = row_ha,
         clustering_distance_columns = "pearson",column_split = 4,
-        clustering_distance_rows = "pearson")
+        clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
 dev.off()
 
 
@@ -250,7 +254,7 @@ kmTCGA(clinical, explanatory.names="signature",  pval = FALSE,conf.int = FALSE, 
 dev.off()
 
 pdf("Survival_pvalues_Rembrandt.pdf")
- grid.ftable(round(res$p.value,digits=5),x=.14,y=.14,
+ grid.ftable(formatC(res$p.value, format = "e", digits = 2),x=.14,y=.14,
            gp = gpar(fill = rep(c("grey90", "grey95"), each = 6)))
 dev.off()
 #####################################################################################################################################
@@ -289,6 +293,20 @@ ctrack = as.character(grav.imp.pheno$Grade)
 ctrack2 = as.character(grav.imp.pheno$Subtype_Verhaak_2010)
 ctrack2[is.na(ctrack2)]="NA"
 
+LOH.1p =  as.character(grav.imp.pheno$LOH_1p)
+LOH.19q =  as.character(grav.imp.pheno$LOH_19q)
+IDH1.status =  as.character(grav.imp.pheno$IDH1_status)
+
+LOH.1p[is.na(LOH.1p)] = "NA"
+LOH.19q[is.na(LOH.19q)] = "NA"
+IDH.status[is.na(IDH.status)] = "NA"
+
+LOH.1p[LOH.1p=="PARTIAL"] = "YES"
+LOH.19q[LOH.19q=="PARTIAL"] = "YES"
+
+IDH1.status[IDH1.status=="Wild_type"] = "WT"
+IDH1.status[IDH1.status=="Mut"] = "Mutant"
+
 column_ha = HeatmapAnnotation(Grade = ctrack,Subtype = ctrack2,
                               col = list(Grade = c("II" = "black", "III" = "grey", "IV" = "red"),
                                       Subtype= c("Classical"="darkgreen",
@@ -306,8 +324,55 @@ show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_re
 column_title="Gravendeel patient samples", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
 bottom_annotation = column_ha, right_annotation = row_ha,
         clustering_distance_columns = "pearson",
-        clustering_distance_rows = "pearson")
+        clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
 
+hc <- as.hclust( column_dend(ht) )
+groups=cutree( hc, k=3 )
+
+column_ha = HeatmapAnnotation(Cluster = as.character(groups),LOH.1p=LOH.1p,LOH.19q=LOH.19q,IDH1.status=IDH1.status,Grade = ctrack,
+                              col = list( Cluster = c("1"="purple","2"="orange","3"="blue","4"="darkgreen"),
+                                         LOH.1p = c("YES"="red","NO"="grey","NA"="black"),
+                                         LOH.19q = c("YES"="red","NO"="grey","NA"="black"),
+                                         IDH1.status = c("WT"="grey","Mutant"="red","NA"="black"),
+                                         Grade = c("II" = "grey", "III" = "orange", "IV" = "red")
+                                        )
+                             )
 pdf("complexHeatmap_Gravendeel.pdf")
-ht
+Heatmap(GBMLGG_sig_centered,
+show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
+column_title="Rembrandt patient samples", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
+bottom_annotation = column_ha, right_annotation = row_ha,
+        clustering_distance_columns = "pearson",column_split = 3,
+        clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
 dev.off()
+
+
+library(RTCGA.clinical)
+
+clinical <- data.frame(times = remb_imp.pheno$survival,
+                       bcr_patient_barcode = rownames(remb_imp.pheno),
+                       patient.vital_status = as.numeric(remb_imp.pheno$status),
+                       signature = as.factor(groups))
+# alive=0 and dead=1
+
+kmTCGA(clinical, explanatory.names="signature",  pval = FALSE,conf.int = FALSE, risk.table=TRUE,
+       palette = c("purple","orange","blue","darkgreen"))
+
+
+res <- pairwise_survdiff(Surv(times, patient.vital_status) ~ signature, data = clinical)
+
+
+pdf("Survival_curves_Rembrandt.pdf")
+
+kmTCGA(clinical, explanatory.names="signature",  pval = FALSE,conf.int = FALSE, risk.table=TRUE,return.survfit = F,
+       palette = c("purple","orange","blue","darkgreen"))
+dev.off()
+
+pdf("Survival_pvalues_Rembrandt.pdf")
+ grid.ftable(formatC(res$p.value, format = "e", digits = 2),x=.14,y=.14,
+           gp = gpar(fill = rep(c("grey90", "grey95"), each = 6)))
+dev.off()
+#####################################################################################################################################
+#####################################################################################################################################
+#####################################################################################################################################
+##########################
