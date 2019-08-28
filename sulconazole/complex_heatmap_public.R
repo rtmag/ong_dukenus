@@ -253,3 +253,61 @@ pdf("Survival_pvalues_Rembrandt.pdf")
  grid.ftable(round(res$p.value,digits=5),x=.14,y=.14,
            gp = gpar(fill = rep(c("grey90", "grey95"), each = 6)))
 dev.off()
+#####################################################################################################################################
+#####################################################################################################################################
+#####################################################################################################################################
+#####################################################################################################################################
+
+#READ EXPRESSION TABLE
+grav <- read.table("2019-08-27_Gravendeel_expression.txt", header=TRUE, row.names=1)
+grav <- t(grav)
+
+#READ PHENO TABLE
+grav.pheno <- read.table("2019-08-27_Gravendeel_pheno.txt", header=TRUE, row.names=1)
+
+#CHECK GRADE OF ASTRO AND GBM
+ctrack = data.frame(hist=as.character(grav.pheno$Histology),grade=as.character(grav.pheno$Grade))
+table(ctrack[ctrack$hist=="Astrocytoma",2])
+table(ctrack[ctrack$hist=="GBM",2])
+
+#REMOVE other than ASTRO AND GBM AND keep non NA from expression and pheno tables
+ix = as.character(grav.pheno$Histology)!="Mixed glioma" & 
+     as.character(grav.pheno$Histology)!="Oligodendroglioma" & 
+     as.character(grav.pheno$Histology)!="Non-tumor" & 
+     as.character(grav.pheno$Histology)!="Pilocytic Astrocytoma" & 
+     as.character(grav.pheno$Grade)!="I" & 
+     !is.na(grav.pheno$Grade) & !is.na(grav.pheno$Histology)
+grav.imp <- grav[,ix]
+grav.imp.pheno <- grav.pheno[ix,]
+
+#GET SIGNATURE GENES ONLY
+grav_sig <- grav.imp[rownames(grav.imp) %in% signature$Gene.symbol,]
+
+track= signature[match(rownames(grav_sig),signature[,1]),2]
+
+ctrack = as.character(grav.imp.pheno$Grade)
+ctrack2 = as.character(grav.imp.pheno$Subtype_Verhaak_2010)
+ctrack2[is.na(ctrack2)]="NA"
+
+column_ha = HeatmapAnnotation(Grade = ctrack,Subtype = ctrack2,
+                              col = list(Grade = c("II" = "black", "III" = "grey", "IV" = "red"),
+                                      Subtype= c("Classical"="darkgreen",
+                                                "Mesenchymal"="purple","Neural"="darkred","Proneural"="darkblue","NA"="grey")))
+row_ha = rowAnnotation(Signature = track,show_annotation_name = FALSE,
+              col = list(Signature = c("EGFR" = "#ffb3ba", "Mesenchymal" = "#baffc9", "GenerationOfNeurons" = "#bae1ff")))
+
+GBMLGG_sig_centered = grav_sig - rowMeans(grav_sig)
+GBMLGG_sig_centered[GBMLGG_sig_centered >= 4] = 4
+GBMLGG_sig_centered[GBMLGG_sig_centered <= (-4)] = -4
+
+
+ht=Heatmap(GBMLGG_sig_centered,
+show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
+column_title="Gravendeel patient samples", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
+bottom_annotation = column_ha, right_annotation = row_ha,
+        clustering_distance_columns = "pearson",
+        clustering_distance_rows = "pearson")
+
+pdf("complexHeatmap_Gravendeel.pdf")
+ht
+dev.off()
