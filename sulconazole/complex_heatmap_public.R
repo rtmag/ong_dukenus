@@ -136,7 +136,10 @@ column_ha = HeatmapAnnotation(Cluster = as.character(groups),
                                         )
                              )
 
-pdf("TCGA_complexHeatmap.pdf")
+#pdf("TCGA_complexHeatmap.pdf")
+png("TCGA_complexHeatmap.png",width= 7.25,
+  height= 7.25,units="in",
+  res=1200,pointsize=4)
 Heatmap(GBMLGG_sig_centered,
 show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
 column_title="TCGA GBM-LGG Patients", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
@@ -155,7 +158,10 @@ clinical <- data.frame(times = GBMLGG_astro_gbm.pheno$survival,
 res <- pairwise_survdiff(Surv(times, patient.vital_status) ~ signature, data = clinical)
 
 
-pdf("Survival_curves_TCGA.pdf")
+#pdf("Survival_curves_TCGA.pdf")
+png("Survival_curves_TCGA.png",width= 7.25,
+  height= 7.25,units="in",
+  res=1200,pointsize=4)
 kmTCGA(clinical, explanatory.names="signature",  pval = FALSE,conf.int = FALSE, risk.table=TRUE,return.survfit = F,
        palette = c("purple","orange","blue"))
 dev.off()
@@ -222,7 +228,10 @@ column_ha = HeatmapAnnotation(Cluster = as.character(groups),Grade = ctrack,
                                          Grade = c("II" = "grey", "III" = "orange", "IV" = "red")
                                         )
                              )
-pdf("Rembrandt_complexHeatmap.pdf")
+#pdf("Rembrandt_complexHeatmap.pdf")
+png("Rembrandt_complexHeatmap.png",width= 7.25,
+  height= 7.25,units="in",
+  res=1200,pointsize=4)
 Heatmap(GBMLGG_sig_centered,
 show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
 column_title="Rembrandt patient samples", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
@@ -247,8 +256,10 @@ kmTCGA(clinical, explanatory.names="signature",  pval = FALSE,conf.int = FALSE, 
 res <- pairwise_survdiff(Surv(times, patient.vital_status) ~ signature, data = clinical)
 
 
-pdf("Survival_curves_Rembrandt.pdf")
-
+#pdf("Survival_curves_Rembrandt.pdf")
+png("Survival_curves_Rembrandt.png",width= 7.25,
+  height= 7.25,units="in",
+  res=1200,pointsize=4)
 kmTCGA(clinical, explanatory.names="signature",  pval = FALSE,conf.int = FALSE, risk.table=TRUE,return.survfit = F,
        palette = c("purple","orange","blue","darkgreen"))
 dev.off()
