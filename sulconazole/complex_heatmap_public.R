@@ -268,6 +268,27 @@ pdf("Survival_pvalues_Rembrandt.pdf")
  grid.ftable(formatC(res$p.value, format = "e", digits = 2),x=.14,y=.14,
            gp = gpar(fill = rep(c("grey90", "grey95"), each = 6)))
 dev.off()
+
+
+############################################
+# KMEANS TRIAL
+Heatmap(GBMLGG_sig_centered,
+show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
+column_title="Rembrandt patient samples", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
+bottom_annotation = column_ha, right_annotation = row_ha,
+        clustering_distance_columns = "pearson",
+        clustering_distance_rows = "pearson",column_km = 3, column_km_repeats = 100)
+
+png("complexHeatmap_Rembrandt_Forced3Groups_Kmeans3.png",width= 7.25,
+  height= 7.25,units="in",
+  res=1200,pointsize=4)
+Heatmap(GBMLGG_sig_centered,
+show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = T,
+column_title="Rembrandt patient samples", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
+bottom_annotation = column_ha, right_annotation = row_ha,
+ column_km = 3, column_km_repeats = 100,
+        clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
+dev.off()
 #####################################################################################################################################
 #####################################################################################################################################
 #####################################################################################################################################
