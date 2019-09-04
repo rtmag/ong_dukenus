@@ -155,7 +155,7 @@ Heatmap(GBMLGG_sig_centered,
 show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
 column_title="TCGA GBM-LGG Patients", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
 bottom_annotation = column_ha, right_annotation = row_ha,
-        clustering_distance_columns = "pearson",column_km = 3, column_km_repeats = 100
+        clustering_distance_columns = "pearson",column_km = 3, column_km_repeats = 100,
         clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
 dev.off()
 
