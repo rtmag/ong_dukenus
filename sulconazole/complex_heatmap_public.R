@@ -148,6 +148,18 @@ bottom_annotation = column_ha, right_annotation = row_ha,
         clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
 dev.off()
 
+png("TCGA_complexHeatmap_kmeans3Groups.png",width= 7.25,
+  height= 7.25,units="in",
+  res=1200,pointsize=4)
+Heatmap(GBMLGG_sig_centered,
+show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
+column_title="TCGA GBM-LGG Patients", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
+bottom_annotation = column_ha, right_annotation = row_ha,
+        clustering_distance_columns = "pearson",column_km = 3, column_km_repeats = 100
+        clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
+dev.off()
+
+
 clinical <- data.frame(times = GBMLGG_astro_gbm.pheno$survival,
                        bcr_patient_barcode = rownames(GBMLGG_astro_gbm.pheno),
                        patient.vital_status = as.numeric(GBMLGG_astro_gbm.pheno$status),
