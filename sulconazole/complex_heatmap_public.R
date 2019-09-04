@@ -358,6 +358,19 @@ bottom_annotation = column_ha, right_annotation = row_ha,
         clustering_distance_columns = "pearson",
         clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
 
+############################################
+# KMEANS TRIAL
+ht=Heatmap(GBMLGG_sig_centered,
+show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = T,
+column_title="Gravendeel patient samples", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
+bottom_annotation = column_ha, right_annotation = row_ha,
+ column_km = 3, column_km_repeats = 100,
+        clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
+
+as.hclust
+
+
+############################################
 hc <- as.hclust( column_dend(ht) )
 groups=cutree( hc, k=3 )
 
