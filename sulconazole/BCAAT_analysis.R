@@ -139,3 +139,46 @@ column_title_side = "bottom", row_title="", row_title_side = "right",row_names_g
 ht_list = ht1 %v% ht2 
 draw(ht_list)
 dev.off()
+################################################################################################################################
+# sulconaloze treatment
+sulc <- read.csv("~/Desktop/ong/for_Roberto_significantDEG_TG543_after_sulconazole_treatment.csv", header=TRUE)
+sulc_mat <- sulc[,11:16]
+sulc_mat_sig <- sulc_mat[sulc[,3] %in% signature$Gene.symbol,]
+rownames(sulc_mat_sig) <- sulc[,3][sulc[,3] %in% signature$Gene.symbol]
+
+track= signature[match(rownames(sulc_mat_sig),signature[,1]),2]
+
+row_ha_sulc = rowAnnotation(Signature = track,show_annotation_name = FALSE,
+              col = list(Signature = c("GenerationOfNeurons" = "#bae1ff","EGFR" = "#ffb3ba", "Mesenchymal" = "#baffc9")))
+
+sulc_mat_sig_centered = as.matrix(sulc_mat_sig - rowMeans(sulc_mat_sig))
+
+pdf("~/Desktop/ong/sulconazole_signature_genes.pdf")
+Heatmap(t(scale(t(sulc_mat_sig_centered))),
+show_row_names = FALSE,show_column_names = TRUE,name = "Expression",row_dend_reorder = T, column_dend_reorder = T,
+column_title="Sulconazole treatment", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
+        clustering_distance_columns = "pearson",right_annotation = row_ha_sulc,
+        clustering_distance_rows = "pearson",row_split =track,show_row_dend = TRUE)
+dev.off()
+##
+sulc_mat_sig <- sulc_mat[sulc[,3] %in% bcca,]
+rownames(sulc_mat_sig) <- sulc[,3][sulc[,3] %in% bcca]
+
+sulc_mat_sig_centered = as.matrix(sulc_mat_sig - rowMeans(sulc_mat_sig))
+
+pdf("~/Desktop/ong/sulconazole_BCCA_genes_scaled.pdf")
+Heatmap(t(scale(t(sulc_mat_sig_centered))),
+show_row_names = TRUE,show_column_names = TRUE,name = "BCCA gene expression",row_dend_reorder = T, column_dend_reorder = T,
+column_title="Sulconazole treatment", column_title_side = "bottom", row_title="", row_title_side = "right",
+        clustering_distance_columns = "pearson",
+        clustering_distance_rows = "pearson",show_row_dend = TRUE)
+dev.off()
+
+pdf("~/Desktop/ong/sulconazole_BCCA_genes.pdf")
+Heatmap(sulc_mat_sig_centered,
+show_row_names = TRUE,show_column_names = TRUE,name = "BCCA gene expression",row_dend_reorder = T, column_dend_reorder = T,
+column_title="Sulconazole treatment", column_title_side = "bottom", row_title="", row_title_side = "right",
+        clustering_distance_columns = "pearson",
+        clustering_distance_rows = "pearson",show_row_dend = TRUE)
+dev.off()
+
