@@ -93,7 +93,7 @@ column_ha = HeatmapAnnotation(Cluster = as.character(groups),
                                         )
                              )
 
-Heatmap(GBMLGG_sig_centered,
+ht1 = Heatmap(GBMLGG_sig_centered,
 show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
 column_title="TCGA GBM-LGG Patients", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
 bottom_annotation = column_ha, right_annotation = row_ha,
@@ -122,16 +122,20 @@ column_ha_bcca = HeatmapAnnotation(Cluster = as.character(groups),
                                         )
                              )
 
-Heatmap(bcca_mat_centered,
-show_row_names = TRUE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = T,
-column_title="TCGA GBM-LGG Patients", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
-bottom_annotation = column_ha,
-        clustering_distance_columns = "pearson",column_split = 3,
-        clustering_distance_rows = "pearson",show_row_dend = T)
 
-Heatmap(bcca_mat_centered,
-show_row_names = TRUE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
+pdf("~/Desktop/ong/TCGA_BCCA.pdf",width=6,height=8)
+ht1 = Heatmap(GBMLGG_sig_centered,height =22,
+show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
 column_title="TCGA GBM-LGG Patients", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
-bottom_annotation = column_ha, 
+bottom_annotation = column_ha, right_annotation = row_ha,
         clustering_distance_columns = "pearson",column_split = 3,
-        clustering_distance_rows = "pearson",show_row_dend = FALSE)
+        clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
+
+ht2 = Heatmap(bcca_mat_centered,height = 36,
+show_row_names = TRUE,show_column_names = FALSE,name = "BCCA genes",row_dend_reorder = T,
+column_title_side = "bottom", row_title="", row_title_side = "right",row_names_gp = gpar(fontsize = 8),
+        clustering_distance_rows = "pearson")
+
+ht_list = ht1 %v% ht2 
+draw(ht_list)
+dev.off()
