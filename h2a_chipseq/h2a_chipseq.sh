@@ -58,20 +58,42 @@ trim_galore --illumina -q 20 --fastqc -o ./ H2A.Z2_rep2_U2OS_SRR9102957.fastq &
 ############
 
 java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
-I=/root/ong_dukenus/chip-seq/bam/shNT-input_1_Aligned.sortedByCoord.out.bam \
-O=/root/ong_dukenus/chip-seq/bam/shNT-input_1_rmdup.bam \
-M=/root/ong_dukenus/chip-seq/bam/shNT-input_1.mfile
+I=H2A.Z1_rep1_Aligned.sortedByCoord.out.bam \
+O=H2A.Z1_rep1_rmdup.bam \
+M=H2A.Z1_rep1.mfile
+
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=H2A.Z2_rep1_Aligned.sortedByCoord.out.bam \
+O=H2A.Z2_rep1_rmdup.bam \
+M=H2A.Z2_rep1.mfile
+
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=H2A.Z1_rep2_Aligned.sortedByCoord.out.bam \
+O=H2A.Z1_rep2_rmdup.bam \
+M=H2A.Z1_rep2.mfile
+
+java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=H2A.Z2_rep2_Aligned.sortedByCoord.out.bam \
+O=H2A.Z2_rep2_rmdup.bam \
+M=H2A.Z2_rep2.mfile
 
 ############
+samtools index H2A.Z1_rep1_rmdup.bam &
+samtools index H2A.Z2_rep1_rmdup.bam &
+samtools index H2A.Z1_rep2_rmdup.bam
+samtools index H2A.Z2_rep2_rmdup.bam
+############
 
-bamCoverage -p max -bs 1 --normalizeUsing CPM -b /root/ong_dukenus/chip-seq/bam/shNT-IP_1_rmdup.bam \
--o /root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b H2A.Z1_rep1_rmdup.bam -o H2AZ1_rep1_rmdup.bw
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b H2A.Z2_rep1_rmdup.bam -o H2AZ2_rep1_rmdup.bw
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b H2A.Z1_rep2_rmdup.bam -o H2AZ1_rep2_rmdup.bw
+bamCoverage -p max -bs 1 --normalizeUsing CPM -b H2A.Z2_rep2_rmdup.bam -o H2AZ2_rep2_rmdup.bw
 
 #############
 
+macs2 callpeak -f BAM -g hs -q 0.01 --broad --keep-dup auto -n H2AZ1_broad --outdir ./ -t H2A.Z1_rep1_rmdup.bam H2A.Z1_rep2_rmdup.bam &
+macs2 callpeak -f BAM -g hs -q 0.01 --broad --keep-dup auto -n H2AZ2_broad --outdir ./ -t H2A.Z2_rep1_rmdup.bam H2A.Z2_rep2_rmdup.bam &
 
-macs2 callpeak -f BAMPE -g hs -q 0.05 --broad --keep-dup auto -n shNT_IP_broad --outdir /root/ong_dukenus/chip-seq/macs2/ \
--t /root/ong_dukenus/chip-seq/bam/shNT-IP_1_rmdup.bam -c /root/ong_dukenus/chip-seq/bam/shNT-input_1_rmdup.bam &
-
-macs2 callpeak -f BAMPE -g hs -q 0.05 --call-summits --keep-dup auto -n shNT_IP_narrow --outdir /root/ong_dukenus/chip-seq/macs2/ \
--t /root/ong_dukenus/chip-seq/bam/shNT-IP_1_rmdup.bam -c /root/ong_dukenus/chip-seq/bam/shNT-input_1_rmdup.bam &
+macs2 callpeak -f BAM -g hs -q 0.01 --call-summits --keep-dup auto -n H2AZ1_narrow --outdir ./ -t H2A.Z1_rep1_rmdup.bam H2A.Z1_rep2_rmdup.bam &
+macs2 callpeak -f BAM -g hs -q 0.01 --call-summits --keep-dup auto -n H2AZ2_narrow --outdir ./ -t H2A.Z2_rep1_rmdup.bam H2A.Z2_rep2_rmdup.bam &
+##################
