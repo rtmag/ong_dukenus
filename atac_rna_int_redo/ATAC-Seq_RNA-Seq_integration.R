@@ -43,22 +43,64 @@ smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,
               xlab=expression('RNA-Seq Log'[2]*' Fold Change ( shH2AFV / shNT )'),
               ylab=expression('ATAC-Seq Log'[2]*' Fold Change ( shH2AFV / shNT )'),
              )
-abline(h=0,lty=3)
-abline(v=0,lty=3)
 points(-log2(rna$PostFC)[rna[,1] %in% targets],
        atacfc[names(atacfc) %in% targets],
       col="red",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
 dev.off()
  
-scp -P 60035 remap2018_REST_nr_macs2_hg38_v1_2.bed root@172.18.149.78:./root/ong_dukenus/TF_targets
-annotatePeaks.pl remap2018_REST_nr_macs2_hg38_v1_2.bed hg38 -annStats REST_remap.annStats > REST_remap.anno 
+#scp -P 60035 remap2018_REST_nr_macs2_hg38_v1_2.bed root@172.18.149.78:./root/ong_dukenus/TF_targets
+#annotatePeaks.pl remap2018_REST_nr_macs2_hg38_v1_2.bed hg38 -annStats REST_remap.annStats > REST_remap.anno 
 
-more remap2018_REST_all_macs2_hg38_v1_2.bed |grep -i "Neural" > rest_neural_remap.bed
-scp -P 60035 rest_neural_remap.bed root@172.18.149.78:/root/ong_dukenus/TF_targets
-annotatePeaks.pl rest_neural_remap.bed hg38 -annStats rest_neural_remap.annStats > rest_neural_remap.anno 
-
+#more remap2018_REST_all_macs2_hg38_v1_2.bed |grep -i "Neural" > rest_neural_remap.bed
+#scp -P 60035 rest_neural_remap.bed root@172.18.149.78:/root/ong_dukenus/TF_targets
+#annotatePeaks.pl rest_neural_remap.bed hg38 -annStats rest_neural_remap.annStats > rest_neural_remap.anno 
+################################################################################################################
+################################################################################################################
 library(TFregulomeR)
+library(TxDb.Hsapiens.UCSC.hg38.knownGene)
+
+TFBS_brain <- dataBrowser(organ = "brain",species="HUMAN")
+
+foxm1 <- loadPeaks(id = "MM1_HSA_K562_FOXM1", includeMotifOnly = TRUE)
+
+foxm1_anno <- genomeAnnotate(peaks = foxm1,return_annotation = TRUE)
+
+foxm1_target <- sort(unique(foxm1_anno[foxm1_anno$annotation=="promoter-TSS",'geneName']))
+foxm1_target <- foxm1_target[foxm1_target != ""]
+
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,
+              xlab=expression('RNA-Seq Log'[2]*' Fold Change ( shH2AFV / shNT )'),
+              ylab=expression('ATAC-Seq Log'[2]*' Fold Change ( shH2AFV / shNT )'),
+             )
+points(-log2(rna$PostFC)[rna[,1] %in% targets],
+       atacfc[names(atacfc) %in% targets],
+      col="red",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+
+
+write.table(foxm1,"foxm1_k562_quy.bed",sep="\t",quote=F,row.names=F,col.names=F)
+
+cebpb <- loadPeaks(id = "MM1_HSA_K562_CEBPB", includeMotifOnly = TRUE)
+write.table(cebpb,"cebpb_k562_quy.bed",sep="\t",quote=F,row.names=F,col.names=F)
+
+HIF1A <- loadPeaks(id = "GTRD-EXP035004_HSA_U2OS_HIF1A", includeMotifOnly = FALSE)
+write.table(HIF1A,"HIF1A_U2OS_quy.bed",sep="\t",quote=F,row.names=F,col.names=F)
+
+HIF1A <- loadPeaks(id = "GTRD-EXP035004_HSA_U2OS_HIF1A", includeMotifOnly = FALSE)
+write.table(HIF1A,"HIF1A_U2OS_quy.bed",sep="\t",quote=F,row.names=F,col.names=F)
+
 
 rest <- loadPeaks(id = "GTRD-EXP010296_HSA_U87_REST", includeMotifOnly = TRUE)
 write.table(rest,"rest_gbm_quy.bed",sep="\t",quote=F,row.names=F,col.names=F)
+
+
+
+
+
+
+
+
 
