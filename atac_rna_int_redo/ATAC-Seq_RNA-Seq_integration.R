@@ -108,7 +108,7 @@ e2f1_anno <- genomeAnnotate(peaks = e2f1,return_annotation = TRUE)
 e2f1_target <- sort(unique(e2f1_anno[e2f1_anno$annotation=="promoter-TSS",'geneName']))
 e2f1_target <- e2f1_target[e2f1_target != ""]
 ########################################################################
-
+pdf("RNA_ATAC_chipseq_targetID.pdf")
 par(mfrow=c(3,3))
 #1
 smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,
@@ -179,3 +179,302 @@ points(-log2(rna$PostFC)[rna[,1] %in% e2f1_target],
       col="red",pch=20)
 abline(h=0,lty=3)
 abline(v=0,lty=3)
+dev.off()
+
+##########################
+# TRRUST targets
+trrust <- read.table("trrust_rawdata.human.tsv",header=T,stringsAsFactors=FALSE)
+
+foxm1_a <- trrust[trrust$Source=="FOXM1" & trrust$Effect=="Activation",2]
+foxm1_r <- trrust[trrust$Source=="FOXM1" & trrust$Effect=="Repression",2]
+foxm1_u <- trrust[trrust$Source=="FOXM1" & trrust$Effect=="Unknown",2]
+
+cebpb_a <- trrust[trrust$Source=="CEBPB" & trrust$Effect=="Activation",2]
+cebpb_r <- trrust[trrust$Source=="CEBPB" & trrust$Effect=="Repression",2]
+cebpb_u <- trrust[trrust$Source=="CEBPB" & trrust$Effect=="Unknown",2]
+
+hif1a_a <- trrust[trrust$Source=="HIF1A" & trrust$Effect=="Activation",2]
+hif1a_r <- trrust[trrust$Source=="HIF1A" & trrust$Effect=="Repression",2]
+hif1a_u <- trrust[trrust$Source=="HIF1A" & trrust$Effect=="Unknown",2]
+
+rest_a <- trrust[trrust$Source=="REST" & trrust$Effect=="Activation",2]
+rest_r <- trrust[trrust$Source=="REST" & trrust$Effect=="Repression",2]
+rest_u <- trrust[trrust$Source=="REST" & trrust$Effect=="Unknown",2]
+
+twist1_a <- trrust[trrust$Source=="TWIST1" & trrust$Effect=="Activation",2]
+twist1_r <- trrust[trrust$Source=="TWIST1" & trrust$Effect=="Repression",2]
+twist1_u <- trrust[trrust$Source=="TWIST1" & trrust$Effect=="Unknown",2]
+
+e2f4_a <- trrust[trrust$Source=="E2F4" & trrust$Effect=="Activation",2]
+e2f4_r <- trrust[trrust$Source=="E2F4" & trrust$Effect=="Repression",2]
+e2f4_u <- trrust[trrust$Source=="E2F4" & trrust$Effect=="Unknown",2]
+
+cebpd_a <- trrust[trrust$Source=="CEBPD" & trrust$Effect=="Activation",2]
+cebpd_r <- trrust[trrust$Source=="CEBPD" & trrust$Effect=="Repression",2]
+cebpd_u <- trrust[trrust$Source=="CEBPD" & trrust$Effect=="Unknown",2]
+
+nfkb1_a <- trrust[trrust$Source=="NFKB1" & trrust$Effect=="Activation",2]
+nfkb1_r <- trrust[trrust$Source=="NFKB1" & trrust$Effect=="Repression",2]
+nfkb1_u <- trrust[trrust$Source=="NFKB1" & trrust$Effect=="Unknown",2]
+
+e2f1_a <- trrust[trrust$Source=="E2F1" & trrust$Effect=="Activation",2]
+e2f1_r <- trrust[trrust$Source=="E2F1" & trrust$Effect=="Repression",2]
+e2f1_u <- trrust[trrust$Source=="E2F1" & trrust$Effect=="Unknown",2]
+
+pdf("RNA_ATAC_trrust_targetID.pdf")
+par(mfrow=c(3,3))
+#1
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,
+              xlab="",
+              ylab="",
+             main = "FOXM1 targets")
+points(-log2(rna$PostFC)[rna[,1] %in% foxm1_a],
+       atacfc[names(atacfc) %in% foxm1_a],
+      col="green",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% foxm1_r],
+       atacfc[names(atacfc) %in% foxm1_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% foxm1_u],
+       atacfc[names(atacfc) %in% foxm1_u],
+      col="grey",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+
+#2
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "CEBPB targets",xlab="",ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% cebpb_a],
+       atacfc[names(atacfc) %in% cebpb_a],
+      col="green",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% cebpb_r],
+       atacfc[names(atacfc) %in% cebpb_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% cebpb_u],
+       atacfc[names(atacfc) %in% cebpb_u],
+      col="grey",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#3
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "HIF1A targets",xlab="",ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% hif1a_a],
+       atacfc[names(atacfc) %in% hif1a_a],
+      col="green",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% hif1a_r],
+       atacfc[names(atacfc) %in% hif1a_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% hif1a_u],
+       atacfc[names(atacfc) %in% hif1a_u],
+      col="grey",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#4
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "REST targets",xlab="",
+              ylab=expression('ATAC-Seq Log'[2]*' Fold Change ( shH2AFV / shNT )'))
+points(-log2(rna$PostFC)[rna[,1] %in% rest_a],
+       atacfc[names(atacfc) %in% rest_a],
+      col="green",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% rest_r],
+       atacfc[names(atacfc) %in% rest_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% rest_u],
+       atacfc[names(atacfc) %in% rest_u],
+      col="grey",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#5
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "TWIST1 targets",xlab="",ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% twist1_a],
+       atacfc[names(atacfc) %in% twist1_a],
+      col="green",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% twist1_r],
+       atacfc[names(atacfc) %in% twist1_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% twist1_u],
+       atacfc[names(atacfc) %in% twist1_u],
+      col="grey",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#6
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "E2F4 targets",xlab="",ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% e2f4_a],
+       atacfc[names(atacfc) %in% e2f4_a],
+      col="green",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% e2f4_r],
+       atacfc[names(atacfc) %in% e2f4_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% e2f4_u],
+       atacfc[names(atacfc) %in% e2f4_u],
+      col="grey",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#7
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "CEBPD targets",xlab="",ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% cebpd_a],
+       atacfc[names(atacfc) %in% cebpd_a],
+      col="green",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% cebpd_r],
+       atacfc[names(atacfc) %in% cebpd_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% cebpd_u],
+       atacfc[names(atacfc) %in% cebpd_u],
+      col="grey",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#8
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "NFKB1 targets",
+              xlab=expression('RNA-Seq Log'[2]*' Fold Change ( shH2AFV / shNT )'),ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% nfkb1_a],
+       atacfc[names(atacfc) %in% nfkb1_a],
+      col="green",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% nfkb1_r],
+       atacfc[names(atacfc) %in% nfkb1_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% nfkb1_u],
+       atacfc[names(atacfc) %in% nfkb1_u],
+      col="grey",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#9
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "E2F1 targets",xlab="",ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% e2f1_a],
+       atacfc[names(atacfc) %in% e2f1_a],
+      col="green",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% e2f1_r],
+       atacfc[names(atacfc) %in% e2f1_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% e2f1_u],
+       atacfc[names(atacfc) %in% e2f1_u],
+      col="grey",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+dev.off()
+
+
+##############################################################################################################################
+##############################################################################################################################
+
+pdf("RNA_ATAC_trrust_targetID_allRED.pdf")
+par(mfrow=c(3,3))
+#1
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,
+              xlab="",
+              ylab="",
+             main = "FOXM1 targets")
+points(-log2(rna$PostFC)[rna[,1] %in% foxm1_a],
+       atacfc[names(atacfc) %in% foxm1_a],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% foxm1_r],
+       atacfc[names(atacfc) %in% foxm1_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% foxm1_u],
+       atacfc[names(atacfc) %in% foxm1_u],
+      col="red",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+
+#2
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "CEBPB targets",xlab="",ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% cebpb_a],
+       atacfc[names(atacfc) %in% cebpb_a],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% cebpb_r],
+       atacfc[names(atacfc) %in% cebpb_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% cebpb_u],
+       atacfc[names(atacfc) %in% cebpb_u],
+      col="red",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#3
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "HIF1A targets",xlab="",ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% hif1a_a],
+       atacfc[names(atacfc) %in% hif1a_a],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% hif1a_r],
+       atacfc[names(atacfc) %in% hif1a_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% hif1a_u],
+       atacfc[names(atacfc) %in% hif1a_u],
+      col="red",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#4
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "REST targets",xlab="",
+              ylab=expression('ATAC-Seq Log'[2]*' Fold Change ( shH2AFV / shNT )'))
+points(-log2(rna$PostFC)[rna[,1] %in% rest_a],
+       atacfc[names(atacfc) %in% rest_a],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% rest_r],
+       atacfc[names(atacfc) %in% rest_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% rest_u],
+       atacfc[names(atacfc) %in% rest_u],
+      col="red",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#5
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "TWIST1 targets",xlab="",ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% twist1_a],
+       atacfc[names(atacfc) %in% twist1_a],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% twist1_r],
+       atacfc[names(atacfc) %in% twist1_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% twist1_u],
+       atacfc[names(atacfc) %in% twist1_u],
+      col="red",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#6
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "E2F4 targets",xlab="",ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% e2f4_a],
+       atacfc[names(atacfc) %in% e2f4_a],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% e2f4_r],
+       atacfc[names(atacfc) %in% e2f4_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% e2f4_u],
+       atacfc[names(atacfc) %in% e2f4_u],
+      col="red",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#7
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "CEBPD targets",xlab="",ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% cebpd_a],
+       atacfc[names(atacfc) %in% cebpd_a],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% cebpd_r],
+       atacfc[names(atacfc) %in% cebpd_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% cebpd_u],
+       atacfc[names(atacfc) %in% cebpd_u],
+      col="red",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#8
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "NFKB1 targets",
+              xlab=expression('RNA-Seq Log'[2]*' Fold Change ( shH2AFV / shNT )'),ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% nfkb1_a],
+       atacfc[names(atacfc) %in% nfkb1_a],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% nfkb1_r],
+       atacfc[names(atacfc) %in% nfkb1_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% nfkb1_u],
+       atacfc[names(atacfc) %in% nfkb1_u],
+      col="red",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+#9
+smoothScatter(-log2(rna$PostFC),atacfc,xlim=c(-3,3), ylim=c(-2,2),nrpoints=0,main = "E2F1 targets",xlab="",ylab="")
+points(-log2(rna$PostFC)[rna[,1] %in% e2f1_a],
+       atacfc[names(atacfc) %in% e2f1_a],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% e2f1_r],
+       atacfc[names(atacfc) %in% e2f1_r],
+      col="red",pch=20)
+points(-log2(rna$PostFC)[rna[,1] %in% e2f1_u],
+       atacfc[names(atacfc) %in% e2f1_u],
+      col="red",pch=20)
+abline(h=0,lty=3)
+abline(v=0,lty=3)
+dev.off()
