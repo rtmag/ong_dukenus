@@ -18,7 +18,7 @@ trim_galore --illumina -q 20 --fastqc -o ./ H2A.Z2_rep2_U2OS_SRR9102957.fastq.gz
 --outFilterScoreMinOverLread 0.40 \
 --outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
---readFilesIn H2A.Z1_rep1_U2OS_SRR9102954.fastq \
+--readFilesIn H2A.Z1_rep1_U2OS_SRR9102954_trimmed.fq.gz \
 --outSAMtype BAM SortedByCoordinate \
 --outFileNamePrefix H2A.Z1_rep1_
 
@@ -29,7 +29,7 @@ trim_galore --illumina -q 20 --fastqc -o ./ H2A.Z2_rep2_U2OS_SRR9102957.fastq.gz
 --outFilterScoreMinOverLread 0.40 \
 --outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
---readFilesIn H2A.Z1_rep1_U2OS_SRR9102954.fastq \
+--readFilesIn H2A.Z1_rep1_U2OS_SRR9102954_trimmed.fq.gz \
 --outSAMtype BAM SortedByCoordinate \
 --outFileNamePrefix H2A.Z2_rep1_
 
@@ -40,7 +40,7 @@ trim_galore --illumina -q 20 --fastqc -o ./ H2A.Z2_rep2_U2OS_SRR9102957.fastq.gz
 --outFilterScoreMinOverLread 0.40 \
 --outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
---readFilesIn H2A.Z1_rep1_U2OS_SRR9102954.fastq \
+--readFilesIn H2A.Z1_rep1_U2OS_SRR9102954_trimmed.fq.gz \
 --outSAMtype BAM SortedByCoordinate \
 --outFileNamePrefix H2A.Z1_rep2_
 
@@ -51,7 +51,7 @@ trim_galore --illumina -q 20 --fastqc -o ./ H2A.Z2_rep2_U2OS_SRR9102957.fastq.gz
 --outFilterScoreMinOverLread 0.40 \
 --outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
---readFilesIn H2A.Z1_rep1_U2OS_SRR9102954.fastq \
+--readFilesIn H2A.Z1_rep1_U2OS_SRR9102954_trimmed.fq.gz \
 --outSAMtype BAM SortedByCoordinate \
 --outFileNamePrefix H2A.Z2_rep2_
 
