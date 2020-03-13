@@ -100,4 +100,55 @@ macs2 callpeak -f BAM -g hs -q 0.01 --call-summits --keep-dup auto -n H2AZ2_narr
 more H2AZ2_broad_peaks.broadPeak|awk -F"\t" '{if($5>200 && $7>2){print $0}}' > H2AZ2_filtered.broadPeak
 more H2AZ1_broad_peaks.broadPeak|awk -F"\t" '{if($5>200 && $7>2){print $0}}' > H2AZ1_filtered.broadPeak
 ##################
+bedtools intersect -a H2AZ1_hg19.bed -b H2AZ2_hg19.bed -v > H2AZ1_hg19_only.bed
+bedtools intersect -b H2AZ1_hg19.bed -a H2AZ2_hg19.bed -v > H2AZ2_hg19_only.bed
+##################
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
+-R H2AZ1_hg19.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 1000 -b 1000 -p 40 -out H2AZ1_peak_atac.mat \
+--outFileNameMatrix H2AZ1_peak_atac.rmat
 
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
+-R H2AZ2_hg19.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 1000 -b 1000 -p 40 -out H2AZ2_peak_atac.mat \
+--outFileNameMatrix H2AZ2_peak_atac.rmat
+##################
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
+-R H2AZ1_hg19_only.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 1000 -b 1000 -p 40 -out H2AZ1_only_atac.mat \
+--outFileNameMatrix H2AZ1_only_atac.rmat
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shNT_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_I_2_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_1_rmdup.bw \
+/root/ong_dukenus/ATAC-SEQ/bw/shH2_II_2_rmdup.bw \
+-R H2AZ2_hg19_only.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 1000 -b 1000 -p 40 -out H2AZ2_only_atac.mat \
+--outFileNameMatrix H2AZ2_only_atac.rmat
+##################
