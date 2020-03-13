@@ -175,6 +175,8 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AZ1 Only" --color
 
 ############################################
 grep "Down" /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_blacklist_100reads.tsv|cut -f1-3 > Down_atacseq.bed
+grep "Up" /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_blacklist_100reads.tsv|cut -f1-3 > Up_atacseq.bed
+
 # liftover and filezzilla
 
 computeMatrix reference-point \
@@ -184,10 +186,18 @@ computeMatrix reference-point \
 /root/ong_dukenus/h2a_chipseq/fastq/transfer/H2AZ2_rep1_rmdup.bw \
 /root/ong_dukenus/h2a_chipseq/fastq/transfer/H2AZ2_rep2_rmdup.bw \
 -R Down_atacseq_hg38.bed --referencePoint center \
---sortRegions descend --sortUsingSamples 3 4 -bs 20 -a 2000 -b 2000 -p 40 -out H2AZ_ON_ATACDOWN.mat \
+--sortRegions descend --sortUsingSamples 3 4 -bs 20 -a 4000 -b 4000 -p 40 -out H2AZ_ON_ATACDOWN.mat \
 --outFileNameMatrix H2AZ_ON_ATACDOWN.rmat
 
-plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC-Lost" --colorMap RdBu \
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC-Lost" --colorMap "Greens" "Greens" "Reds" "Reds" \
 -m H2AZ_ON_ATACDOWN.mat \
 --samplesLabel "H2AZ1-I" "H2AZ1-II" "H2AZ2-I" "H2AZ2-II" \
 -out H2AZ_ON_ATACDOWN.pdf
+
+#####
+
+cat  > /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.DPbed
+echo "#ATAC-Gain" >> /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.DPbed
+grep "Down" atac_diffreps_blacklist_100reads.tsv|cut -f1-3 >> /root/ong_dukenus/ATAC-SEQ/heatmap/h2_vs_nt_100reads.DPbed
+echo "#ATAC-Loss" >> .DPbed
+
