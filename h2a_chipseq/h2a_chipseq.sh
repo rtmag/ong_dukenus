@@ -97,3 +97,7 @@ macs2 callpeak -f BAM -g hs -q 0.01 --broad --keep-dup auto -n H2AZ2_broad --out
 macs2 callpeak -f BAM -g hs -q 0.01 --call-summits --keep-dup auto -n H2AZ1_narrow --outdir ./ -t H2A.Z1_rep1_rmdup.bam H2A.Z1_rep2_rmdup.bam &
 macs2 callpeak -f BAM -g hs -q 0.01 --call-summits --keep-dup auto -n H2AZ2_narrow --outdir ./ -t H2A.Z2_rep1_rmdup.bam H2A.Z2_rep2_rmdup.bam &
 ##################
+more H2AZ2_broad_peaks.broadPeak|awk -F"\t" '{if($5>100 && $7>2){print $0}}' > H2AZ2_filtered.broadPeak
+more H2AZ1_broad_peaks.broadPeak|awk -F"\t" '{if($5>100 && $7>2){print $0}}' > H2AZ1_filtered.broadPeak
+##################
+
