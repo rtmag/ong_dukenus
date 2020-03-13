@@ -179,15 +179,15 @@ grep "Down" /root/ong_dukenus/ATAC-SEQ/heatmap/atac_diffreps_blacklist_100reads.
 
 computeMatrix reference-point \
 -S \
-/root/ong_dukenus/h2a_chipseq/fastq/H2AZ1_rep1_rmdup.bw \
-/root/ong_dukenus/h2a_chipseq/fastq/H2AZ1_rep2_rmdup.bw \
-/root/ong_dukenus/h2a_chipseq/fastq/H2AZ2_rep1_rmdup.bw \
-/root/ong_dukenus/h2a_chipseq/fastq/H2AZ2_rep2_rmdup.bw \
+/root/ong_dukenus/h2a_chipseq/fastq/transfer/H2AZ1_rep1_rmdup.bw \
+/root/ong_dukenus/h2a_chipseq/fastq/transfer/H2AZ1_rep2_rmdup.bw \
+/root/ong_dukenus/h2a_chipseq/fastq/transfer/H2AZ2_rep1_rmdup.bw \
+/root/ong_dukenus/h2a_chipseq/fastq/transfer/H2AZ2_rep2_rmdup.bw \
 -R Down_atacseq_hg38.bed --referencePoint center \
 --sortRegions descend --sortUsingSamples 3 4 -bs 20 -a 2000 -b 2000 -p 40 -out H2AZ_ON_ATACDOWN.mat \
 --outFileNameMatrix H2AZ_ON_ATACDOWN.rmat
 
-plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC-Lost" --colorMap Reds \
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC-Lost" --colorMap RdBu \
 -m H2AZ_ON_ATACDOWN.mat \
 --samplesLabel "H2AZ1-I" "H2AZ1-II" "H2AZ2-I" "H2AZ2-II" \
 -out H2AZ_ON_ATACDOWN.pdf
