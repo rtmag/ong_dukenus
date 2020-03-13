@@ -152,3 +152,23 @@ computeMatrix reference-point \
 --sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 1000 -b 1000 -p 40 -out H2AZ2_only_atac.mat \
 --outFileNameMatrix H2AZ2_only_atac.rmat
 ##################
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AZ1 Peaks" --colorMap Blues \
+-m H2AZ1_peak_atac.mat \
+--samplesLabel "shNT" "shNT" "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" \
+-out H2AZ1_peak_atac.pdf
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AZ2 Peaks" --colorMap Blues \
+-m H2AZ2_peak_atac.mat \
+--samplesLabel "shNT" "shNT" "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" \
+-out H2AZ2_peak_atac.pdf
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AZ1 Only" --colorMap Blues \
+-m H2AZ1_only_atac.mat \
+--samplesLabel "shNT" "shNT" "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" \
+-out H2AZ1_only_atac.pdf
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "H2AZ1 Only" --colorMap Blues \
+-m H2AZ2_only_atac.mat \
+--samplesLabel "shNT" "shNT" "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" \
+-out H2AZ2_only_atac.pdf
