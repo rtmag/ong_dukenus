@@ -19,8 +19,8 @@ trim_galore --illumina --paired -q 20 --fastqc -o /root/ong_dukenus/chrom_chipse
 --outFilterScoreMinOverLread 0.40 \
 --outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
---readFilesIn H3K4me3_CHKSEI85218090014_1_FT_val_1.fq.gz \
-H3K4me3_CHKSEI85218090014_2_FT_val_2.fq.gz \
+--readFilesIn /root/ong_dukenus/chrom_chipseq/fastq/H3K4me3_CHKSEI85218090014_1_FT_val_1.fq.gz \
+/root/ong_dukenus/chrom_chipseq/fastq/H3K4me3_CHKSEI85218090014_2_FT_val_2.fq.gz \
 --outSAMtype BAM SortedByCoordinate \
 --outFileNamePrefix /root/ong_dukenus/chrom_chipseq/bam/H3K4me3_
 
@@ -31,8 +31,8 @@ H3K4me3_CHKSEI85218090014_2_FT_val_2.fq.gz \
 --outFilterScoreMinOverLread 0.40 \
 --outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
---readFilesIn T543_input_CHKSEI85218090010_1_FT_val_1.fq.gz \
-T543_input_CHKSEI85218090010_2_FT_val_2.fq.gz \
+--readFilesIn /root/ong_dukenus/chrom_chipseq/fastq/T543_input_CHKSEI85218090010_1_FT_val_1.fq.gz \
+/root/ong_dukenus/chrom_chipseq/fastq/T543_input_CHKSEI85218090010_2_FT_val_2.fq.gz \
 --outSAMtype BAM SortedByCoordinate \
 --outFileNamePrefix /root/ong_dukenus/chrom_chipseq/bam/input_
 
@@ -43,8 +43,8 @@ T543_input_CHKSEI85218090010_2_FT_val_2.fq.gz \
 --outFilterScoreMinOverLread 0.40 \
 --outFilterMatchNminOverLread 0.40 \
 --alignEndsType EndToEnd \
---readFilesIn TS543_H3K27ac_CHKSEI85218090013_1_FT_val_1.fq.gz \
-TS543-H3K27ac_CHKSEI85218090013_2_FT_val_2.fq.gz \
+--readFilesIn /root/ong_dukenus/chrom_chipseq/fastq/TS543_H3K27ac_CHKSEI85218090013_1_FT_val_1.fq.gz \
+/root/ong_dukenus/chrom_chipseq/fastq/TS543-H3K27ac_CHKSEI85218090013_2_FT_val_2.fq.gz \
 --outSAMtype BAM SortedByCoordinate \
 --outFileNamePrefix /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_
 ############
