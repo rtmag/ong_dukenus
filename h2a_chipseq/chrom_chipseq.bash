@@ -23,24 +23,9 @@ trim_galore --illumina --paired -q 20 --fastqc -o /root/ong_dukenus/chrom_chipse
 --outSAMtype BAM SortedByCoordinate \
 --outFileNamePrefix H2A.Z1_rep1_
 
-/root/myPrograms/STAR/bin/STAR --genomeDir /root/resources/hg38_noanno/ \
---readFilesCommand zcat \
---runThreadN 35 \
---alignIntronMax 1 \
---outFilterScoreMinOverLread 0.40 \
---outFilterMatchNminOverLread 0.40 \
---alignEndsType EndToEnd \
---readFilesIn H2A.Z2_rep1_U2OS_SRR9102955_trimmed.fq.gz \
---outSAMtype BAM SortedByCoordinate \
---outFileNamePrefix H2A.Z2_rep1_
 
-/root/myPrograms/STAR/bin/STAR --genomeDir /root/resources/hg38_noanno/ \
---readFilesCommand zcat \
---runThreadN 35 \
---alignIntronMax 1 \
---outFilterScoreMinOverLread 0.40 \
---outFilterMatchNminOverLread 0.40 \
---alignEndsType EndToEnd \
---readFilesIn H2A.Z1_rep2_U2OS_SRR9102956_trimmed.fq.gz \
---outSAMtype BAM SortedByCoordinate \
---outFileNamePrefix H2A.Z1_rep2_
+
+
+
+
+
