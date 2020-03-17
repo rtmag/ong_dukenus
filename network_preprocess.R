@@ -7,6 +7,8 @@ act<-read.table("8_tfs_prom_ass_edges.txt",header=T)
 
 rep <- data.frame(rep,log2RNA = log2RNA[match(rep[,2],names(log2RNA))])
 act <- data.frame(act,log2RNA = log2RNA[match(act[,2],names(log2RNA))])
+combined = rbind(rep,act)
 
 write.table(rep,"rep.txt",sep="\t",quote=F,row.names=F,col.names=T)
 write.table(act,"act.txt",sep="\t",quote=F,row.names=F,col.names=T)
+write.table(combined,"combined.txt",sep="\t",quote=F,row.names=F,col.names=T)
