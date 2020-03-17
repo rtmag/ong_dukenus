@@ -70,6 +70,39 @@ samtools index H3K27ac_rmdup.bam
 bamCoverage -p max -bs 1 --normalizeUsing CPM -b H3K4me3_rmdup.bam -o H3K4me3_rmdup.bw
 bamCoverage -p max -bs 1 --normalizeUsing CPM -b input_rmdup.bam -o input_rmdup.bw
 bamCoverage -p max -bs 1 --normalizeUsing CPM -b H3K27ac_rmdup.bam -o H3K27ac_rmdup.bw
+#############
+cut -f 1,2,3 /root/ong_dukenus/h2a_chipseq/heatmap/Up_atacseq.bed > /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff.DPbed
+echo "#Up ATAC" >> /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff.DPbed
+cut -f 1,2,3 /root/ong_dukenus/h2a_chipseq/heatmap/Down_atacseq.bed >> /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff.DPbed
+echo "#Down ATAC" >> /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff.DPbed
 
 
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/chrom_chipseq/bam/H3K4me3_rmdup.bw \
+/root/ong_dukenus/chrom_chipseq/bam/H3K27ac_rmdup.bw \
+/root/ong_dukenus/chrom_chipseq/bam/input_rmdup.bw \
+-R /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff.DPbed --referencePoint center \
+--sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 4000 -b 4000 -p 40 -out /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff_chrom.mat \
+--outFileNameMatrix /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff_chrom.rmat
 
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --colorMap "Greens" "Reds" "Blues" \
+-m /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff_chrom.mat \
+--samplesLabel "H3K4me3" "H3K27ac" "Input" \
+-out /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff_chrom.pdf
+
+####
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/chrom_chipseq/bam/H3K4me3_rmdup.bw \
+/root/ong_dukenus/chrom_chipseq/bam/H3K27ac_rmdup.bw \
+/root/ong_dukenus/chrom_chipseq/bam/input_rmdup.bw \
+-R /root/ong_dukenus/h2a_chipseq/heatmap/Down_atacseq.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 1 2 -bs 20 -a 4000 -b 4000 -p 40 -out /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff_chrom_down.mat \
+--outFileNameMatrix /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff_chrom_down.rmat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --colorMap "Greens" "Reds" "Blues" \
+-m /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff_chrom_down.mat \
+--samplesLabel "H3K4me3" "H3K27ac" "Input" \
+-out /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff_chrom_down.pdf
