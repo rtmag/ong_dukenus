@@ -12,3 +12,11 @@ combined = rbind(rep,act)
 write.table(rep,"rep.txt",sep="\t",quote=F,row.names=F,col.names=T)
 write.table(act,"act.txt",sep="\t",quote=F,row.names=F,col.names=T)
 write.table(combined,"combined.txt",sep="\t",quote=F,row.names=F,col.names=T)
+
+######################
+tflist = read.table("TF_list.txt")
+tflist = as.character(tflist[,1])
+comb=read.table("combined.txt",header=T)
+comb <- comb[!comb[,2] %in% tflist,]
+
+write.table(comb,"combined_filtered.txt",sep="\t",quote=F,row.names=F,col.names=T)
