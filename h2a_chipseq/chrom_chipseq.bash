@@ -106,3 +106,20 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --colorMap "Greens" "Reds" "Blues" \
 -m /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff_chrom_down.mat \
 --samplesLabel "H3K4me3" "H3K27ac" "Input" \
 -out /root/ong_dukenus/h2a_chipseq/heatmap/atac_diff_chrom_down.pdf
+
+
+################
+# multipanel chips
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw \
+/root/ong_dukenus/chrom_chipseq/bam/H3K4me3_rmdup.bw \
+/root/ong_dukenus/chrom_chipseq/bam/H3K27ac_rmdup.bw \
+-R /root/ong_dukenus/h2a_chipseq/heatmap/Down_atacseq.bed --referencePoint center \
+--sortRegions descend -bs 20 -a 4000 -b 4000 -p 40 -out /root/ong_dukenus/h2a_chipseq/heatmap/multipanel_chip_chrom.mat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --colorMap "Purples" "Reds" "Greens" \
+-m /root/ong_dukenus/h2a_chipseq/heatmap/multipanel_chip_chrom.mat \
+--samplesLabel "H2AZ" "H3K4me3" "H3K27ac" --refPointLabel "ATAC-Down" --regionsLabel "ATAC-Down" --zMax .3 \
+-out /root/ong_dukenus/h2a_chipseq/heatmap/multipanel_chip_chrom.pdf
