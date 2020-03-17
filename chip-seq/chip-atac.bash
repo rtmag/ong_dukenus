@@ -77,3 +77,35 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC Peak" --colorM
  --samplesLabel "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" "shNT" "shNT" \
 -out /root/ong_dukenus/mnase_analysis/atac_rna.pdf
 ###
+#########
+# ONLY second batch
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/mnase_batch2/bw/sh400_IP_2.bw \
+/root/ong_dukenus/mnase_batch2/bw/sh143_IP_2.bw \
+/root/ong_dukenus/mnase_batch2/bw/shNT_IP_2.bw \
+-R /root/ong_dukenus/h2a_chipseq/heatmap/Down_atacseq.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 3 -bs 20 -a 4000 -b 4000 -p 40 -out /root/ong_dukenus/h2a_chipseq/heatmap/chip_batch2_atac.mat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC-down" --colorMap Blues \
+-m /root/ong_dukenus/h2a_chipseq/heatmap/chip_batch2_atac.mat \
+ --samplesLabel "shH2AFV I" "shH2AFV II" "shNT" \
+-out /root/ong_dukenus/h2a_chipseq/heatmap/chip_batch2_atac.pdf
+
+
+computeMatrix reference-point \
+-S \
+/root/ong_dukenus/chip-seq/bw/sh400-IP_1.bw \
+/root/ong_dukenus/mnase_batch2/bw/sh400_IP_2.bw \
+/root/ong_dukenus/chip-seq/bw/sh143_IP_1.bw \
+/root/ong_dukenus/mnase_batch2/bw/sh143_IP_2.bw \
+/root/ong_dukenus/chip-seq/bw/shNT-IP_1.bw \
+/root/ong_dukenus/mnase_batch2/bw/shNT_IP_2.bw \
+-R /root/ong_dukenus/h2a_chipseq/heatmap/Down_atacseq.bed --referencePoint center \
+--sortRegions descend --sortUsingSamples 3 -bs 20 -a 4000 -b 4000 -p 40 -out /root/ong_dukenus/h2a_chipseq/heatmap/chip_allBatch_atac.mat
+
+plotHeatmap --xAxisLabel "" --yAxisLabel "" --refPointLabel "ATAC" --colorMap Blues \
+-m /root/ong_dukenus/h2a_chipseq/heatmap/chip_allBatch_atac.mat \
+ --samplesLabel "shH2AFV I" "shH2AFV I" "shH2AFV II" "shH2AFV II" "shNT" "shNT" \
+-out /root/ong_dukenus/h2a_chipseq/heatmap/chip_allBatch_atac.pdf
