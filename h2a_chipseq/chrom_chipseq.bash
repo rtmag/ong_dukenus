@@ -127,4 +127,22 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --colorMap "Purples" "Reds" "Greens"
 
 macs2 callpeak -f BAM -g hs -q 0.01 --broad --keep-dup auto -n H3K4me3 --outdir ./ -t H3K4me3_rmdup.bam -c input_rmdup.bam &
 macs2 callpeak -f BAM -g hs -q 0.01 --broad --keep-dup auto -n H3K27ac --outdir ./ -t H3K27ac_rmdup.bam -c input_rmdup.bam &
-#####
+#####################
+
+multiIntersectBed -i \
+Down_atacseq.bed \
+H3K27ac_peaks.broadPeak \
+H3K4me3_peaks.broadPeak \
+shNT_IP_broad_.001_peaks.broadPeak \
+-names ATAC_DOWN H3K27ac H3K4me3 H2AZ -header > multi_gbm.bed
+library(VennDiagram)
+multi_bed<-read.table("multi_H3K27me3.bed",header=T,stringsAsFactors=F)
+#formating
+list.multi<-list(NHM=which(multi_bed$NHM==1),NB=which(multi_bed$NB==1),NC=which(multi_bed$NC==1),NBC=which(multi_bed$NBC==1))
+vp <- venn.diagram(list.multi,fill=c("red", "green","blue","orange"), alpha = .3, 
+cex = 1,lty =2,cat.cex=1, filename = NULL,margin=.1,col=NA)
+#plotting
+pdf("multi_H3K27me3.pdf")
+grid.draw(vp)
+dev.off()
+© 2020 GitHub, Inc.
