@@ -125,6 +125,6 @@ plotHeatmap --xAxisLabel "" --yAxisLabel "" --colorMap "Purples" "Reds" "Greens"
 -out /root/ong_dukenus/h2a_chipseq/heatmap/multipanel_chip_chrom.pdf
 ################
 
-macs2 callpeak -f BAM -g hs -q 0.01 --broad --keep-dup auto -n H3K4me3 --outdir ./ -t H3K4me3_rmdup.bam &
-macs2 callpeak -f BAM -g hs -q 0.01 --broad --keep-dup auto -n H3K27ac --outdir ./ -t H3K27ac_rmdup.bam &
+macs2 callpeak -f BAM -g hs -q 0.01 --broad --keep-dup auto -n H3K4me3 --outdir ./ -t H3K4me3_rmdup.bam -c input_rmdup.bam &
+macs2 callpeak -f BAM -g hs -q 0.01 --broad --keep-dup auto -n H3K27ac --outdir ./ -t H3K27ac_rmdup.bam -c input_rmdup.bam &
 #####
