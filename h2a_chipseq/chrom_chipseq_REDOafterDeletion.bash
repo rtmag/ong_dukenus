@@ -71,7 +71,16 @@ python2.7 /root/myPrograms/rose/ROSE_main_hg38.py \
 -c /root/ong_dukenus/chrom_chipseq/bam/input_rmdup.bam \
 -i /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_peaks_6Columns.bed \
 -g HG19 -t 2500 \
+-o /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_SE_hg38 &> H3K27ac_gbm_SE_hg38.log 
+
+
+python2.7 /root/myPrograms/rose/ROSE_main.py \
+-r /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_rmdup.bam \
+-c /root/ong_dukenus/chrom_chipseq/bam/input_rmdup.bam \
+-i /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_peaks_6Columns.bed \
+-g HG19 -t 2500 \
 -o /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_SE &> H3K27ac_gbm_SE.log 
+
 
 
 python2.7 /root/myPrograms/rose/ROSE_main_hg38.py \
