@@ -97,7 +97,7 @@ python2.7 /root/myPrograms/rose/ROSE_main.py \
 
 ##
 # GOOD ONE! TRICK IS TO USE GFF INSTEAD OF BED, bug in conversion...
-python2.7 /root/myPrograms/rose/ROSE_main.py -g HG19 -i /root/ong_dukenus/chrom_chipseq/rose_test/gff/H3K27ac_gbm_peaks_6Columns.gff \
+python2.7 /root/myPrograms/rose/ROSE_main_turbo.py -g HG19 -i /root/ong_dukenus/chrom_chipseq/rose_test/gff/H3K27ac_gbm_peaks_6Columns.gff \
 -r /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_rmdup.bam \
 -c /root/ong_dukenus/chrom_chipseq/bam/input_rmdup.bam \
 -t 2500 \
