@@ -61,9 +61,14 @@ macs2 callpeak -f BAMPE -g hs -q 0.01 --keep-dup auto -n H3K27ac_gbm --outdir ./
 
 scp -P 60057 *narrowPeak root@172.18.149.78:/root/ong_dukenus/chrom_chipseq/bam/
 
+macs2 callpeak -f BAMPE --broad -g hs -q 0.01 --keep-dup auto -n H3K27ac_gbm_broad --outdir ./ -t H3K27ac_rmdup.bam -c input_rmdup.bam
+
+scp -P 60057 *broadPeak root@172.18.149.78:/root/ong_dukenus/chrom_chipseq/bam/
+
 #######################################
 cut -f1-3 /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_peaks.narrowPeak > /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_peaks.bed
 cut -f1-6 /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_peaks.narrowPeak > /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_peaks_6Columns.bed
+cut -f1-6 /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_broad_peaks.broadPeak > /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_broad_6Columns.bed
 
 
 python2.7 /root/myPrograms/rose/ROSE_main_hg38.py \
