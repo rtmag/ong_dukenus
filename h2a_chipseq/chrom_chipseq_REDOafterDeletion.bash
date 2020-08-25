@@ -54,4 +54,20 @@ M=H3K27ac.mfile
 
 samtools index input_rmdup.bam &
 samtools index H3K27ac_rmdup.bam
+
+scp -P 60057 *rmdup.bam* root@172.18.149.78:/root/ong_dukenus/chrom_chipseq/bam/
+
+macs2 callpeak -f BAMPE -g hs -q 0.01 --keep-dup auto -n H3K27ac_gbm --outdir ./ -t H3K27ac_rmdup.bam -c input_rmdup.bam
+
+scp -P 60057 *narrowPeak root@172.18.149.78:/root/ong_dukenus/chrom_chipseq/bam/
+
 #######################################
+cut -f1-3 /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_peaks.narrowPeak > /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_peaks.bed
+
+
+python2.7 /root/myPrograms/rose/ROSE_main.py \
+-r /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_rmdup.bam \
+-c /root/ong_dukenus/chrom_chipseq/bam/input_rmdup.bam \
+-i /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_peaks.bed \
+-g hg19 -t 2500 \
+-o /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_SE &> H3K27ac_gbm_SE.log 
