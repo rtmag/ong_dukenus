@@ -87,10 +87,20 @@ python2.7 /root/myPrograms/rose/ROSE_main.py \
 -o /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_SE &> H3K27ac_gbm_SE.log 
 
 
+python2.7 /root/myPrograms/rose/ROSE_main.py \
+-r /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_rmdup.bam \
+-c /root/ong_dukenus/chrom_chipseq/bam/input_rmdup.bam \
+-i /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_gbm_peaks_6Columns.bed \
+-g HG19 -t 2500 \
+-o /root/ong_dukenus/chrom_chipseq/rose_test &> H3K27ac_gbm_SE_test.log 
 
-python2.7 /root/myPrograms/rose/ROSE_main_hg38.py \
--r /root/vivek/chip-seq/bam/NHM_H3K27ac_rmdup.bam \
--c /root/vivek/chip-seq/bam/NHM_input_rmdup.bam \
--i /root/vivek/chip-seq/macs2/NHM_H3K27ac_40.bed \
--g HG38 -t 2500 \
--o /root/vivek/chip-seq/ROSE/NHM_40 &> NHM_40.log
+
+##
+# GOOD ONE! TRICK IS TO USE GFF INSTEAD OF BED, bug in conversion...
+python2.7 /root/myPrograms/rose/ROSE_main.py -g HG19 -i /root/ong_dukenus/chrom_chipseq/rose_test/gff/H3K27ac_gbm_peaks_6Columns.gff \
+-r /root/ong_dukenus/chrom_chipseq/bam/H3K27ac_rmdup.bam \
+-c /root/ong_dukenus/chrom_chipseq/bam/input_rmdup.bam \
+-t 2500 \
+-o /root/ong_dukenus/chrom_chipseq/rose_test
+##
+
