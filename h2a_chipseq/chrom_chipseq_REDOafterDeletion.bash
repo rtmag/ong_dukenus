@@ -39,6 +39,18 @@ java -jar /root/myPrograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DU
 I=/root/ong_dukenus/chrom_chipseq/bam/H3K27ac_Aligned.sortedByCoord.out.bam \
 O=/root/ong_dukenus/chrom_chipseq/bam/H3K27ac_rmdup.bam \
 M=/root/ong_dukenus/chrom_chipseq/bam/H3K27ac.mfile
+#######################################
+scp -P 60057 root@172.18.149.78:/root/ong_dukenus/chrom_chipseq/bam/*bam .
+
+java -jar /home/rtm/myprograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=input_Aligned.sortedByCoord.out.bam \
+O=input_rmdup.bam \
+M=input.mfile
+
+java -jar /home/rtm/myprograms/picard/build/libs/picard.jar MarkDuplicates REMOVE_DUPLICATES=true \
+I=H3K27ac_Aligned.sortedByCoord.out.bam \
+O=H3K27ac_rmdup.bam \
+M=H3K27ac.mfile
 
 samtools index input_rmdup.bam &
 samtools index H3K27ac_rmdup.bam
