@@ -10,9 +10,12 @@ options(bitmapType="cairo")
 wceName = "present"
 
 #Read enhancer regions with closestGene columns
-stitched_regions <- read.delim(file= enhancerFile,sep="\t")
+stitched_regions <- read.delim(file= "H3K27ac_gbm_peaks_6Columns_12KB_STITCHED_TSS_DISTAL_ENHANCER_REGION_MAP.txt",sep="\t")
+annot<- read.table(pipe("cut -f1,2,3,4,16 H3K27ac_gbm_SuperEnhancers.anno"),sep="\t",header = T,stringsAsFactors=F)
 
-#perform WCE subtraction. Using pipeline table to match samples to proper background. 
+stitched_regions_x<- cbind( stitched_regions, annot[match(stitched_regions[,1], annot[,1]),5])
+
+#perform WCE subtraction. Using pipeline table to match samples to proper background.
 rankBy_factor = colnames(stitched_regions)[7]
 prefix = unlist(strsplit(rankBy_factor,'_'))[1]
 
@@ -29,7 +32,7 @@ if(wceName == 'NONE'){
 rankBy_vector[rankBy_vector < 0] <- 0
 
 #FIGURING OUT THE CUTOFF
-cutoff_options <- ""
+cutoff_options <- list()
 cutoff_options$absolute <- 8223.0995
 
 #These are the super-enhancers
@@ -37,18 +40,21 @@ superEnhancerRows <- which(rankBy_vector> cutoff_options$absolute)
 typicalEnhancers = setdiff(1:nrow(stitched_regions),superEnhancerRows)
 
 #MAKING HOCKEY STICK PLOT
-plotFileName = paste('superEnhancer_H3K27ac_names_Plot_points.png',sep='')
-png(filename=plotFileName,height=600,width=600)
+pdf("superEnhancer_H3K27ac_names_Plot_points.pdf")
 signalOrder = order(rankBy_vector,decreasing=TRUE)
-if(wceName == 'NONE'){
-	plot(length(rankBy_vector):1,rankBy_vector[signalOrder], col='red',xlab=paste(rankBy_factor,'_enhancers'),ylab=paste(rankBy_factor,' Signal'),pch=19,cex=2)	
-	
-}else{
-	plot(length(rankBy_vector):1,rankBy_vector[signalOrder], col='red',xlab=paste(rankBy_factor,'_enhancers'),ylab=paste(rankBy_factor,' Signal','- ',wceName),pch=19,cex=2)
-}
+
+plot(length(rankBy_vector):1,rankBy_vector[signalOrder], col='red',xlab="Super enhancers ranked by H3K27ac signal",ylab="H3K27ac ChIP-Seq signal - Input ",pch=19,cex=2)
 abline(h=cutoff_options$absolute,col='grey',lty=2)
 abline(v=length(rankBy_vector)-length(superEnhancerRows),col='grey',lty=2)
 lines(length(rankBy_vector):1,rankBy_vector[signalOrder],lwd=4, col='red')
-#text(0,0.8*max(rankBy_vector),paste(' Cutoff used: ',cutoff_options$absolute,'\n','Super-Enhancers identified: ',length(superEnhancerRows)),pos=4)
+
+se_labels<-as.character(stitched_regions_x[signalOrder,9][1:20])
+library(wordcloud)
+nc=wordlayout( (length(rankBy_vector):1)[1:20], rankBy_vector[signalOrder][1:20],words=se_labels)
+nc[,1] <- nc[,1]-500
+nc[5:dim(nc)[1],2] <- nc[5:dim(nc)[1],2]+50000
+text(nc[,1],nc[,2],label=se_labels,cex=1)
+
+segments(nc[,1]+(nc[,3]/2),nc[,2],(length(rankBy_vector):1)[1:20], rankBy_vector[signalOrder][1:20])
 
 dev.off()
