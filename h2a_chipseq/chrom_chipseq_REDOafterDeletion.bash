@@ -108,3 +108,11 @@ python2.7 /root/myPrograms/rose/ROSE_main.py -g HG19 -i /root/ong_dukenus/chrom_
 -c /root/ong_dukenus/chrom_chipseq/bam/input_rmdup.bam \
 -t 2500 \
 -o /root/ong_dukenus/chrom_chipseq/rose_test2
+
+
+
+python2.7 ROSE_main.py -g HG19 -i ../H3K27ac_gbm_peaks_6Columns.bed \
+-r ../H3K27ac_rmdup.bam \
+-c ../input_rmdup.bam \
+-t 2500 \
+-o ../samtools1.8 &> samtools1.8.log
