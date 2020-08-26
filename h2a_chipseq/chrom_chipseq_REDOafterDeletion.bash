@@ -132,5 +132,11 @@ more H3K27ac_gbm_peaks_6Columns_Gateway_SuperEnhancers.bed| sort -k5 -n > H3K27a
 scp -P 60057 *_SuperEnhancers.bed root@172.18.149.78:/root/ong_dukenus/chrom_chipseq/bam/
 
 annotatePeaks.pl H3K27ac_gbm_SuperEnhancers.bed hg19 -annStats H3K27ac_gbm_SuperEnhancers.annStats > H3K27ac_gbm_SuperEnhancers.anno 
+
+
+more H3K27ac_gbm_broad_6Columns_Gateway_SuperEnhancers.bed| sort -k5 -n > H3K27ac_gbm_SuperEnhancers_broad.bed
+scp -P 60057 H3K27ac_gbm_SuperEnhancers_broad.bed root@172.18.149.78:/root/ong_dukenus/chrom_chipseq/bam/
+
+annotatePeaks.pl H3K27ac_gbm_SuperEnhancers_broad.bed hg19 -annStats H3K27ac_gbm_SuperEnhancers_broad.annStats > H3K27ac_gbm_SuperEnhancers_broad.anno 
 ############################################################################################################################################################
 #plot test
