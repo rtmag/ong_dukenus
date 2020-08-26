@@ -116,3 +116,21 @@ python2.7 ROSE_main.py -g HG19 -i ../H3K27ac_gbm_peaks_6Columns.bed \
 -c ../input_rmdup.bam \
 -t 2500 \
 -o ../samtools1.8 &> samtools1.8.log
+
+
+#BROAD TEST
+cut -f1-6 H3K27ac_gbm_broad_peaks.broadPeak > H3K27ac_gbm_broad_6Columns.bed
+python2.7 ROSE_main.py -g HG19 -i ../H3K27ac_gbm_broad_6Columns.bed \
+-r ../H3K27ac_rmdup.bam \
+-c ../input_rmdup.bam \
+-t 2500 \
+-o ../broad &> broad.log
+#######################################
+#######################################
+
+more H3K27ac_gbm_peaks_6Columns_Gateway_SuperEnhancers.bed| sort -k5 -n > H3K27ac_gbm_SuperEnhancers.bed
+scp -P 60057 *_SuperEnhancers.bed root@172.18.149.78:/root/ong_dukenus/chrom_chipseq/bam/
+
+annotatePeaks.pl H3K27ac_gbm_SuperEnhancers.bed hg19 -annStats H3K27ac_gbm_SuperEnhancers.annStats > H3K27ac_gbm_SuperEnhancers.anno 
+############################################################################################################################################################
+#plot test
