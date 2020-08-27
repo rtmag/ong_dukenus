@@ -182,3 +182,33 @@ column_title="Sulconazole treatment", column_title_side = "bottom", row_title=""
         clustering_distance_rows = "pearson",show_row_dend = TRUE)
 dev.off()
 
+########################################################################################################################################################################
+########################################################################################################################################################################
+########################################################################################################################################################################
+# Super Enhacer sulconazole RNA-Seq
+sulc <- read.csv("~/Desktop/ong/for_Roberto_significantDEG_TG543_after_sulconazole_treatment.csv", header=TRUE)
+sulc_mat <- sulc[,11:16]
+
+se_genes <- read.table(pipe("cut -f16 H3K27ac_gbm_SuperEnhancers.anno|sort|uniq|grep -v 'Gene Name'"),sep="\t",stringsAsFactors=FALSE)
+se_genes <- se_genes[,1]
+
+sulc_mat_sig <- sulc_mat[sulc[,3] %in% se_genes,]
+rownames(sulc_mat_sig) <- sulc[,3][sulc[,3] %in% se_genes]
+
+sulc_mat_sig_centered = as.matrix(sulc_mat_sig - rowMeans(sulc_mat_sig))
+
+pdf("superEnhancer_expressionGenes_scaled.pdf",height=14)
+Heatmap(t(scale(t(sulc_mat_sig_centered))),
+show_row_names = T,show_column_names = TRUE,name = "Expression",row_dend_reorder = T, column_dend_reorder = T,
+column_title="Sulconazole treatment", column_title_side = "bottom", row_title="Super Enhancers", row_title_side = "right",
+        clustering_distance_columns = "pearson", clustering_distance_rows = "pearson",show_row_dend = TRUE,heatmap_height=unit(27, "cm"),heatmap_width = unit(10, "cm"))
+dev.off()
+
+pdf("superEnhancer_expressionGenes.pdf",height=14)
+Heatmap(t((t(sulc_mat_sig_centered))),
+show_row_names = T,show_column_names = TRUE,name = "Expression",row_dend_reorder = T, column_dend_reorder = T,
+column_title="Sulconazole treatment", column_title_side = "bottom", row_title="Super Enhancers", row_title_side = "right",
+        clustering_distance_columns = "pearson", clustering_distance_rows = "pearson",show_row_dend = TRUE,heatmap_height=unit(27, "cm"),heatmap_width = unit(10, "cm"))
+dev.off()
+
+sulc[sulc[,3] %in% se_genes,1:6]
