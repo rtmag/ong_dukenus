@@ -199,9 +199,9 @@ sulc_mat_sig_centered = as.matrix(sulc_mat_sig - rowMeans(sulc_mat_sig))
 
 pdf("superEnhancer_expressionGenes_scaled.pdf",height=14)
 Heatmap(t(scale(t(sulc_mat_sig_centered))),
-show_row_names = T,show_column_names = TRUE,name = "Expression",row_dend_reorder = T, column_dend_reorder = T,
-column_title="Sulconazole treatment", column_title_side = "bottom", row_title="Super Enhancers", row_title_side = "right",
-        clustering_distance_columns = "pearson", clustering_distance_rows = "pearson",show_row_dend = TRUE,heatmap_height=unit(27, "cm"),heatmap_width = unit(10, "cm"))
+show_row_names = T,show_column_names = TRUE,name = "Expression",row_dend_reorder = T, column_dend_reorder = T,column_km=2,row_km=2,
+column_title="Sulconazole treatment", column_title_side = "bottom", row_title="Super Enhancers", row_title_side = "right", show_column_dend=F,
+        clustering_distance_columns = "pearson", clustering_distance_rows = "pearson",show_row_dend = F,heatmap_height=unit(27, "cm"),heatmap_width = unit(10, "cm"))
 dev.off()
 
 pdf("superEnhancer_expressionGenes.pdf",height=14)
@@ -211,4 +211,16 @@ column_title="Sulconazole treatment", column_title_side = "bottom", row_title="S
         clustering_distance_columns = "pearson", clustering_distance_rows = "pearson",show_row_dend = TRUE,heatmap_height=unit(27, "cm"),heatmap_width = unit(10, "cm"))
 dev.off()
 
-sulc[sulc[,3] %in% se_genes,1:6]
+
+downr_genes <- names(which(rowMeans(sulc_mat_sig_centered[,1:3])-rowMeans(sulc_mat_sig_centered[,4:6])>0))
+downr_genes <- downr_genes[grep("LINC00461",downr_genes,invert=T)]
+downr_genes_sulc_mat_sig_centered<-sulc_mat_sig_centered[rownames(sulc_mat_sig_centered) %in% downr_genes,]
+
+write.table(downr_genes,"downr_genes_superEnhancers_expressionSulconazol.txt",quote=F,row.names=F,col.names=F,sep="\t")
+
+pdf("superEnhancer_expressionGenes_scaled_downregulated.pdf",height=14)
+Heatmap(t(scale(t(downr_genes_sulc_mat_sig_centered))),
+show_row_names = T,show_column_names = TRUE,name = "Expression",row_dend_reorder = T, column_dend_reorder = T,column_km=2,
+column_title="Sulconazole treatment", column_title_side = "bottom", row_title="Super Enhancers", row_title_side = "right", show_column_dend=F,
+        clustering_distance_columns = "pearson", clustering_distance_rows = "pearson",show_row_dend = F,heatmap_height=unit(27, "cm"),heatmap_width = unit(10, "cm"))
+dev.off()
