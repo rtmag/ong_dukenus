@@ -114,6 +114,7 @@ dev.off()
 ##############################
 dReg_genes<-read.table("downr_genes_superEnhancers_expressionSulconazol.txt")
 dReg_genes<-as.character(dReg_genes[,1])
+dReg_genes<-dReg_genes[dReg_genes!="CCDC26"]
 
 #Read enhancer regions with closestGene columns
 stitched_regions <- read.delim(file= "H3K27ac_gbm_peaks_6Columns_12KB_STITCHED_TSS_DISTAL_ENHANCER_REGION_MAP.txt",sep="\t")
@@ -139,9 +140,10 @@ cutoff_options$absolute <- 8223.0995
 superEnhancerRows <- which(rankBy_vector> cutoff_options$absolute)
 typicalEnhancers = setdiff(1:nrow(stitched_regions),superEnhancerRows)
 
+signalOrder = order(rankBy_vector,decreasing=TRUE)
+
 #MAKING HOCKEY STICK PLOT
 pdf("superEnhancer_H3K27ac_names_Plot_points_withDownRegGenes.pdf")
-signalOrder = order(rankBy_vector,decreasing=TRUE)
 
 pdf("ROSE_allDownreg_genes.pdf")
 plot(length(rankBy_vector):1,rankBy_vector[signalOrder], col='red',xlab="Super enhancers ranked by H3K27ac signal",ylab="H3K27ac ChIP-Seq signal - Input ",pch=19,cex=2)
@@ -167,19 +169,19 @@ pdf("superEnhancer_H3K27ac_names_Plot_points_withDownRegGenes.pdf")
 signalOrder = order(rankBy_vector,decreasing=TRUE)
 
 pdf("ROSE_allDownreg_genes_TOP10.pdf")
-plot(length(rankBy_vector):1,rankBy_vector[signalOrder], col='red',xlab="Super enhancers ranked by H3K27ac signal",ylab="H3K27ac ChIP-Seq signal - Input ",pch=19,cex=2,
+plot(length(rankBy_vector):1,rankBy_vector[signalOrder], col='red',xlab="Super enhancers ranked by H3K27ac signal",ylab="H3K27ac ChIP-Seq signal - Input ",pch=19,cex=3,
     cex.lab=1.5)
 abline(h=cutoff_options$absolute,col='grey',lty=2)
 abline(v=length(rankBy_vector)-length(superEnhancerRows),col='grey',lty=2)
 lines(length(rankBy_vector):1,rankBy_vector[signalOrder],lwd=4, col='red')
 
-se_labels<-as.character(stitched_regions_x[signalOrder,9][stitched_regions_x[signalOrder,9] %in% dReg_genes][1:10])
+se_labels<-as.character(stitched_regions_x[signalOrder,9][stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12)])
 library(wordcloud)
-nc=wordlayout( (length(rankBy_vector):1)[stitched_regions_x[signalOrder,9] %in% dReg_genes][1:10], rankBy_vector[signalOrder][stitched_regions_x[signalOrder,9] %in% dReg_genes][1:10],words=se_labels,cex=2)
+nc=wordlayout( (length(rankBy_vector):1)[stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12)], rankBy_vector[signalOrder][stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12)],words=se_labels,cex=2)
 nc[,1] <- nc[,1]-500
-nc[3:dim(nc)[1],2] <- nc[3:dim(nc)[1],2]+50000
+nc[2:dim(nc)[1],2] <- nc[2:dim(nc)[1],2]+80000
 text(nc[,1],nc[,2],label=se_labels,cex=2)
 
-segments(nc[,1]+(nc[,3]/2),nc[,2],(length(rankBy_vector):1)[stitched_regions_x[signalOrder,9] %in% dReg_genes][1:10], rankBy_vector[signalOrder][stitched_regions_x[signalOrder,9] %in% dReg_genes][1:10])
+segments(nc[,1]+(nc[,3]/2),nc[,2],(length(rankBy_vector):1)[stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12)], rankBy_vector[signalOrder][stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12)])
 
 dev.off()
