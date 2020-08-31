@@ -175,13 +175,13 @@ abline(h=cutoff_options$absolute,col='grey',lty=2)
 abline(v=length(rankBy_vector)-length(superEnhancerRows),col='grey',lty=2)
 lines(length(rankBy_vector):1,rankBy_vector[signalOrder],lwd=4, col='red')
 
-se_labels<-as.character(stitched_regions_x[signalOrder,9][stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12)])
+se_labels<-as.character(stitched_regions_x[signalOrder,9][stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12,14)])
 library(wordcloud)
-nc=wordlayout( (length(rankBy_vector):1)[stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12)], rankBy_vector[signalOrder][stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12)],words=se_labels,cex=2)
+nc=wordlayout( (length(rankBy_vector):1)[stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12,14)], rankBy_vector[signalOrder][stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12,14)],words=se_labels,cex=2)
 nc[,1] <- nc[,1]-500
 nc[2:dim(nc)[1],2] <- nc[2:dim(nc)[1],2]+80000
 text(nc[,1],nc[,2],label=se_labels,cex=2)
 
-segments(nc[,1]+(nc[,3]/2),nc[,2],(length(rankBy_vector):1)[stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12)], rankBy_vector[signalOrder][stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12)])
+segments(nc[,1]+(nc[,3]/2),nc[,2],(length(rankBy_vector):1)[stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12,14)], rankBy_vector[signalOrder][stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12,14)])
 
 dev.off()
