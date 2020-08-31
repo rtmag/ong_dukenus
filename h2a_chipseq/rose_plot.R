@@ -168,8 +168,8 @@ dev.off()
 pdf("superEnhancer_H3K27ac_names_Plot_points_withDownRegGenes.pdf")
 signalOrder = order(rankBy_vector,decreasing=TRUE)
 
-pdf("ROSE_allDownreg_genes_TOP10.pdf")
-plot(length(rankBy_vector):1,rankBy_vector[signalOrder], col='red',xlab="Super enhancers ranked by H3K27ac signal",ylab="H3K27ac ChIP-Seq signal - Input ",pch=19,cex=3,
+pdf("ROSE_allDownreg_genes_TOP10_coding_sox2_.pdf")
+plot(length(rankBy_vector):1,rankBy_vector[signalOrder], col='red',xlab="Super enhancers ranked by H3K27ac signal",ylab="H3K27ac ChIP-Seq signal - Input ",pch=19,cex=2,
     cex.lab=1.5)
 abline(h=cutoff_options$absolute,col='grey',lty=2)
 abline(v=length(rankBy_vector)-length(superEnhancerRows),col='grey',lty=2)
@@ -179,7 +179,7 @@ se_labels<-as.character(stitched_regions_x[signalOrder,9][stitched_regions_x[sig
 library(wordcloud)
 nc=wordlayout( (length(rankBy_vector):1)[stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12,14)], rankBy_vector[signalOrder][stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12,14)],words=se_labels,cex=2)
 nc[,1] <- nc[,1]-500
-nc[2:dim(nc)[1],2] <- nc[2:dim(nc)[1],2]+80000
+nc[2:dim(nc)[1],2] <- nc[2:dim(nc)[1],2]+140000
 text(nc[,1],nc[,2],label=se_labels,cex=2)
 
 segments(nc[,1]+(nc[,3]/2),nc[,2],(length(rankBy_vector):1)[stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12,14)], rankBy_vector[signalOrder][stitched_regions_x[signalOrder,9] %in% dReg_genes][c(1,2,3,5,6,8,9,10,11,12,14)])
