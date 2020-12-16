@@ -8,6 +8,13 @@ library(survival)
 library(survminer)
 library(gridExtra)
 library(grid)
+setwd("~/CSI/ong/public")
+library(circlize)
+
+
+
+
+
 
 grid.ftable <- function(d, padding = unit(4, "mm"), ...) {
 
@@ -159,6 +166,75 @@ bottom_annotation = column_ha, right_annotation = row_ha,
         clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
 dev.off()
 
+
+### ADD H2AFV COLLABEL ####
+
+h2afv<-GBMLGG_astro_gbm[rownames(GBMLGG_astro_gbm)=="H2AFV",]
+h2afv <- scale(h2afv)[,1]
+#h2afv = h2afv - mean(h2afv)
+h2afv[h2afv >= 1] = 1
+h2afv[h2afv <= (-1)] = -1
+
+min.h2afv <- min(sort(h2afv))
+max.h2afv <- max(sort(h2afv))
+h2afv_col_fun = colorRamp2(c(min.h2afv, max.h2afv), c("orange", "red")) 
+
+row_ha = rowAnnotation(Signature = track,show_annotation_name = FALSE,
+              col = list(Signature = c("GenerationOfNeurons" = "#bae1ff","Mesenchymal" = "#baffc9","EGFR" = "#ffb3ba")))
+
+column_ha = HeatmapAnnotation(H2AFV.exp = h2afv, Cluster = as.character(groups),
+                              coDeletion.1p_19q=codel,
+                              IDH.status=IDH.status,
+                              Grade = ctrack,
+                              col = list( Cluster = c("1"="purple","2"="orange","3"="blue"),
+                                         coDeletion.1p_19q = c("codel"="red","non-codel"="grey","NA"="black"),
+                                         IDH.status = c("WT"="grey","Mutant"="red","NA"="black"),
+                                         Grade = c("II" = "grey", "III" = "orange", "IV" = "red"),
+                                         H2AFV.exp = h2afv_col_fun
+                                        ),
+                              annotation_name_gp= gpar(fontsize = 10)
+                             )
+
+pdf("TCGA_complexHeatmap_signature_h2afv_colabel.pdf")
+Heatmap(GBMLGG_sig_centered,
+show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
+column_title="TCGA GBM", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
+bottom_annotation = column_ha, right_annotation = row_ha,
+        clustering_distance_columns = "pearson",column_split = 3,
+        clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
+dev.off()
+
+
+
+png("TCGA_complexHeatmap_signature_h2afv_colabel.png",width= 7.25,
+  height= 7.25,units="in",
+  res=1200,pointsize=4)
+Heatmap(GBMLGG_sig_centered,
+show_row_names = FALSE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = F,
+column_title="TCGA GBM", column_title_side = "bottom", row_title="Gene Signature", row_title_side = "right",
+bottom_annotation = column_ha, right_annotation = row_ha,
+        clustering_distance_columns = "pearson",column_split = 3,
+        clustering_distance_rows = "pearson",row_split =track,show_row_dend = FALSE)
+dev.off()
+
+### HEATMAP TFS #####
+
+tfs<-c('BHLHE40','CEBPB','CEBPD','E2F1','E2F4','E2F6','FOXM1','HBP1',
+'HIF1A','RB1','REST','RUNX1','TWIST1','H2AFV')
+
+tfexp<-GBMLGG_astro_gbm[rownames(GBMLGG_astro_gbm) %in% tfs,]
+tfexp = tfexp - mean(tfexp)
+tfexp[tfexp >= 6] = 6
+tfexp[tfexp <= (-6)] = -6
+
+Heatmap(tfexp,
+show_row_names = TRUE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = T,
+column_title="TCGA GBM", column_title_side = "bottom", row_title="", row_title_side = "right",
+bottom_annotation = column_ha, clustering_distance_columns = "pearson",
+        clustering_distance_rows = "pearson",show_row_dend = T)
+
+
+####################################################################################################
 
 clinical <- data.frame(times = GBMLGG_astro_gbm.pheno$survival,
                        bcr_patient_barcode = rownames(GBMLGG_astro_gbm.pheno),
