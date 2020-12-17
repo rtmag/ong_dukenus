@@ -220,18 +220,24 @@ dev.off()
 ### HEATMAP TFS #####
 
 tfs<-c('BHLHE40','CEBPB','CEBPD','E2F1','E2F4','E2F6','FOXM1','HBP1',
-'HIF1A','RB1','REST','RUNX1','TWIST1','H2AFV')
+'HIF1A','RB1','REST','RUNX1','TWIST1')
 
 tfexp<-GBMLGG_astro_gbm[rownames(GBMLGG_astro_gbm) %in% tfs,]
 tfexp = tfexp - mean(tfexp)
 tfexp[tfexp >= 6] = 6
 tfexp[tfexp <= (-6)] = -6
 
+
+png("TF_TCGA_EXPR.png",width= 4,
+  height= 2.8,units="in",
+  res=1200,pointsize=4)
+
 Heatmap(tfexp,
 show_row_names = TRUE,show_column_names = FALSE,name = "Expression",row_dend_reorder = T, column_dend_reorder = T,
 column_title="TCGA GBM", column_title_side = "bottom", row_title="", row_title_side = "right",
-bottom_annotation = column_ha, clustering_distance_columns = "pearson",
+ clustering_distance_columns = "pearson",
         clustering_distance_rows = "pearson",show_row_dend = T)
+dev.off()
 
 
 ####################################################################################################
